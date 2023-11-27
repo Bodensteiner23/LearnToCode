@@ -13,7 +13,6 @@ namespace Calculator
 {
     public partial class Form1 : Form
     {
-
         /* ========================== Variables ============================ */
         string[] _operatorList = { "+", "-", "x", "*" };
         private int _reservedNumbers1 = 0;
@@ -37,6 +36,7 @@ namespace Calculator
             }
             //Output clicked number into 
             outputData.Text += _userNumber;
+            
         }
 
         private void operator_clicked(object sender, EventArgs e)

@@ -4,7 +4,7 @@ public class Calculator
 {
     /* ======================== Variables ======================== */
 
-
+    //Test
     private string[] _operatorList = { "+", "-", "*", "/" };
     private float _userFirstNumber = 0;
     private float _userSecondNumber = 0;

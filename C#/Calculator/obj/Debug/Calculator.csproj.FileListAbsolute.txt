@@ -1,0 +1,10 @@
+C:\Users\boden\git\LearnToCode\C#\Calculator\bin\Debug\Calculator.exe.config
+C:\Users\boden\git\LearnToCode\C#\Calculator\bin\Debug\Calculator.exe
+C:\Users\boden\git\LearnToCode\C#\Calculator\bin\Debug\Calculator.pdb
+C:\Users\boden\git\LearnToCode\C#\Calculator\obj\Debug\Calculator.csproj.AssemblyReference.cache
+C:\Users\boden\git\LearnToCode\C#\Calculator\obj\Debug\Calculator.csproj.SuggestedBindingRedirects.cache
+C:\Users\boden\git\LearnToCode\C#\Calculator\obj\Debug\Calculator.Properties.Resources.resources
+C:\Users\boden\git\LearnToCode\C#\Calculator\obj\Debug\Calculator.csproj.GenerateResource.cache
+C:\Users\boden\git\LearnToCode\C#\Calculator\obj\Debug\Calculator.csproj.CoreCompileInputs.cache
+C:\Users\boden\git\LearnToCode\C#\Calculator\obj\Debug\Calculator.exe
+C:\Users\boden\git\LearnToCode\C#\Calculator\obj\Debug\Calculator.pdb

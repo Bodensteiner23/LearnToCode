@@ -1,0 +1,15 @@
+C:\Users\boden\Documents\LearningElectronics\LearnToCode\C#\ConsolenTest\ConsolenTest\bin\Debug\net7.0\ConsolenTest.exe
+C:\Users\boden\Documents\LearningElectronics\LearnToCode\C#\ConsolenTest\ConsolenTest\bin\Debug\net7.0\ConsolenTest.deps.json
+C:\Users\boden\Documents\LearningElectronics\LearnToCode\C#\ConsolenTest\ConsolenTest\bin\Debug\net7.0\ConsolenTest.runtimeconfig.json
+C:\Users\boden\Documents\LearningElectronics\LearnToCode\C#\ConsolenTest\ConsolenTest\bin\Debug\net7.0\ConsolenTest.dll
+C:\Users\boden\Documents\LearningElectronics\LearnToCode\C#\ConsolenTest\ConsolenTest\bin\Debug\net7.0\ConsolenTest.pdb
+C:\Users\boden\Documents\LearningElectronics\LearnToCode\C#\ConsolenTest\ConsolenTest\obj\Debug\net7.0\ConsolenTest.csproj.AssemblyReference.cache
+C:\Users\boden\Documents\LearningElectronics\LearnToCode\C#\ConsolenTest\ConsolenTest\obj\Debug\net7.0\ConsolenTest.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\boden\Documents\LearningElectronics\LearnToCode\C#\ConsolenTest\ConsolenTest\obj\Debug\net7.0\ConsolenTest.AssemblyInfoInputs.cache
+C:\Users\boden\Documents\LearningElectronics\LearnToCode\C#\ConsolenTest\ConsolenTest\obj\Debug\net7.0\ConsolenTest.AssemblyInfo.cs
+C:\Users\boden\Documents\LearningElectronics\LearnToCode\C#\ConsolenTest\ConsolenTest\obj\Debug\net7.0\ConsolenTest.csproj.CoreCompileInputs.cache
+C:\Users\boden\Documents\LearningElectronics\LearnToCode\C#\ConsolenTest\ConsolenTest\obj\Debug\net7.0\ConsolenTest.dll
+C:\Users\boden\Documents\LearningElectronics\LearnToCode\C#\ConsolenTest\ConsolenTest\obj\Debug\net7.0\refint\ConsolenTest.dll
+C:\Users\boden\Documents\LearningElectronics\LearnToCode\C#\ConsolenTest\ConsolenTest\obj\Debug\net7.0\ConsolenTest.pdb
+C:\Users\boden\Documents\LearningElectronics\LearnToCode\C#\ConsolenTest\ConsolenTest\obj\Debug\net7.0\ConsolenTest.genruntimeconfig.cache
+C:\Users\boden\Documents\LearningElectronics\LearnToCode\C#\ConsolenTest\ConsolenTest\obj\Debug\net7.0\ref\ConsolenTest.dll

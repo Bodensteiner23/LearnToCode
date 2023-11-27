@@ -19,7 +19,7 @@ namespace Calculator
         private int _reservedNumbers1 = 0;
         private int _reservedNumbers2 = 0;
         string _userNumber = null;
-        private int _change = null;
+        private int _change = 0  ;
         
 
         public Form1()  //Constructor for the class, sets up the Object
@@ -47,6 +47,8 @@ namespace Calculator
                             _change = _reservedNumbers1 + _reservedNumbers2;                            
                             outputData.Text = Convert.ToString(_change);
 
+                            _operator = null;
+                            
                             break;
                         case "-":
                             
@@ -64,7 +66,7 @@ namespace Calculator
                 }    
             }
             //Output clicked number into 
-            outputData.Text += _userNumber;
+            // outputData.Text += _userNumber;
             
         }
 

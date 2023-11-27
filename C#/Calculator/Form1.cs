@@ -60,7 +60,7 @@ namespace Calculator
 
                             break;
                         default:
-                            //ToDo: Handle default case
+                            outputData.Text += _userNumber;
                             break;
                     }
                 }    

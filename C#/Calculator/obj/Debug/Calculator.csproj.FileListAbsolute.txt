@@ -8,3 +8,4 @@ C:\Users\boden\git\LearnToCode\C#\Calculator\obj\Debug\Calculator.csproj.Generat
 C:\Users\boden\git\LearnToCode\C#\Calculator\obj\Debug\Calculator.csproj.CoreCompileInputs.cache
 C:\Users\boden\git\LearnToCode\C#\Calculator\obj\Debug\Calculator.exe
 C:\Users\boden\git\LearnToCode\C#\Calculator\obj\Debug\Calculator.pdb
+C:\Users\boden\git\LearnToCode\C#\Calculator\obj\Debug\Calculator.Form1.resources

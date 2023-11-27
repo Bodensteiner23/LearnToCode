@@ -18,7 +18,7 @@ namespace Calculator
         private int _reservedNumbers1 = 0;
         private int _reservedNumbers2 = 0;
         string _userNumber = null;
-        private int _change
+        private int _change;
         
 
         public Form1()  //Constructor for the class, sets up the Object
@@ -61,6 +61,12 @@ namespace Calculator
             
             
             //Save Label Number into _reservedNumbers1 and start new to output in label
+        }
+
+
+        private void button_cklicked(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

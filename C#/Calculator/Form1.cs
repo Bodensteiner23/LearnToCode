@@ -15,10 +15,11 @@ namespace Calculator
     {
         /* ========================== Variables ============================ */
         string[] _operatorList = { "+", "-", "x", "*" };
+        string _operator = null;
         private int _reservedNumbers1 = 0;
         private int _reservedNumbers2 = 0;
         string _userNumber = null;
-        private int _change;
+        private int _change = null;
         
 
         public Form1()  //Constructor for the class, sets up the Object
@@ -33,6 +34,34 @@ namespace Calculator
             if (sender is Button button)
             {
                 _userNumber = button.Text;
+
+                if(_reservedNumbers1 == 0){
+                        outputData.Text = _userNumber;
+                }
+                else{
+                    switch(_operator){
+                        //Readout Number that is input by user
+                        case "+":
+                            
+                            _reservedNumbers2 = Convert.ToInt32(_userNumber);
+                            _change = _reservedNumbers1 + _reservedNumbers2;                            
+                            outputData.Text = Convert.ToString(_change);
+
+                            break;
+                        case "-":
+                            
+                            break;
+                        case "x":
+
+                            break;
+                        case "/":
+
+                            break;
+                        default:
+                            //ToDo: Handle default case
+                            break;
+                    }
+                }    
             }
             //Output clicked number into 
             outputData.Text += _userNumber;
@@ -58,15 +87,8 @@ namespace Calculator
             
             
             
-            
-            
             //Save Label Number into _reservedNumbers1 and start new to output in label
         }
 
-
-        private void button_cklicked(object sender, EventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

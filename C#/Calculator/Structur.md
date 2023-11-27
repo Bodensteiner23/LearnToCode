@@ -7,8 +7,9 @@
 2. Check if _reservedNumber1 already has a value 
 #### 1.1.1 Case 1: _reservedNumber1 has no value
 Save the Number into _reservedNumber1
-#### 1.1.2 Case 1: _reservedNumber1 already has a value
-Execute the Operation that is stored in _operator and save the result in _reservedNumber1
+#### 1.1.2 Case 2: _reservedNumber1 already has a value
+1. Execute the Operation that is stored in _operator and save the result in _reservedNumber
+2. Reset _userNumber
 
 
 ### 1.2 Case 1: More Numbers are clicked

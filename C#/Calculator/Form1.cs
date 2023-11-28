@@ -20,6 +20,7 @@ namespace Calculator
         private int _reservedNumbers2 = 0;
         string _userNumber = null;
         private int _change = 0  ;
+        bool _newNumberEntry = false;
         
 
         public Form1()  //Constructor for the class, sets up the Object
@@ -36,18 +37,23 @@ namespace Calculator
                 _userNumber = button.Text;
 
                 if(_reservedNumbers1 == 0){
-                        outputData.Text = _userNumber;
+                        outputData.Text += _userNumber;
                 }
                 else{
                     switch(_operator){
-                        //Readout Number that is input by user
+                        //Readout Operator that is input by user
                         case "+":
-                            
-                            _reservedNumbers2 = Convert.ToInt32(_userNumber);
-                            _change = _reservedNumbers1 + _reservedNumbers2;                            
-                            outputData.Text = Convert.ToString(_change);
+                            if(_newNumberEntry == true){
+                                _reservedNumbers2 = Convert.ToInt32(_userNumber);
+                                _change = _reservedNumbers1 + _reservedNumbers2;                            
+                                outputData.Text = Convert.ToString(_change);
 
-                            _operator = null;
+                                _operator = null;
+
+                                //If Operation is done, reset _newNumberEntry
+                                _newNumberEntry = false;
+                            }
+                           
                             
                             break;
                         case "-":
@@ -60,7 +66,7 @@ namespace Calculator
 
                             break;
                         default:
-                            outputData.Text += _userNumber;
+                            outputData.Text += _userNumber; 
                             break;
                     }
                 }    
@@ -80,8 +86,14 @@ namespace Calculator
                     //Readout Number that is stored in Label
                     _reservedNumbers1 = Convert.ToInt32(outputData.Text);
                     
+                    //Save Operator
+                    _operator = button.Text;
+                    
                     //Output Operator
-                    cachingValue.Text += _userNumber + " " + button.Text + " ";
+                    cachingValue.Text += _reservedNumbers1 + " " + _operator + " ";
+                    
+                   
+                    _newNumberEntry = true;
                 }
 
                 

@@ -21,3 +21,38 @@ Save the Number into _reservedNumber1
 
 ## 1.3 Equal Operator is clicked
 Execute remaining Operation that is stored in Operator
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Program Sequence
+
+_userNumber = 1  
+outputData = 1  
+_userNumber = 2  
+outputData += 2 -> _userNumber = 12  
+operater.clicked = "+"  
+**_userNumber needs to be cleared**  
+**store outputData in _reservedNumber1** DONE  
+_operator = "+"  
+outputData = outputData + _operator  
+
+
+_userNumber = 5  
+outputData = 5  
+_userNumber = 8  
+outputData += 58 -> _userNumber = 58  
+
+operator.clicked = "+"  

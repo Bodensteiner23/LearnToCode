@@ -47,9 +47,10 @@ namespace Calculator
                                 _reservedNumbers2 = Convert.ToInt32(_userNumber);
                                 _change = _reservedNumbers1 + _reservedNumbers2;                            
                                 outputData.Text = Convert.ToString(_change);
-
+                                
+                                
                                 _operator = null;
-
+                                
                                 //If Operation is done, reset _newNumberEntry
                                 _newNumberEntry = false;
                             }
@@ -71,8 +72,6 @@ namespace Calculator
                     }
                 }    
             }
-            //Output clicked number into 
-            // outputData.Text += _userNumber;
             
         }
 

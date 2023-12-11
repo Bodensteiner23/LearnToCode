@@ -29,6 +29,11 @@ namespace Calculator
         }
 
         /* ======================= Private Functions ======================= */
+        /// <summary>
+        /// Handle Number Input from User
+        /// </summary>
+        /// <param name="sender"> Good Question </param>
+        /// <param name="e"> Good Question </param>
         private void button_clicked(object sender, EventArgs e)
         {
 
@@ -75,6 +80,11 @@ namespace Calculator
             
         }
 
+        /// <summary>
+        /// Handle Operator Input from User
+        /// </summary>
+        /// <param name="sender"> Good Question </param>
+        /// <param name="e"> Good Question </param>
         private void operator_clicked(object sender, EventArgs e)
         {
             if (sender is Button button)

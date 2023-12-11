@@ -89,8 +89,28 @@ def process_csv(csv_filepath):
 
             writer.writerow(row)
 
+def directory():
+    directory = os.getcwd()     # Get current working directory
+    
+    for filename in os.listdir(directory):      # Iterate over all files
+        if filename.endswith(".csv"):           # Check if the file is a CSV file
+            csv_filepath = os.path.join(directory, filename)
+            output_filepath = os.path.join(directory, f"worked_on_{filename}")
+            with open(output_filepath, 'w', newline='') as outfile:
+                writer = csv.writer(outfile)
+                process_csv(csv_filepath, writer)
+
+
+
+
 
 if __name__ == '__main__':
+
+    os.getcwd(); 
+    
+    os.listdir();
+
+
     try:
         parser = argparse.ArgumentParser(description='Process CSV data and save the output.')
         parser.add_argument('csv_filepath', help='Input Path to the input CSV file.')

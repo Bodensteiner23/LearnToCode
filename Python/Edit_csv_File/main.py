@@ -3,15 +3,15 @@ import os
 import argparse
 
 
-def process_csv(csv_filepath):
-    output_directory = os.getcwd()
-    output_filepath = os.path.join(output_directory, 'output.csv')
+def process_csv(csv_filepath, writer):
+    # output_directory = os.getcwd()
+    # output_filepath = os.path.join(output_directory, 'output.csv')
     
     # csv File
-    with open(csv_filepath, 'r') as csv_file, open(output_filepath, 'w', newline='') as output_file:
+    with open(csv_filepath, 'r') as csv_file:
         # Output Directory
         reader = csv.DictReader(csv_file)
-        writer = csv.DictWriter(output_file, fieldnames=reader.fieldnames)
+        # writer = csv.DictWriter(output_file, fieldnames=reader.fieldnames)
         writer.writeheader()
 
         # Check valid values for "Package" Row
@@ -86,10 +86,7 @@ def process_csv(csv_filepath):
             # ToDo: Add NX2301P from BMS Slave
             # ToDo: 0R Resistors can also be added
 
-
             writer.writerow(row)
-
-
 
 
 

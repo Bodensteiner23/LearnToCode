@@ -1,4 +1,4 @@
-''''
+'''
 ########## Before you run this script ##########
 
 1.  Create your Pick&Place file 

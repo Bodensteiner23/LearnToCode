@@ -1,3 +1,25 @@
+''''
+########## Before you run this script ##########
+
+1.  Create your Pick&Place file 
+    https://hom.mfk.uni-erlangen.de:8089/confluence/pages/viewpage.action?pageId=83821373
+
+############### How to use this Module ##############
+
+1.  Check if you need to add new packages to the "valid_package_values" list
+2.  After that check if you need to add new packages to the "Change Package" section
+3.  Check if you need to add new values to the "Search for Value and edit if necessary" section
+4.  After you have finished all your changes you need to create a .exe of your script
+    -> Install PyInstaller
+    -> Open the command line
+    -> Type: pyinstaller --onefile main.py 
+    -> The .exe file will be created in the "dist" folder
+5.  Place the main.exe file in the same directory as the CSV files you want to process (you can rename it if you want)
+6.  Run the script
+7.  The processed CSV files will be saved in the same directory as the original files,
+    with the name "Tool_Fraunhofer_ [your filename]"
+'''
+
 import csv
 import os
 
@@ -19,6 +41,12 @@ def process_csv(reader, writer):
                 row['Side'] = 'Top'
 
             # Change Package
+            '''
+            ########## Add new Package ##########
+    	    Use this Template
+            if row['Package'] == 'YourNewPackage_FromAltium':
+                row['Package'] = 'YourNewPackage_ForThePick&PlaceMachine'
+            '''
             # 0402 Resistors
             if row['Package'] == 'R0402M':
                 row['Package'] = '0402R'
@@ -43,6 +71,12 @@ def process_csv(reader, writer):
                 continue
 
             # Search for Value and edit if necessary
+            '''
+            ########## Add new Value ##########
+    	    Use this Template
+            if row['Value'] == 'YourNewValue_FromAltium':
+                row['Value'] = 'YourNewValue_ForThePick&PlaceMachine'
+            '''
             # 0402 Capacitors
             if row['Package'] == '0402C':
                 # 9pF
@@ -73,13 +107,12 @@ def process_csv(reader, writer):
             writer.writerow(row)
 
 
-
-
 if __name__ == '__main__':
     # Get current working directory
     directory = os.getcwd()     
     
-    for filename in os.listdir(directory):      # Iterate over all files in directory
+    # Iterate over all files in directory
+    for filename in os.listdir(directory):     
         if filename.endswith(".csv"):      
             # Read CSV filepath and create output filepath     
             csv_filepath = os.path.join(directory, filename)

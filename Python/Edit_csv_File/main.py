@@ -1,25 +1,35 @@
+'''
+########## Before you run this script ##########
+
+1.  Create your Pick&Place file 
+    https://hom.mfk.uni-erlangen.de:8089/confluence/pages/viewpage.action?pageId=83821373
+
+############### How to use this Module ##############
+
+1.  Check if you need to add new packages to the "valid_package_values" list
+2.  After that check if you need to add new packages to the "Change Package" section
+3.  Check if you need to add new values to the "Search for Value and edit if necessary" section
+4.  After you have finished all your changes you need to create a .exe of your script
+    -> Install PyInstaller
+    -> Open the command line
+    -> Type: pyinstaller --onefile main.py 
+    -> The .exe file will be created in the "dist" folder
+5.  Place the main.exe file in the same directory as the CSV files you want to process (you can rename it if you want)
+6.  Run the script
+7.  The processed CSV files will be saved in the same directory as the original files,
+    with the name "Tool_Fraunhofer_ [your filename]"
+'''
+
 import csv
 import os
-import argparse
 
-
-def process_csv(csv_filepath):
-    output_directory = os.getcwd()
-    output_filepath = os.path.join(output_directory, 'output.csv')
-    
-    # csv File
-    with open(csv_filepath, 'r') as csv_file, open(output_filepath, 'w', newline='') as output_file:
-        # Output Directory
-        reader = csv.DictReader(csv_file)
-        writer = csv.DictWriter(output_file, fieldnames=reader.fieldnames)
-        writer.writeheader()
-
+def process_csv(reader, writer):
         # Check valid values for "Package" Row
         valid_package_values = ['0402R','0603R', 'R2010',           # Resistors
                                 '0402C','0603C',                    # Capacitors
                                 'F1206-M',                          # Fuses
                                 'LED0603',                          # LEDs
-                                'SOT-23-3 ',                        # Mosfet
+                                'SOT-23-3',                         # Mosfet
                                 'SOD-523', 'DO-219AB-2']            # Diodes
 
         # Search for Values and change them if needed
@@ -31,6 +41,12 @@ def process_csv(csv_filepath):
                 row['Side'] = 'Top'
 
             # Change Package
+            '''
+            ########## Add new Package ##########
+    	    Use this Template
+            if row['Package'] == 'YourNewPackage_FromAltium':
+                row['Package'] = 'YourNewPackage_ForThePick&PlaceMachine'
+            '''
             # 0402 Resistors
             if row['Package'] == 'R0402M':
                 row['Package'] = '0402R'
@@ -38,13 +54,13 @@ def process_csv(csv_filepath):
             elif row['Package'] == 'R0603M':
                 row['Package'] = '0603R'
 
-
             # 0402 Capacitors
             elif row['Package'] == 'C0402':
                 row['Package'] = '0402C'
             # 0603 Capacitors
             elif row['Package'] == 'C0603M':
                 row['Package'] = '0603C'
+
             # 0402 Fuses
             elif row['Package'] == 'F0402':
                 row['Package'] = '0402R'
@@ -55,6 +71,12 @@ def process_csv(csv_filepath):
                 continue
 
             # Search for Value and edit if necessary
+            '''
+            ########## Add new Value ##########
+    	    Use this Template
+            if row['Value'] == 'YourNewValue_FromAltium':
+                row['Value'] = 'YourNewValue_ForThePick&PlaceMachine'
+            '''
             # 0402 Capacitors
             if row['Package'] == '0402C':
                 # 9pF
@@ -82,21 +104,31 @@ def process_csv(csv_filepath):
                 elif row['Value'] in ['100n/6V3', '100n/25V', '100n/50V']:
                     row['Value'] = '100nF/50V/X7R'
 
-
-            # ToDo: Add NX2301P from BMS Slave
-            # ToDo: 0R Resistors can also be added
-
-
             writer.writerow(row)
 
 
 if __name__ == '__main__':
-    try:
-        parser = argparse.ArgumentParser(description='Process CSV data and save the output.')
-        parser.add_argument('csv_filepath', help='Input Path to the input CSV file.')
-        args = parser.parse_args()
-        process_csv(args.csv_filepath)
+    # Get current working directory
+    directory = os.getcwd()     
+    
+    # Iterate over all files in directory
+    for filename in os.listdir(directory):     
+        if filename.endswith(".csv"):      
+            # Read CSV filepath and create output filepath     
+            csv_filepath = os.path.join(directory, filename)
+            output_filepath = os.path.join(directory, f"Tool_Fraunhofer_{filename}")
 
-    except Exception as e:
-        # Handle the exception here or print an error message
-        print(f"An error occurred: {e}")
+            # Open Reader and Writer CSV files
+            with open(csv_filepath, 'r') as csv_file, open(output_filepath, 'w', newline='') as output_file:
+                # Readout CSV file
+                reader = csv.DictReader(csv_file)
+                
+                # Check if the CSV file has the correct headers
+                if reader.fieldnames is None:
+                    # Skip if not
+                    continue
+                
+                # Write new Values to CSV file
+                writer = csv.DictWriter(output_file, fieldnames=reader.fieldnames)
+                writer.writeheader()
+                process_csv(reader, writer)

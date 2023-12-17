@@ -3,7 +3,7 @@ namespace Project_Euler.Solution
     public class Problem_1
     {
         /* ========================== Variables ============================ */
-        int _limitNumber = 1001;
+        int _limitNumber = 1000;
         public int _sum = 0;
 
         /* ======================= Private Functions ======================= */

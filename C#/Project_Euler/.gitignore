@@ -1,6 +1,0 @@
-# Ignore Obj files
-.obj/
-# Ignore .vscode files
-.vscode/
-# Ignore bin files
-.bin/

@@ -1,22 +1,13 @@
 import csv
 import os
-import argparse
 
-
-def process_csv(csv_file, writer):
-    # output_directory = os.getcwd()
-    # output_filepath = os.path.join(output_directory, 'output.csv')
-    
-    # csv File
-    
-
-
+def process_csv(reader, writer):
         # Check valid values for "Package" Row
         valid_package_values = ['0402R','0603R', 'R2010',           # Resistors
                                 '0402C','0603C',                    # Capacitors
                                 'F1206-M',                          # Fuses
                                 'LED0603',                          # LEDs
-                                'SOT-23-3 ',                        # Mosfet
+                                'SOT-23-3',                         # Mosfet
                                 'SOD-523', 'DO-219AB-2']            # Diodes
 
         # Search for Values and change them if needed
@@ -35,13 +26,13 @@ def process_csv(csv_file, writer):
             elif row['Package'] == 'R0603M':
                 row['Package'] = '0603R'
 
-
             # 0402 Capacitors
             elif row['Package'] == 'C0402':
                 row['Package'] = '0402C'
             # 0603 Capacitors
             elif row['Package'] == 'C0603M':
                 row['Package'] = '0603C'
+
             # 0402 Fuses
             elif row['Package'] == 'F0402':
                 row['Package'] = '0402R'
@@ -79,36 +70,32 @@ def process_csv(csv_file, writer):
                 elif row['Value'] in ['100n/6V3', '100n/25V', '100n/50V']:
                     row['Value'] = '100nF/50V/X7R'
 
-
-            # TODO: Add NX2301P from BMS Slave
-            # TODO: 0R Resistors can also be added
-
             writer.writerow(row)
 
 
 
 
 if __name__ == '__main__':
-
-    directory = os.getcwd()     # Get current working directory
+    # Get current working directory
+    directory = os.getcwd()     
     
     for filename in os.listdir(directory):      # Iterate over all files in directory
-        if filename.endswith(".csv"):           # Check if the file is a CSV file
+        if filename.endswith(".csv"):      
+            # Read CSV filepath and create output filepath     
             csv_filepath = os.path.join(directory, filename)
-            output_filepath = os.path.join(directory, f"Pick&Place_Fraunhofer_{filename}")
+            output_filepath = os.path.join(directory, f"Tool_Fraunhofer_{filename}")
+
+            # Open Reader and Writer CSV files
             with open(csv_filepath, 'r') as csv_file, open(output_filepath, 'w', newline='') as output_file:
+                # Readout CSV file
                 reader = csv.DictReader(csv_file)
                 
+                # Check if the CSV file has the correct headers
+                if reader.fieldnames is None:
+                    # Skip if not
+                    continue
+                
+                # Write new Values to CSV file
                 writer = csv.DictWriter(output_file, fieldnames=reader.fieldnames)
                 writer.writeheader()
-                process_csv(reader, writer)            
-                
-    # try:
-    #     parser = argparse.ArgumentParser(description='Process CSV data and save the output.')
-    #     parser.add_argument('csv_filepath', help='Input Path to the input CSV file.')
-    #     args = parser.parse_args()
-    #     process_csv(args.csv_filepath)
-
-    # except Exception as e:
-    #     # Handle the exception here or print an error message
-    #     print(f"An error occurred: {e}")
+                process_csv(reader, writer)

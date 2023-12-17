@@ -3,16 +3,13 @@ import os
 import argparse
 
 
-def process_csv(csv_filepath, writer):
+def process_csv(csv_file, writer):
     # output_directory = os.getcwd()
     # output_filepath = os.path.join(output_directory, 'output.csv')
     
     # csv File
-    with open(csv_filepath, 'r') as csv_file:
-        # Output Directory
-        reader = csv.DictReader(csv_file)
-        # writer = csv.DictWriter(output_file, fieldnames=reader.fieldnames)
-        writer.writeheader()
+    
+
 
         # Check valid values for "Package" Row
         valid_package_values = ['0402R','0603R', 'R2010',           # Resistors
@@ -83,8 +80,8 @@ def process_csv(csv_filepath, writer):
                     row['Value'] = '100nF/50V/X7R'
 
 
-            # ToDo: Add NX2301P from BMS Slave
-            # ToDo: 0R Resistors can also be added
+            # TODO: Add NX2301P from BMS Slave
+            # TODO: 0R Resistors can also be added
 
             writer.writerow(row)
 
@@ -95,14 +92,17 @@ if __name__ == '__main__':
 
     directory = os.getcwd()     # Get current working directory
     
-    for filename in os.listdir(directory):      # Iterate over all files
+    for filename in os.listdir(directory):      # Iterate over all files in directory
         if filename.endswith(".csv"):           # Check if the file is a CSV file
             csv_filepath = os.path.join(directory, filename)
             output_filepath = os.path.join(directory, f"Pick&Place_Fraunhofer_{filename}")
-            with open(output_filepath, 'w', newline='') as outfile:
-                writer = csv.writer(outfile)
-                process_csv(csv_filepath, writer)
-
+            with open(csv_filepath, 'r') as csv_file, open(output_filepath, 'w', newline='') as output_file:
+                reader = csv.DictReader(csv_file)
+                
+                writer = csv.DictWriter(output_file, fieldnames=reader.fieldnames)
+                writer.writeheader()
+                process_csv(reader, writer)            
+                
     # try:
     #     parser = argparse.ArgumentParser(description='Process CSV data and save the output.')
     #     parser.add_argument('csv_filepath', help='Input Path to the input CSV file.')

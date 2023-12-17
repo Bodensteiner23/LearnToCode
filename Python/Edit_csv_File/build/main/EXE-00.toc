@@ -91,7 +91,7 @@
  [],
  False,
  False,
- 1702371702,
+ 1702808781,
  [('run.exe',
    'C:\\Users\\boden\\Documents\\LearningElectronics\\LearnToCode\\Python\\Edit_csv_File\\venv\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\run.exe',
    'EXECUTABLE')],

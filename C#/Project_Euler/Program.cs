@@ -24,8 +24,7 @@
                     _solvedProblem = pb2.Calculate_Fibbonaci_Sum();
                     break;
                 case "Problem 3":
-                    _solvedProblem = pb3.SolveProblem();
-                    
+                    _solvedProblem = pb3.LargestPrimeFactor();
                     break;
 
                 default:

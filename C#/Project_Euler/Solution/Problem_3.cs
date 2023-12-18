@@ -6,53 +6,39 @@ namespace Project_Euler.Solution
     public class Problem_3
     {
         /* ========================== Variables ============================ */
-        int[] primeArray = new int[10];
+        int _biggestPrim = 0;
         long _primNumber = 600851475143;
-        int _primeArrayCounter = 0;
-        /* ======================= Private Functions ======================= */
-        private int[] LargestPrimFactor()
+
+        /* ======================= Public Functions ======================= */
+        
+        /// <summary>
+        /// Calculates the largest prime factor.
+        /// </summary>
+        /// <returns>
+        /// Biggest Prime Factor.
+        /// </returns>
+        public int LargestPrimeFactor()
         {
-            //Get Prime Number
-            for(int _isPrim = 2; _isPrim <= _primNumber; _isPrim++)
+            // Iterate through Prime Numbers
+            for(int _isPrime = 2; _isPrime <= _primNumber; _isPrime++)
             {
-                if((_primNumber % _isPrim) == 0)
+                if((_primNumber % _isPrime) == 0)
                 {
+                    // If Prime Number is found, update _primNumber and divide by itself
+                    _primNumber = _primNumber / _isPrime;
 
-                    _primNumber = _primNumber / _isPrim;
-
-                    primeArray[_primeArrayCounter] = _isPrim;
-                    _primeArrayCounter++;
-
-                    _isPrim = 2; 
+                    // Store biggest Prime Number
+                    if(_biggestPrim < _isPrime)
+                    {
+                        _biggestPrim = _isPrime;
+                    }
+                    // Reset Prime Number and search for next Prime
+                    _isPrime = 2; 
                 }
             }
-
-            return primeArray;
+            
+            return _biggestPrim;
         }
         
-        private int FindLargestPrimeInArray()
-        {
-            int largestNumber = primeArray[0];
-
-            for(int i = 1; i < _primeArrayCounter; i++)
-            {
-                if(primeArray[i] > largestNumber)
-                {
-                    largestNumber = primeArray[i];
-                }
-            }
-
-            return largestNumber;
-        }
-
-        /* ======================= Public Functions ======================== */
-        public int SolveProblem()
-        {
-            LargestPrimFactor();
-            int largestPrime = FindLargestPrimeInArray();
-
-            return largestPrime;
-        }
     }
 }
-

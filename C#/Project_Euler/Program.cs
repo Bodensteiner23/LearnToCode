@@ -30,6 +30,9 @@
                 case "Problem 4":
                     _solvedProblem = pb4.FindLargestPalindromeProduct();
                     break;
+                case "Problem 5":
+                    
+                    break;
                 default:
                     System.Console.WriteLine("Invalid input. Please enter valid Problem. For example: Problem 1");
                     break;

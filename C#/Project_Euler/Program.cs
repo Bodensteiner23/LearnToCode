@@ -26,7 +26,9 @@
                 case "Problem 3":
                     _solvedProblem = pb3.LargestPrimeFactor();
                     break;
-
+                case "Problem 4":
+                    
+                    break;
                 default:
                     System.Console.WriteLine("Invalid input. Please enter valid Problem. For example: Problem 1");
                     break;

@@ -8,6 +8,7 @@
             Solution.Problem_1 pb1 = new Solution.Problem_1();
             Solution.Problem_2 pb2 = new Solution.Problem_2();
             Solution.Problem_3 pb3 = new Solution.Problem_3();
+            Solution.Problem_4 pb4 = new Solution.Problem_4();
 
             //Ask the user which problem to solve
             System.Console.Write("Enter the problem number to solve: ");
@@ -27,7 +28,7 @@
                     _solvedProblem = pb3.LargestPrimeFactor();
                     break;
                 case "Problem 4":
-                    
+                    _solvedProblem = pb4.FindLargestPalindromeProduct();
                     break;
                 default:
                     System.Console.WriteLine("Invalid input. Please enter valid Problem. For example: Problem 1");

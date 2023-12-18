@@ -1,3 +1,5 @@
+using System;
+
 namespace Project_Euler.Solution
 {
     

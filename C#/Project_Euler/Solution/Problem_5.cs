@@ -3,6 +3,12 @@ namespace Project_Euler.Solution
     public class Problem_5
     {
         /* ======================= Public Functions ======================== */
+        /// <summary>
+        /// Find the smallest positive number that is evenly divisible by all of the numbers from 1 to 20
+        /// </summary>
+        /// <returns>
+        /// Smallest Number that is evenly divisible by all of the numbers from 1 to 20
+        /// </returns>
         public long FindSmallestMultiple()
         {
 
@@ -19,7 +25,7 @@ namespace Project_Euler.Solution
                 }
                 // If the number is not divisible by the divider, reset the divider and increment the number
                 else
-                {
+                { 
                     numberToCheck++;
                     divider = 1;
                 }

@@ -10,6 +10,7 @@
             Solution.Problem_3 pb3 = new Solution.Problem_3();
             Solution.Problem_4 pb4 = new Solution.Problem_4();
             Solution.Problem_5 pb5 = new Solution.Problem_5();
+            Solution.Problem_6 pb6 = new Solution.Problem_6();
 
             //Ask the user which problem to solve
             System.Console.Write("Enter the problem number to solve: ");
@@ -33,6 +34,9 @@
                     break;
                 case "Problem 5":
                     solvedProblem = pb5.FindSmallestMultiple();
+                    break;
+                case "Problem 6":
+                    solvedProblem = pb6.SumSquareDifference();
                     break;
                 default:
                     System.Console.WriteLine("Invalid input. Please enter valid Problem. For example: Problem 1");

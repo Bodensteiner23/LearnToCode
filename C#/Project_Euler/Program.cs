@@ -11,6 +11,7 @@
             Solution.Problem_4 pb4 = new Solution.Problem_4();
             Solution.Problem_5 pb5 = new Solution.Problem_5();
             Solution.Problem_6 pb6 = new Solution.Problem_6();
+            Solution.Problem_7 pb7 = new Solution.Problem_7();
 
             //Ask the user which problem to solve
             System.Console.Write("Enter the problem number to solve: ");
@@ -37,6 +38,9 @@
                     break;
                 case "Problem 6":
                     solvedProblem = pb6.SumSquareDifference();
+                    break;
+                case "Problem 7":
+                    solvedProblem = pb7.FindPrimeNumber();
                     break;
                 default:
                     System.Console.WriteLine("Invalid input. Please enter valid Problem. For example: Problem 1");

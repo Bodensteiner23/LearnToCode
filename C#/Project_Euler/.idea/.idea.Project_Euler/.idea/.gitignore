@@ -13,3 +13,7 @@
 /dataSources.local.xml
 # Ignore VS Code Extension
 /.vscode/
+# Ignore obj folder
+/.obj/
+# Ignore debug folder
+/.bin/

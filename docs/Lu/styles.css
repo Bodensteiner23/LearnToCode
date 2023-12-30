@@ -1,14 +1,12 @@
 /* Global Styles */
-
 .overlay {
   display: none;
   position: fixed;
   top: 0;
   left: 0;
-  width: 30%;
+  width: 100%;
   height: 100%;
-  overflow: auto;
-  /* background-color: hsla(0, 2%, 12%, 0.835); */
+  background-color: hsla(0, 2%, 12%, 0.835);
 }
 
 /* Overlay Content */
@@ -18,12 +16,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  /* background-color: hsla(0, 2%, 12%, 0.835); */
+  background-color: hsla(0, 2%, 12%, 0.835);
   padding: 20px;
   border-radius: 10px;
-  box-sizing: border-box; 
+  box-sizing: border-box; /* Um Padding in die Berechnung der Höhe einzubeziehen */
 }
-
 
 .close-btn {
   position: absolute;
@@ -63,8 +60,6 @@
   width: 100%;
   border-collapse: collapse;
   font-size: 30px; 
-  overflow-x: auto;
-  overflow-y: auto;
 }
 
 #scoreTable th,
@@ -74,11 +69,11 @@
 }
 
 #playerCountRow th {
-  background-color: sla(0, 2%, 12%, 0.835);; /* Hintergrundfarbe der Spieler-Namen-Zeile */
+  background-color: #d61a1ad5; /* Hintergrundfarbe der Spieler-Namen-Zeile */
 }
 
 #scoreTable th {
-  background-color: sla(0, 2%, 12%, 0.835);; /* Hintergrundfarbe der Header-Zeile */
+  background-color: hsla(0, 2%, 12%, 0.1); /* Hintergrundfarbe der Header-Zeile */
   color: white; /* Textfarbe der Header-Zeile */
 }
 

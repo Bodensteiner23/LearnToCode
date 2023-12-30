@@ -1,4 +1,6 @@
+
 /* Global Styles */
+
 .overlay {
   display: none;
   position: fixed;
@@ -19,8 +21,9 @@
   background-color: hsla(0, 2%, 12%, 0.835);
   padding: 20px;
   border-radius: 10px;
-  box-sizing: border-box; /* Um Padding in die Berechnung der Höhe einzubeziehen */
+  box-sizing: border-box; 
 }
+
 
 .close-btn {
   position: absolute;
@@ -60,6 +63,8 @@
   width: 100%;
   border-collapse: collapse;
   font-size: 30px; 
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
 #scoreTable th,
@@ -69,11 +74,11 @@
 }
 
 #playerCountRow th {
-  background-color: #d61a1ad5; /* Hintergrundfarbe der Spieler-Namen-Zeile */
+  background-color: sla(0, 2%, 12%, 0.835);; /* Hintergrundfarbe der Spieler-Namen-Zeile */
 }
 
 #scoreTable th {
-  background-color: hsla(0, 2%, 12%, 0.1); /* Hintergrundfarbe der Header-Zeile */
+  background-color: sla(0, 2%, 12%, 0.835);; /* Hintergrundfarbe der Header-Zeile */
   color: white; /* Textfarbe der Header-Zeile */
 }
 

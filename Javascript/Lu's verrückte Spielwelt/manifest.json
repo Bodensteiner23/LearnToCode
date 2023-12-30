@@ -1,0 +1,10 @@
+{
+    "name": "Lu's verrückte Spiele Welt",
+    "short_name": "Lu's verrückte Spiele Welt",
+    "theme_color": "#1f1e1e",
+    "background_color": "#1f1e1e",
+    "display": "fullscreen",
+    "orientation": "portrait",
+    "scope": "/",
+    "start_url": "/"
+  }

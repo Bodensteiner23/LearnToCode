@@ -61,7 +61,6 @@ function createTable() {
 
   // Füge Summenzeile ein
   const sumRow = document.createElement("tr");
-  sumRow.classList.add("sum-row");
 
   for (let j = 0; j <= playerCount; j++) {
     const cell = document.createElement(j === 0 ? "th" : "td");

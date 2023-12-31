@@ -106,3 +106,7 @@ function updateSums() {
 }
 
 
+function openUnterseite() {
+  window.location.href = 'unterseite.html';
+}
+

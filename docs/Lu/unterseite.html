@@ -1,28 +1,45 @@
 <!-- unterseite.html -->
-
 <!DOCTYPE html>
 <html lang="en">
+
+<!------------------- Head------------------------->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Unterseite - Lu's verrückte Spiele Welt</title>
+  
+  <!------------------- Styles------------------------->
+  <style>
+    /* Settings for the whole Body */
+    body{
+      background-color: hsla(0, 2%, 12%, 1);
+    }
+    /* Settings for all Dif Container */
+    div{
+      min-height: 100px;
+      margin-bottom: 100px;
+    }
+  </style>
   <link rel="stylesheet" href="styles.css">
 </head>
+
+<!------------------- Body------------------------->
 <body>
 
-<!-- Zurück-Link zur Hauptseite -->
-<a href="index.html">Zurück zur Hauptseite</a>
+  <!------------------- Buttons ------------------------->
+  <div>
+    <button id="openOverlayBtn">Spiel starten</button>
+  </div>
 
-<button id="openOverlayBtn">Overlay öffnen</button>
-
-<div id="overlay" class="overlay">
+  <!------------------- Overlay Class ------------------->
+  <div id="overlay" class="overlay">
     <div class="overlay-content">
       <span class="close-btn" onclick="closeOverlay()">&times;</span>
-  
+
       <label for="playerCount">Anzahl der Spieler:</label>
       <input type="number" id="playerCount" min="1" value="1">
-      <button onclick="createTable()">Spieler festlegen</button>
-  
+      <button onclick="createTable()">Spiel starten</button>
+
       <!-- Tabelle -->
       <table id="scoreTable">
         <thead>
@@ -37,11 +54,18 @@
           <!-- Hier werden die Summen angezeigt -->
         </tfoot>
       </table>
-  
+
     </div>
   </div>
-  
+  <div>
+    <a href="index.html"><button>Anderes Spiel</button></a> <!-- Hyperlink to Homepage -->
+
+  </div>
+
+
+  <!------------------- Script File --------------------->
   <script src="script.js"></script>
 
 </body>
+
 </html>

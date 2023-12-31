@@ -10,19 +10,57 @@
     body{
       background-color: hsla(0, 2%, 12%, 1);
     }
+    
     /* Settings for all Dif Container */
     div{
-      min-height: 100px;
+      /* min-height: 100px; */
+      /* margin-bottom: 00px; */
+    }
+
+    /* Settings for the Heading */
+    #heading{
+      text-align: center;
+      color: white;
+      font-size: 50px;
       margin-bottom: 100px;
     }
+    
+    #gameChangeHeading {
+      text-align: center;
+      color: white;
+      font-size: 50px;
+    }    
+    /* Settings for the Button */
+    #openFranticBtn {
+      /* Center the button */
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 100px;
+      border-radius: 20px;
+
+      /* Make the button bigger */
+      font-size: 20px; /* Adjust as needed */
+        padding: 10px 20px; /* Adjust as needed */
+    }
+
   </style>
 </head>
 <body>
   
-<!-- <button id="openOverlayBtn">Overlay öffnen</button> -->
+<div id="heading">
+  <h1>Lu's verrückte Spiele Welt</h1>
+</div>
+
+<div id="gameChangeHeading">
+  <h3> Spiel wählen: </h3>
+</div>
+
 <div>
   <button id="openFranticBtn" onclick="openFranticSubpage()">Frantic</button>
 </div>
+
+
 
 <script src="script.js"></script>
 </body>

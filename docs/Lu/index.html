@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lu's verrückte Spiele Welt</title>
   <link rel="stylesheet" href="styles.css">
-  <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
@@ -19,6 +18,7 @@
     <input type="number" id="playerCount" min="1" value="1">
     <button onclick="createTable()">Spieler festlegen</button>
 
+    
     <!-- Tabelle -->
     <table id="scoreTable">
       <thead>
@@ -33,6 +33,19 @@
         <!-- Hier werden die Summen angezeigt -->
       </tfoot>
     </table>
+
+  </div>
+</div>
+
+<button id="openSecondWindowBtn">Zweites Fenster öffnen</button>
+
+<div id="secondWindow" class="overlay" style="display: none;">
+  <div class="overlay-content">
+    <span class="close-btn" onclick="closeSecondWindow()">&times;</span>
+
+    <!-- Inhalt des zweiten Fensters -->
+    <h2>Zweites Fenster Inhalt</h2>
+    <!-- Weitere Elemente können hier hinzugefügt werden -->
 
   </div>
 </div>

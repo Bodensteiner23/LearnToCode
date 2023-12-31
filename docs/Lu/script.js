@@ -9,19 +9,20 @@ function closeOverlay() {
 document.getElementById("openOverlayBtn").addEventListener("click", openOverlay);
 
 function createTable() {
+    // Öffnen Sie ein neues Fenster
+    var newWindow = window.open("", "_blank");
+
   const playerCount = parseInt(document.getElementById("playerCount").value);
   const table = document.getElementById("scoreTable");
   const thead = table.querySelector("thead");
   const tbody = table.querySelector("tbody");
   const tfoot = table.querySelector("tfoot");
 
-  
-  
   // Lösche vorhandene Tabelleninhalte
   thead.innerHTML = "";
   tbody.innerHTML = "";
   tfoot.innerHTML = "";
-  
+
   // Füge Spieler-Namen in den Header ein
   const headerRow = document.createElement("tr");
   for (let i = 0; i < playerCount + 1; i++) {
@@ -55,7 +56,7 @@ function createTable() {
       cell.appendChild(input);
       row.appendChild(cell);
     }
-    
+
     tbody.appendChild(row);
   }
 
@@ -71,22 +72,22 @@ function createTable() {
 
   tfoot.appendChild(sumRow);
 
-   // Verstecke das Label und die Eingabe für die Anzahl der Spieler
-   const playerCountLabel = document.querySelector('label[for="playerCount"]');
-   const playerCountInput = document.getElementById("playerCount");
-   const playerSetButton = document.querySelector('button[onclick="createTable()"]');
- 
-   if (playerCountLabel && playerCountInput && playerSetButton) {
-     playerCountLabel.style.display = "none";
-     playerCountInput.style.display = "none";
-     playerSetButton.style.display = "none";
-   }
- 
-   // Füge Event Listener für die Berechnung der Summen hinzu
-   const inputFields = document.querySelectorAll(".score-input");
-   inputFields.forEach(function (input) {
-     input.addEventListener("input", updateSums);
-   });
+  // Verstecke das Label und die Eingabe für die Anzahl der Spieler
+  const playerCountLabel = document.querySelector('label[for="playerCount"]');
+  const playerCountInput = document.getElementById("playerCount");
+  const playerSetButton = document.querySelector('button[onclick="createTable()"]');
+
+  if (playerCountLabel && playerCountInput && playerSetButton) {
+    playerCountLabel.style.display = "none";
+    playerCountInput.style.display = "none";
+    playerSetButton.style.display = "none";
+  }
+
+  // Füge Event Listener für die Berechnung der Summen hinzu
+  const inputFields = document.querySelectorAll(".score-input");
+  inputFields.forEach(function (input) {
+    input.addEventListener("input", updateSums);
+  });
 }
 
 function updateSums() {

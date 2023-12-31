@@ -40,7 +40,7 @@ body {
 
 /* Round Score Cells */
 .round-cell input {
-  width: 50px; 
+  width: 80px; 
   text-align: center;
   box-sizing: border-box;
   font-size: 30px;
@@ -51,7 +51,7 @@ body {
 
 /* Score Cells */
 .score-input {
-  width: 40px; 
+  width: 100px; 
   color: white; 
   font-size: 30px; 
   background-color: hsla(0, 2%, 12%, 0.835);
@@ -75,9 +75,7 @@ body {
   text-align: center;
 }
 
-#playerCountRow th {
-  background-color: #d61a1ad5; /* Hintergrundfarbe der Spieler-Namen-Zeile */
-}
+
 
 #scoreTable th {
   background-color: hsla(0, 2%, 12%, 0.1); /* Hintergrundfarbe der Header-Zeile */

@@ -51,7 +51,7 @@ body {
 
 /* Score Cells */
 .score-input {
-  width: 40px; 
+  width: 100px; 
   color: white; 
   font-size: 30px; 
   background-color: hsla(0, 2%, 12%, 0.835);

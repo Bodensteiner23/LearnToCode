@@ -106,7 +106,7 @@ function updateSums() {
 }
 
 
-function openUnterseite() {
+function openFranticSubpage() {
   window.location.href = 'unterseite.html';
 }
 

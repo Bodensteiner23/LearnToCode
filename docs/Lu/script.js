@@ -1,16 +1,14 @@
-function openOverlay() {
-  document.getElementById("overlay").style.display = "block";
+function openFrantic() {
+  document.getElementById("frantic").style.display = "block";
 }
 
-function closeOverlay() {
-  document.getElementById("overlay").style.display = "none";
+function closeFrantic() {
+  document.getElementById("frantic").style.display = "none";
 }
 
-document.getElementById("openOverlayBtn").addEventListener("click", openOverlay);
+document.getElementById("openFranticBtn").addEventListener("click", openFrantic);
 
 function createTable() {
-    // Öffnen Sie ein neues Fenster
-    var newWindow = window.open("", "_blank");
 
   const playerCount = parseInt(document.getElementById("playerCount").value);
   const table = document.getElementById("scoreTable");
@@ -107,4 +105,8 @@ function updateSums() {
   });
 }
 
+
+function openFranticSubpage() {
+  window.location.href = 'unterseite.html';
+}
 

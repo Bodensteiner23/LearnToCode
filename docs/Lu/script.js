@@ -9,8 +9,6 @@ function closeOverlay() {
 document.getElementById("openOverlayBtn").addEventListener("click", openOverlay);
 
 function createTable() {
-    // Öffnen Sie ein neues Fenster
-    var newWindow = window.open("", "_blank");
 
   const playerCount = parseInt(document.getElementById("playerCount").value);
   const table = document.getElementById("scoreTable");

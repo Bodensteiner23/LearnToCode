@@ -10,15 +10,19 @@
 
 <button id="openOverlayBtn">Overlay öffnen</button>
 
+<button onclick="Frentic()">Neues Fenster öffnen</button>
+
+<!-- Hinzugefügter Link zur Unterseite -->
+<a href="unterseite.html">Zur Unterseite</a>
+
 <div id="overlay" class="overlay">
   <div class="overlay-content">
     <span class="close-btn" onclick="closeOverlay()">&times;</span>
 
     <label for="playerCount">Anzahl der Spieler:</label>
     <input type="number" id="playerCount" min="1" value="1">
-    <button onclick="createTable()">Spieler festlegen</button>
+    <button onclick="window.open('unterseite.html', '_blank')">Spieler festlegen</button>
 
-    
     <!-- Tabelle -->
     <table id="scoreTable">
       <thead>
@@ -33,19 +37,6 @@
         <!-- Hier werden die Summen angezeigt -->
       </tfoot>
     </table>
-
-  </div>
-</div>
-
-<button id="openSecondWindowBtn">Zweites Fenster öffnen</button>
-
-<div id="secondWindow" class="overlay" style="display: none;">
-  <div class="overlay-content">
-    <span class="close-btn" onclick="closeSecondWindow()">&times;</span>
-
-    <!-- Inhalt des zweiten Fensters -->
-    <h2>Zweites Fenster Inhalt</h2>
-    <!-- Weitere Elemente können hier hinzugefügt werden -->
 
   </div>
 </div>

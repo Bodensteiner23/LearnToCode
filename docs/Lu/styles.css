@@ -1,5 +1,5 @@
 /* Global Styles */
-.overlay {
+.frantic {
   display: none;
   position: fixed;
   top: 0;
@@ -16,7 +16,7 @@ body {
 }
 
 /* Overlay Content */
-.overlay-content {
+.frantic-content {
   position: absolute;
   top: 0;
   left: 0;

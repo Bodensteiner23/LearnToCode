@@ -6,6 +6,20 @@ function closeOverlay() {
   document.getElementById("overlay").style.display = "none";
 }
 
+function openNewWindow() {
+  // URL für das neue Fenster
+  var url = 'https://www.example.com';
+
+  // Fensteroptionen
+  var windowOptions = 'width=600,height=400';
+
+  // Öffne das neue Fenster
+  window.open(url, '_blank', windowOptions);
+}
+
+
+
+
 document.getElementById("openOverlayBtn").addEventListener("click", openOverlay);
 
 function createTable() {

@@ -1,4 +1,4 @@
-function openFrantic() {
+function startFrantic() {
   document.getElementById("frantic").style.display = "block";
 }
 
@@ -6,7 +6,7 @@ function closeFrantic() {
   document.getElementById("frantic").style.display = "none";
 }
 
-document.getElementById("openFranticBtn").addEventListener("click", openFrantic);
+document.getElementById("startFranticBtn").addEventListener("click", startFrantic);
 
 function createTable() {
 
@@ -110,3 +110,6 @@ function openFranticSubpage() {
   window.location.href = 'frantic.html';
 }
 
+function openHomepage() {
+  window.location.href = 'index.html';
+}

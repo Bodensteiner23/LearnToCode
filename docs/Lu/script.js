@@ -107,6 +107,6 @@ function updateSums() {
 
 
 function openFranticSubpage() {
-  window.location.href = 'unterseite.html';
+  window.location.href = 'frantic.html';
 }
 

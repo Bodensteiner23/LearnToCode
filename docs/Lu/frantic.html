@@ -21,18 +21,18 @@
   <!------------------- Buttons ------------------------->
 
   <div>
-    <button class="btn" id="openFranticOverlayBtn" onclick="openFrantic()">Frantic</button>
-
-    <label for="playerCount" id="playerCountLabel">Anzahl der Spieler:</label>
-    <input type="number" id="playerCount" min="1" value="2">
-
-    <button class="btn" id="startFranticBtn" onclick="openFranticGamepage()">Spiel starten</button>
-
+    <!-- New Container to have them in the same Line -->
+    <div class="input-button-container">
+      <label for="playerCount" id="playerCountLabel">Anzahl der Spieler:</label>
+      <input type="number" id="playerCount" min="1" value="2">
+      <button id="startFranticBtn" onclick="openFranticGamepage()">Let's Goooooo</button>
+    </div>
+    <!-- <button class="btn" id="openFranticOverlayBtn" onclick="openFrantic()">Frantic</button> -->
   </div>
 
 
   <div>
-    <button id="chooseAnotherGameBtn" onclick="openHomepage()">Anderes Spiel</button>
+    <button class="btn" id="chooseAnotherGameBtn" onclick="openHomepage()">Anderes Spiel</button>
   </div>
   <!-- <div>
     <button id="openFranticOverlayBtn">Spiel starten</button>

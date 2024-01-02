@@ -4,6 +4,22 @@ body {
   background-color: hsla(0, 2%, 12%, 1);
 }
 
+/* Settings for the Button */
+.btn {
+  /* Center the button */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  border-radius: 20px;
+
+  /* Make the button bigger */
+  font-size: 20px;
+  /* Adjust as needed */
+  padding: 10px 20px;
+  /* Adjust as needed */
+}
+
 
 
 
@@ -38,44 +54,43 @@ body {
 }
 
 /* ==================== frantic.html =================== */
-/* Settings for the Button */
-#openFranticOverlayBtn {
-  /* Center the button */
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 100px;
-  border-radius: 20px;
-
-  /* Make the button bigger */
-  font-size: 20px;
-  /* Adjust as needed */
-  padding: 10px 20px;
-  /* Adjust as needed */
+.input-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#chooseAnotherGameBtn {
-  /* Center the button */
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 100px;
-  border-radius: 20px;
+.input-button-container > * {
+  margin-right: 10px;
+  margin-top: 300px;
+}
 
-  /* Make the button bigger */
-  font-size: 20px;
-  /* Adjust as needed */
-  padding: 10px 20px;
-  /* Adjust as needed */
+#playerCount{
+  text-align: center;
+  font-size: 30px;
+
+   /* Adjust as needed */
+   padding: 10px 20px;
+
 }
 
 #playerCountLabel {
+  margin-right: 5px;
   /* Center the button */
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 100px;
   border-radius: 20px;
-  background-color: white;
+
+  /* Make the button bigger */
+  color: white;
+  font-size: 30px;
+  /* Adjust as needed */
+  padding: 10px 10px;
+}
+
+#startFranticBtn{
+  margin-left: 5px;
+  margin-right: 60px;
+  /* Center the button */
+  border-radius: 20px;
 
   /* Make the button bigger */
   font-size: 20px;
@@ -83,7 +98,6 @@ body {
   padding: 10px 20px;
   /* Adjust as needed */
 }
-
 
 
 

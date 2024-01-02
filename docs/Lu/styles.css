@@ -1,5 +1,137 @@
+/* ==================== Global Styles ================== */
+/* Settings for the whole Body */
+body {
+  background-color: hsla(0, 2%, 12%, 1);
+}
+
+
+
+
+/* ==================== Index.html ===================== */
+
+/* Settings for the Heading */
+#heading {
+  text-align: center;
+  color: white;
+  font-size: 50px;
+  margin-bottom: 100px;
+}
+
+#gameChangeHeading {
+  text-align: center;
+  color: white;
+  font-size: 50px;
+}
+
+/* Settings for the Button */
+#openFranticBtn {
+  /* Center the button */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  border-radius: 20px;
+
+  /* Make the button bigger */
+  font-size: 20px;
+  padding: 10px 20px;
+}
+
+/* ==================== frantic.html =================== */
+/* Settings for the Button */
+#openFranticOverlayBtn {
+  /* Center the button */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  border-radius: 20px;
+
+  /* Make the button bigger */
+  font-size: 20px;
+  /* Adjust as needed */
+  padding: 10px 20px;
+  /* Adjust as needed */
+}
+
+#chooseAnotherGameBtn {
+  /* Center the button */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  border-radius: 20px;
+
+  /* Make the button bigger */
+  font-size: 20px;
+  /* Adjust as needed */
+  padding: 10px 20px;
+  /* Adjust as needed */
+}
+
+#playerCountLabel {
+  /* Center the button */
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  border-radius: 20px;
+  background-color: white;
+
+  /* Make the button bigger */
+  font-size: 20px;
+  /* Adjust as needed */
+  padding: 10px 20px;
+  /* Adjust as needed */
+}
+
+
+
+
+
+
+
+
+
+/* ================== franticGame.html ================= */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Global Styles */
-.frantic {
+/* .frantic {
   display: none;
   position: fixed;
   top: 0;
@@ -7,18 +139,18 @@
   width: 100%;
   height: 100%;
   background-color: hsla(0, 2%, 12%, 1);
-  overflow-y: auto; /* Füge die overflow-y Eigenschaft hinzu, um das Scrollen zu ermöglichen */
-}
-*/
+  overflow-y: auto; */
+  /* Füge die overflow-y Eigenschaft hinzu, um das Scrollen zu ermöglichen */
+/* } */
 
-body {
+ /* body {
   margin: 0;
   font-family: Arial, sans-serif;
-}
+} */
 
 /* Overlay Content */
 
-.frantic-content {
+/* .frantic-content {
   position: absolute;
   top: 0;
   left: 0;
@@ -28,21 +160,13 @@ body {
   padding: 20px;
   border-radius: 10px;
   box-sizing: border-box;
-  overflow-y: auto; /* Füge die overflow-y Eigenschaft hinzu, um das Scrollen zu ermöglichen */
-}
-
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 30px;
-  color: white;
-  cursor: pointer;
-}
+  overflow-y: auto; */
+  /* Füge die overflow-y Eigenschaft hinzu, um das Scrollen zu ermöglichen */
+/* } */
 
 /* Round Score Cells */
 .round-cell input {
-  width: 80px; 
+  width: 80px;
   text-align: center;
   box-sizing: border-box;
   font-size: 30px;
@@ -53,22 +177,23 @@ body {
 
 /* Score Cells */
 .score-input {
-  width: 100px; 
-  color: white; 
-  font-size: 30px; 
+  width: 100px;
+  color: white;
+  font-size: 30px;
   background-color: hsla(0, 2%, 12%, 0.835);
 }
 
 /* Sum Cells at the End of the Table */
 .sum-cell {
-  background-color: hsl(0, 0%, 90%); /* Hintergrundfarbe der Summen-Zeile */
+  background-color: hsl(0, 0%, 90%);
+  /* Hintergrundfarbe der Summen-Zeile */
 }
 
 /* Header Cells */
 #scoreTable {
   width: 100%;
   border-collapse: collapse;
-  font-size: 30px; 
+  font-size: 30px;
 }
 
 #scoreTable th,
@@ -80,8 +205,10 @@ body {
 
 
 #scoreTable th {
-  background-color: hsla(0, 2%, 12%, 0.1); /* Hintergrundfarbe der Header-Zeile */
-  color: white; /* Textfarbe der Header-Zeile */
+  background-color: hsla(0, 2%, 12%, 0.1);
+  /* Hintergrundfarbe der Header-Zeile */
+  color: white;
+  /* Textfarbe der Header-Zeile */
 }
 
 #scoreTable td {

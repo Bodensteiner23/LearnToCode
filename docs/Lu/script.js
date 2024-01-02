@@ -6,7 +6,7 @@ function closeFrantic() {
   document.getElementById("frantic").style.display = "none";
 }
 
-document.getElementById("openFranticOverlayBtn").addEventListener("click", startFrantic);
+document.getElementById("startFranticBtn").addEventListener("click", startFrantic);
 
 function createTable() {
 

@@ -9,6 +9,7 @@
   background-color: hsla(0, 2%, 12%, 1);
   overflow-y: auto; /* Füge die overflow-y Eigenschaft hinzu, um das Scrollen zu ermöglichen */
 }
+*/
 
 body {
   margin: 0;
@@ -16,6 +17,7 @@ body {
 }
 
 /* Overlay Content */
+
 .frantic-content {
   position: absolute;
   top: 0;

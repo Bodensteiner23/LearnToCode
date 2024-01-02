@@ -3,25 +3,27 @@
 <html lang="en">
 
 <!------------------- Head------------------------->
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Unterseite - Lu's verrückte Spiele Welt</title>
-  
+
   <!------------------- Styles------------------------->
   <style>
     /* Settings for the whole Body */
-    body{
+    body {
       background-color: hsla(0, 2%, 12%, 1);
     }
+
     /* Settings for all Dif Container */
-    div{
+    div {
       min-height: 100px;
       margin-bottom: 100px;
     }
 
-     /* Settings for the Button */
-     #startFranticBtn {
+    /* Settings for the Button */
+    #openFranticOverlayBtn {
       /* Center the button */
       display: block;
       margin-left: auto;
@@ -30,32 +32,52 @@
       border-radius: 20px;
 
       /* Make the button bigger */
-      font-size: 20px; /* Adjust as needed */
-      padding: 10px 20px; /* Adjust as needed */
+      font-size: 20px;
+      /* Adjust as needed */
+      padding: 10px 20px;
+      /* Adjust as needed */
     }
 
     #chooseAnotherGameBtn {
-       /* Center the button */
+      /* Center the button */
       display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 1000px;
+      border-radius: 20px;
+
+      /* Make the button bigger */
+      font-size: 20px;
+      /* Adjust as needed */
+      padding: 10px 20px;
+      /* Adjust as needed */
+    }
+
+    #playerCountLabel {
+      /* Center the button */
       margin-left: auto;
       margin-right: auto;
       margin-top: 100px;
       border-radius: 20px;
+      background-color: white;
 
       /* Make the button bigger */
-      font-size: 20px; /* Adjust as needed */
-      padding: 10px 20px; /* Adjust as needed */
+      font-size: 20px;
+      /* Adjust as needed */
+      padding: 10px 20px;
+      /* Adjust as needed */
     }
   </style>
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <!------------------- Body------------------------->
+
 <body>
 
   <!------------------- Buttons ------------------------->
   <div>
-    <button id="startFranticBtn">Spiel starten</button>
+    <button id="openFranticOverlayBtn">Spiel starten</button>
   </div>
 
   <div>
@@ -67,26 +89,27 @@
     <div class="frantic-content">
       <span class="close-btn" onclick="closeFrantic()">&times;</span>
 
-      <label for="playerCount">Anzahl der Spieler:</label>
+      <label for="playerCount" id="playerCountLabel">Anzahl der Spieler:</label>
       <input type="number" id="playerCount" min="1" value="1">
       <button onclick="createTable()">Spiel starten</button>
-
-      <!-- Tabelle -->
-      <table id="scoreTable">
-        <thead>
-          <tr>
-            <!-- Hier werden die Spieler-Namen eingetragen -->
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Hier können Benutzer Punkte eingeben -->
-        </tbody>
-        <tfoot>
-          <!-- Hier werden die Summen angezeigt -->
-        </tfoot>
-      </table>
-
     </div>
+
+  </div>
+  <!-- Tabelle -->
+  <table id="scoreTable">
+    <thead>
+      <tr>
+        <!-- Hier werden die Spieler-Namen eingetragen -->
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Hier können Benutzer Punkte eingeben -->
+    </tbody>
+    <tfoot>
+      <!-- Hier werden die Summen angezeigt -->
+    </tfoot>
+  </table>
+
   </div>
 
 

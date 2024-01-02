@@ -6,7 +6,7 @@ function closeFrantic() {
   document.getElementById("frantic").style.display = "none";
 }
 
-document.getElementById("startFranticBtn").addEventListener("click", startFrantic);
+document.getElementById("openFranticOverlayBtn").addEventListener("click", startFrantic);
 
 function createTable() {
 
@@ -108,6 +108,10 @@ function updateSums() {
 
 function openFranticSubpage() {
   window.location.href = 'frantic.html';
+}
+
+function openFranticGamepage() {
+  window.location.href = 'franticGame.html';
 }
 
 function openHomepage() {

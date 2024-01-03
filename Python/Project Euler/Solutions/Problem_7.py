@@ -1,5 +1,6 @@
 import math
 
+
 def is_prime(num):
     """Checks if a number is prime or not.
 
@@ -13,6 +14,7 @@ def is_prime(num):
         if num % i == 0:
             return False
     return True
+
 
 def find_10001st_prime():
     """Finds the 10001st prime number.

@@ -4,7 +4,13 @@ number = "73167176531330624919225119674426574742355349194934"
 
 
 def find_greatest_product(number):
-    return 0
+    greatest_product = 0
+    for i in range(0, 12):
+        test = number[i]
+
+        print(test)
+        # product = 1
+        # for j in range()
 
 
 """"
@@ -34,4 +40,18 @@ The four adjacent digits in the $1000$-digit number that have the greatest produ
 
 
 Find the thirteen adjacent digits in the $1000$-digit number that have the greatest product. What is the value of this product?
+"""
+
+
+"""
+1032908124809
+
+for(int i = 0; i < länge; i++){
+    for(int i = 1; i < 13; i++){
+        product = muliplicate number * number to multiplicate
+    }
+
+    if(product > greatest Product )
+    change
+}
 """

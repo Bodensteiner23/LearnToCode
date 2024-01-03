@@ -1,4 +1,5 @@
 from Solutions.Problem_7 import find_10001st_prime
+from Solutions.Problem_8 import find_greatest_product
 
 
 def solve_problem():
@@ -14,7 +15,7 @@ def solve_problem():
         solved_problem = find_10001st_prime()
 
     elif problem == "Problem 8":
-        # Fill in missing Code
+        find_greatest_product()
         pass
 
     else:

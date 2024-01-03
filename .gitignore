@@ -5,8 +5,5 @@ C#/Project_Euler/bin/Debug/Project_Euler.exe
 # Ignore .idea folder
 .idea/
 
-# Ignore venv folder
-venv/
-
 # Ignore .vscode folder
 .vscode/

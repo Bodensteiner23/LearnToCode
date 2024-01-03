@@ -1,16 +1,37 @@
-# This is a sample Python script.
 
-# Press Umschalt+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from Problem_7 import find_10001st_prime
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Strg+F8 to toggle the breakpoint.
+def solve_problem():
+    """User chooses which problem to solve.
+
+    Returns:
+        string: Problem to solve.
+        long  : Solution of the Problem.
+    """
+    problem = input("Enter the problem number to solve: ")
+
+    if problem == "Problem 7":
+        solved_problem = find_10001st_prime()
+    
+    elif problem == "Problem 8":
+        # Fill in missing Code
+        pass
+    
+    else:
+        print("Invalid input. Please enter valid Problem. For example: Problem 1")
+    
+    return problem, solved_problem
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+
+def main():
+    
+    # Hand over what problem should be solved
+    problem, solved_problem = solve_problem()
+    print(f"Result {problem}: {solved_problem}")
+
+if __name__ == "__main__":
+    main()

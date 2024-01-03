@@ -7,3 +7,6 @@ C#/Project_Euler/bin/Debug/Project_Euler.exe
 
 # Ignore .vscode folder
 .vscode/
+
+#Ignore _pycache_ folder
+__pycache__/

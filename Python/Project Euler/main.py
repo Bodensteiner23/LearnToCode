@@ -15,7 +15,7 @@ def solve_problem():
         solved_problem = find_10001st_prime()
 
     elif problem == "Problem 8":
-        find_greatest_product()
+        solved_problem = find_greatest_product()
         pass
 
     else:

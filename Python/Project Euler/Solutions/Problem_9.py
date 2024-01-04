@@ -1,24 +1,12 @@
-##
-#
-#
-
-
 def pythagoreanTriplet():
-    for a in range(1, 999):
-        for b in range(2, 999):
-            checkSum = a + b
+    """Find Pythagorean Triplet for which a + b + c = 1000.
 
-            if checkSum > 1000:
-                break
-
-            for c in range(3, 999):
-                testSumPow = pow(a, 2) + pow(b, 2)
-                testC = pow(c, 2)
-
-                if testSumPow == testC:
-                    testResult = a + b + c
-
-                    if testResult == 1000:
-                        result = a * b * c
-
-                        return result
+    Returns:
+        int: Product of a * b * c = 1000.
+    """
+    for a in range(0, 1000):
+        for b in range(0, 1000):
+            c = 1000 - (a + b)
+            if pow(c, 2) == pow(a, 2) + pow(b, 2) and a < b and b < c:
+                result = a * b * c
+                return result

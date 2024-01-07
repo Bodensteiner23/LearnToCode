@@ -1,5 +1,7 @@
 from Solutions.Problem_7 import find_10001st_prime
 from Solutions.Problem_8 import find_greatest_product
+from Solutions.Problem_9 import pythagoreanTriplet
+from Solutions.Problem_10 import SieveofEratosthenes
 
 
 def solve_problem():
@@ -16,7 +18,12 @@ def solve_problem():
 
     elif problem == "Problem 8":
         solved_problem = find_greatest_product()
-        pass
+
+    elif problem == "Problem 9":
+        solved_problem = pythagoreanTriplet()
+
+    elif problem == "Problem 10":
+        solved_problem = SieveofEratosthenes()
 
     else:
         print("Invalid input. Please enter valid Problem. For example: Problem 1")

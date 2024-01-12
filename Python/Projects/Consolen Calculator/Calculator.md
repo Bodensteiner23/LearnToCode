@@ -80,3 +80,58 @@ Stelle sicher, dass dein Programm angemessen auf Benutzereingabefehler reagiert,
     Bis Benutzer Beenden wählt
 
 **Ende Programm**
+
+## Objektorientiertes Programmieren Beispiel
+## 1. Klasse Calculator
+### Eigenschaften:   
+Speichert den aktuellen Zustand des Taschenrechners, wie den letzten berechneten Wert oder die gespeicherten Variablen.  
+### Methoden:
+**evaluate_expression(expression):** Nimmt einen mathematischen Ausdruck entgegen und berechnet dessen Wert.  
+**solve_equation(equation):** Löst eine gegebene Gleichung.  
+Weitere Methoden für spezifische Operationen wie add, subtract, multiply, divide etc.
+## 2. Klasse FunctionPlotter
+### Eigenschaften:
+Einstellungen für das Zeichnen der Funktion, wie den Wertebereich.    
+### Methoden:
+**plot(function):** Zeichnet die gegebene mathematische Funktion.  
+## 3. Klasse UnitConverter
+### Methoden:
+**convert(value, from_unit, to_unit):** Konvertiert einen Wert von einer Einheit in eine andere.  
+## 4. Klasse UI
+### Methoden:
+**display_menu():** Zeigt das Hauptmenü an.  
+**get_user_input():** Holt Benutzereingaben.  
+**display_result(result):** Zeigt Ergebnisse an.  
+## 5. Klasse History
+### Eigenschaften:
+Speichert einen Verlauf der durchgeführten Berechnungen.  
+### Methoden:
+**add_entry(entry):** Fügt einen Eintrag zum Verlauf hinzu.  
+**view_history():** Zeigt den Berechnungsverlauf an.  
+## Hauptprogramm
+Erstellt Instanzen der Klassen.  
+Verwendet die UI-Klasse, um mit dem Benutzer zu interagieren und Eingaben zu erhalten.  
+Ruft die entsprechenden Methoden der Calculator, FunctionPlotter und UnitConverter-Klassen auf, basierend auf den Benutzeranforderungen.
+
+## Pseudocode für OOP
+Hauptprogramm
+    calculator = neuer Calculator()
+    plotter = neuer FunctionPlotter()
+    converter = neuer UnitConverter()
+    ui = neuer UI()
+    history = neuer History()
+
+    while (Benutzer will nicht beenden)
+        ui.display_menu()
+        wahl = ui.get_user_input()
+
+        switch (wahl)
+            case "Berechnung":
+                expression = ui.get_user_input()
+                result = calculator.evaluate_expression(expression)
+                history.add_entry(expression + " = " + result)
+                ui.display_result(result)
+
+            // Andere Fälle für Plotter, Konverter etc.
+
+    Ende

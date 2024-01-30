@@ -1,6 +1,11 @@
+from ui import Ui
+
+ui = Ui()
+
+
 def main():
-    # Your code here
-    print("Hello World")
+    ui.display_menu()
+    ui.get_user_choice()
 
 
 if __name__ == "__main__":

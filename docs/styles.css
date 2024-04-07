@@ -1,0 +1,80 @@
+
+/* Settings for the whole body */
+body {
+    background-color: hsla(0, 2%, 12%, 1); 
+}
+
+/* Settings for game field buttons */
+.buttons {
+    width: 20vmin;
+    height: 20vmin;
+    background: white;
+    border: 3px solid black;
+    margin: 0;
+    font: 0/0 transparent;
+}
+
+/* Settings for start game button */
+#start_game_button {
+    display: flex;
+    justify-content: center;
+    margin-top: 3vmin;
+}
+
+#start_game_button button{
+    font-size: 2em;
+    padding: 1vmin 2vmin;
+    border-radius: 1vmin;
+    
+}
+
+#start_game_button button:hover {
+    cursor: pointer;
+
+}
+
+/* Settings for new game button */
+#start_new_game_button {
+    display: flex;
+    justify-content: center;
+    margin-top: 3vmin;
+    display: none;
+}
+
+#start_new_game_button button {
+    font-size: 2em;
+    padding: 1vmin 2vmin;
+    border-radius: 1vmin;
+}
+
+/* Settings for the heading */
+#heading {
+    text-align: center;
+    color: white;
+    font-size: 6em;
+}
+
+/* Settings for the game field */
+#tictactoe-field {
+    width: 60vmin;
+    height: 60vmin;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin: 0 auto;
+}
+
+/* Settings for the SVG */
+.game-field .cross {
+    background-image: url('assets/Cross_Image.svg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.game-field .circle {
+    background-image: url('assets/Circle_Image.svg');
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}

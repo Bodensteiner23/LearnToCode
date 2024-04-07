@@ -5,6 +5,7 @@ const startButton = document.getElementById("start_game_button");
 const newGameButton = document.getElementById("start_new_game_button");
 
 let playerOneTurn = null;
+let turnCounter = null;
 
 let playingFielddArray = [0, 0, 0,
                           0, 0, 0,
@@ -49,9 +50,9 @@ function startButtonClicked() {
 }
 
 /**
- *  @brief  Logic if game-field buttons are clicked
+ *  @brief  Logic if game-field buttons are clicked. Handles Game Structure.
  * 
- *  @param  event: Object that contains information about the button click
+ *  @param  event Object that contains information about the button click
  */
 function buttonClicked(event) {
     // Check if Button has already been clicked
@@ -81,15 +82,16 @@ function buttonClicked(event) {
                 updateHeading("Player 2 turn")
             }
         }
-    }
 
-    
+        turnCounter += 1;
+        checkDraw(gameOver, turnCounter)
+    }
 }
 
 /**
  *  @brief  Enable or disable game-field buttons
  * 
- *  @param  state: State the buttons should be changed to: "enable"/"disable"
+ *  @param  state State the buttons should be changed to: "enable"/"disable"
  */
 function enableDisableButtons(state) {
     for (let i = 0; i < buttons.length; i++) {
@@ -107,9 +109,8 @@ function enableDisableButtons(state) {
 /**
  *  @brief  Add Image class to the button that was clicked
  * 
- *  @param  event: Object that contains information about the button click
- *  
- *  @param  playersTurn: True if Player1 / False if Player2
+ *  @param  event Object that contains information about the button click
+ *  @param  playersTurn True if Player1 / False if Player2
  */
 function addImageToButton(event, playersTurn) {
     if (playersTurn) {
@@ -128,10 +129,9 @@ function addImageToButton(event, playersTurn) {
 }
 
 /**
- *  @brief  Logic if the new game button is clicked 
+ *  @brief  Logic if the new game button is clicked. Resets all states for new game
  */
 function newGameButtonClicked() {
-    // Reset all states for new game
     // Game field buttons
     enableDisableButtons("enable")
     for(let i = 0; i < buttons.length; i++) {
@@ -147,6 +147,8 @@ function newGameButtonClicked() {
     updateHeading("Player 1 turn")
 
     playerOneTurn = true
+
+    turnCounter = null
     
     playingFielddArray = [0, 0, 0,
                           0, 0, 0,
@@ -158,7 +160,7 @@ function newGameButtonClicked() {
 /**
  *  @brief  Updates the Heading of the App
  * 
- *  @param  text: Text that should be displayed
+ *  @param  text Text that should be displayed
  */
 function updateHeading(text) {
     if (heading) {
@@ -171,7 +173,7 @@ function updateHeading(text) {
 /**
  *  @brief  Checks what Player Turn it is and returns the symbol of that player
  * 
- *  @param  playerOneTurn: True if Player1 / False if Player2
+ *  @param  playerOneTurn True if Player1 / False if Player2
  */
 function setPlayerTurn(playerOneTurn) {
     let playerSymbol = 0
@@ -188,9 +190,8 @@ function setPlayerTurn(playerOneTurn) {
 /**
  *  @brief  Updates playing field array, that represents the playing field for the user
  * 
- *  @param  buttonClicked: Id of the Button that was clicked
- * 
- *  @param  playerOneTurn: True if Player1 / False if Player2
+ *  @param  buttonClicked Id of the Button that was clicked
+ *  @param  playerOneTurn True if Player1 / False if Player2
  */
 function updatePlayingField(buttonClicked, playerOneTurn) {
     // Check which Player is playing
@@ -231,7 +232,7 @@ function updatePlayingField(buttonClicked, playerOneTurn) {
 /**
  *  @brief  Checks for winning conditions of TicTacToe Game
  * 
- *  @param  playerOneTurn: True if Player1 / False if Player2
+ *  @param  playerOneTurn True if Player1 / False if Player2
  * 
  *  @retval True if game is over / False if not
  */
@@ -269,9 +270,8 @@ function checkWin(playerOneTurn) {
 /**
  *  @brief  Display winning message and new game Button
  * 
- *  @param  gameOver: True if game is over / False if not
- * 
- *  @param  playerOneTurn: True if Player1 / False if Player2
+ *  @param  gameOver True if game is over / False if not
+ *  @param  playerOneTurn True if Player1 / False if Player2
  */
 function wonGame(gameOver, playerOneTurn) {
 
@@ -287,6 +287,24 @@ function wonGame(gameOver, playerOneTurn) {
     }
 }
 
+/**
+ *  @brief  Checks if the game is in a draw state
+ * 
+ *  @param  gameOver True if game is over / False if not
+ *  @param  turnCounter Counter for how many rounds have already been played
+ */
+function checkDraw(gameOver, turnCounter){
+    
+    if (!gameOver && turnCounter == 9) {
+        updateHeading("Draw! Nobody has won!")
+
+        // Display new Game Button
+        if (newGameButton) {
+            newGameButton.style.display = "flex"
+        }
+    }
+
+}
 
 // Main Function
 function main() {

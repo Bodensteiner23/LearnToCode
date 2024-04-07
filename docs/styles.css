@@ -27,6 +27,7 @@ body {
     font-size: 2em;
     padding: 1vmin 2vmin;
     border-radius: 1vmin;
+    
 }
 
 #start_game_button button:hover {
@@ -88,8 +89,8 @@ body {
     }
 
     .buttons {
-        width: 25vmin;
-        height: 25vmin;
+        width: 28vmin;
+        height: 28vmin;
     }
 
     #heading {

@@ -1,7 +1,9 @@
-
 /* Settings for the whole body */
 body {
     background-color: hsla(0, 2%, 12%, 1); 
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 /* Settings for game field buttons */
@@ -9,7 +11,7 @@ body {
     width: 20vmin;
     height: 20vmin;
     background: white;
-    border: 3px solid black;
+    border: 1em solid black;
     margin: 0;
     font: 0/0 transparent;
 }
@@ -30,7 +32,6 @@ body {
 
 #start_game_button button:hover {
     cursor: pointer;
-
 }
 
 /* Settings for new game button */
@@ -52,6 +53,7 @@ body {
     text-align: center;
     color: white;
     font-size: 6em;
+    margin-bottom: 20px;
 }
 
 /* Settings for the game field */
@@ -60,7 +62,7 @@ body {
     height: 60vmin;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0;
+    gap: 10px;
     margin: 0 auto;
 }
 
@@ -77,4 +79,27 @@ body {
     background-size: 80%;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+    #tictactoe-field {
+        width: 90%;
+        height: auto;
+    }
+
+    .buttons {
+        width: 28vmin;
+        height: 28vmin;
+    }
+
+    #heading {
+        font-size: 3em;
+    }
+
+    #start_game_button button,
+    #start_new_game_button button {
+        font-size: 1.5em;
+        padding: 1vmin 2vmin;
+    }
 }

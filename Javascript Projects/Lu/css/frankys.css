@@ -1,0 +1,40 @@
+/* Settings for the whole body */
+body {
+    background-color: hsla(0, 2%, 12%, 1); 
+    font-family: 'Arial', sans-serif;
+}
+
+
+/* Settings for the choose_game text */
+#choose_game {
+    text-align: center;
+    color: white;
+    margin-top: 11vmin;;
+    font-size: 2em;
+}
+
+
+/* Settings for Player Count Button */
+.buttons {
+    display: grid;
+    place-items: center;
+    margin-top: 2vh;
+}
+
+.buttons button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50vmin;
+    height: 15vmin;
+    margin-top: 5vmin;
+    border-radius: 3vmin;
+    border: none;
+    font-size: 1.5em;
+    font-weight: 550;
+}
+
+#spiel_starten {
+    display: none;
+}

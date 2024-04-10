@@ -6,7 +6,7 @@ body {
 
 
 /* Settings for the choose_game text */
-#choose_game {
+#player_count_heading {
     text-align: center;
     color: white;
     margin-top: 11vmin;;
@@ -35,6 +35,6 @@ body {
     font-weight: 550;
 }
 
-#spiel_starten {
+#start_game {
     display: none;
 }

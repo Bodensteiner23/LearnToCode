@@ -13,7 +13,7 @@ function initEventListeners() {
 initEventListeners()
 
 
-function frankysButtonClicked(event) {
+function frankysButtonClicked() {
     // Open Frankys Game Page
      location.href = "frankys.html"
 }

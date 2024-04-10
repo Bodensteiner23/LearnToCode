@@ -38,3 +38,23 @@ body {
 #start_game {
     display: none;
 }
+
+
+/* Settings for the whole Table */
+#table {
+    /* background-color: aliceblue; */
+
+}
+
+#tableBody {
+    background-color: aliceblue;
+}
+
+
+#tableRow {
+}
+
+#tableCell {
+    
+    background-color: aqua;
+}

@@ -41,20 +41,8 @@ body {
 
 
 /* Settings for the whole Table */
-#table {
-    /* background-color: aliceblue; */
-
-}
-
-#tableBody {
+#table td{
     background-color: aliceblue;
-}
+    border: 1px solid black;
 
-
-#tableRow {
-}
-
-#tableCell {
-    
-    background-color: aqua;
 }

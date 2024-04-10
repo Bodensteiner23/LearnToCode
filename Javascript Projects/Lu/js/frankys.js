@@ -43,17 +43,14 @@ function createTable(row, col) {
     const tbl = document.createElement("table")
     tbl.id = "table"
     const tblBody = document.createElement("tbody")
-    tblBody.id = "tableBody"
 
 
     // Creating cells
     for (let i = 0; i < row; i++) {
         const row = document.createElement("tr")
-        row.id = "tableRow"
 
         for (let j = 0; j < col; j++) {
             const cell = document.createElement("td")
-            cell.id = "tableCell"
 
             const cellText = document.createTextNode("Test" + i)
             cell.appendChild(cellText)
@@ -72,29 +69,3 @@ function createTable(row, col) {
 createTable(9, 3)
 
 
-
-
-
-// function createTable(row, col) {
-//     let body = document.body
-//     let tbl = document.getElementById("game_table")
-//     if (tbl) {
-//         tbl.style.width = "200px"
-//         tbl.style.border = "1px solid black"
-
-//     }
-
-//     for (let i = 0; i < row; i++){
-//         let tr = tbl.insertRow()
-//         for (let j = 0; i < col; i++) {
-//             let td = tr.insertCell()
-//             td.appendChild(document.createTextNode("${i}, ${j}"))
-//             td.style.border = "1px solid black"
-//         }
-//     }
-//     body.appendChild(tbl)
-
-// }
-
-
-// createTable(3, 5)

@@ -27,9 +27,10 @@ function playerCountButtonClicked() {
 
 
     let userPlayerCount = prompt("Spieleranzahl eingeben: ")
-    let playerNames = []
+    let playerNames = [""]
     for (let i = 0; i < Number(userPlayerCount); i++) {
         let userPlayerNames = prompt("Namen der Spieler eingeben: ")
+        // @ts-ignore
         playerNames.push(userPlayerNames)
     }
 
@@ -64,9 +65,20 @@ function createTable(row, col, playerNames) {
 
         for (let j = 0; j < col; j++) {
             const cell = document.createElement("td")
+            if (i == 0 && j == 0) {
+                const cellText = document.createTextNode("Runden")
+                cell.appendChild(cellText)
+            } else if (i == 0 && j != 0) {
+                const cellText = document.createTextNode(playerNames[j])
+                cell.appendChild(cellText)
+            } else if (i != 0 && j == 0) {
+                const cellText = document.createTextNode(i)
+                cell.appendChild(cellText)
+            }
 
-            const cellText = document.createTextNode(col)
-            cell.appendChild(cellText)
+
+
+            
             row.appendChild(cell)
 
         }

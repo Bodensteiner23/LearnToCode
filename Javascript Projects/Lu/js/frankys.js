@@ -74,11 +74,9 @@ function createTable(row, col, playerNames) {
             } else if (i != 0 && j == 0) {
                 const cellText = document.createTextNode(i)
                 cell.appendChild(cellText)
+            } else {
+                cell.contentEditable = "true"
             }
-
-
-
-            
             row.appendChild(cell)
 
         }

@@ -50,11 +50,12 @@ body {
     background-color: aliceblue;
     border: 1px solid black;
     height: 20px; /* Adjust as needed */
+    min-width: 50px;
 
     width: 20%; /* This will make each cell take up 20% of the table's width */
     text-align: center; /* This will center the text horizontally */
     vertical-align: middle; /* This will center the text vertically */
-    
+    font-weight: bold;
 }
 
 #table tr:first-child td {

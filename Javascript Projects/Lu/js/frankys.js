@@ -1,7 +1,6 @@
 /* ============================= Variables ============================ */
 const playerCountButton = document.getElementById("player_count")
 const heading = document.getElementById("player_count_heading")
-// const gameTable = document.getElementById("game_table")
 
 
 /* ============================= Functions ============================ */
@@ -28,7 +27,15 @@ function playerCountButtonClicked() {
 
 
     let userPlayerCount = prompt("Spieleranzahl eingeben: ")
-    getPlayerCount(userPlayerCount)
+    let playerNames = []
+    for (let i = 0; i < Number(userPlayerCount); i++) {
+        let userPlayerNames = prompt("Namen der Spieler eingeben: ")
+        playerNames.push(userPlayerNames)
+    }
+
+    let tableCols = playerNames.length
+
+    createTable(20, tableCols, playerNames)
 }
 
 
@@ -38,12 +45,18 @@ function getPlayerCount(_playerCount) {
     return playerCount
 }
 
+function getPlayerNames(_playerNames) {
+    let playerNames = _playerNames
 
-function createTable(row, col) {
+    return playerNames
+
+}
+
+
+function createTable(row, col, playerNames) {
     const tbl = document.createElement("table")
     tbl.id = "table"
     const tblBody = document.createElement("tbody")
-
 
     // Creating cells
     for (let i = 0; i < row; i++) {
@@ -52,7 +65,7 @@ function createTable(row, col) {
         for (let j = 0; j < col; j++) {
             const cell = document.createElement("td")
 
-            const cellText = document.createTextNode("Test" + i)
+            const cellText = document.createTextNode(col)
             cell.appendChild(cellText)
             row.appendChild(cell)
 
@@ -66,6 +79,6 @@ function createTable(row, col) {
 
 }
 
-createTable(9, 3)
+// createTable([1,2,3, 7, 9], [10,11,12, 10])
 
 

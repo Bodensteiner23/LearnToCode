@@ -36,7 +36,7 @@ function playerCountButtonClicked() {
 
     let tableCols = playerNames.length
 
-    createTable(20, tableCols, playerNames)
+    createTable(21, tableCols, playerNames)
 }
 
 

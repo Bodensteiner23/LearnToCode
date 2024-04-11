@@ -39,11 +39,30 @@ body {
     display: none;
 }
 
+#table {
+
+    width: 100%; /* This will make the table take up the full width of its parent element */
+    
+}
 
 /* Settings for the whole Table */
 #table td{
     background-color: aliceblue;
     border: 1px solid black;
-    min-width: 100px;
-    min-height: 50px;
+    height: 20px; /* Adjust as needed */
+
+    width: 20%; /* This will make each cell take up 20% of the table's width */
+    text-align: center; /* This will center the text horizontally */
+    vertical-align: middle; /* This will center the text vertically */
+    
+}
+
+#table tr:first-child td {
+    /* Add your styles here */
+    background-color: lightblue;
+}
+
+#table tr:not(:first-child) td:first-child {
+    /* Add your styles here */
+    background-color: lightgreen;
 }

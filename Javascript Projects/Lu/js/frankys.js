@@ -40,20 +40,6 @@ function playerCountButtonClicked() {
 }
 
 
-function getPlayerCount(_playerCount) {
-    let playerCount = _playerCount
-    
-    return playerCount
-}
-
-function getPlayerNames(_playerNames) {
-    let playerNames = _playerNames
-
-    return playerNames
-
-}
-
-
 function createTable(row, col, playerNames) {
     const tbl = document.createElement("table")
     tbl.id = "table"
@@ -78,10 +64,8 @@ function createTable(row, col, playerNames) {
                 cell.contentEditable = "true"
             }
             row.appendChild(cell)
-
         }
         tblBody.appendChild(row)
-
     }
 
     tbl.appendChild(tblBody)

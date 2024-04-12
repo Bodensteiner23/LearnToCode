@@ -1,6 +1,7 @@
 /* ============================= Variables ============================ */
 const playerCountButton = document.getElementById("player_count")
 const heading = document.getElementById("player_count_heading")
+const standardRowsForFrankys = 21
 
 
 /* ============================= Functions ============================ */
@@ -36,7 +37,7 @@ function playerCountButtonClicked() {
 
     let tableCols = playerNames.length
 
-    createTable(21, tableCols, playerNames)
+    createTable(standardRowsForFrankys, tableCols, playerNames)
 }
 
 
@@ -52,27 +53,49 @@ function createTable(row, col, playerNames) {
         for (let j = 0; j < col; j++) {
             const cell = document.createElement("td")
             if (i == 0 && j == 0) {
+                // Create "Runden" cell
                 const cellText = document.createTextNode("Runden")
                 cell.appendChild(cellText)
             } else if (i == 0 && j != 0) {
+                // Create cells with player names in first row
                 const cellText = document.createTextNode(playerNames[j])
                 cell.appendChild(cellText)
             } else if (i != 0 && j == 0) {
-                const cellText = document.createTextNode(i)
+                // Create round counter cells
+                const cellText = document.createTextNode(String(i))
                 cell.appendChild(cellText)
             } else {
+                // Create rest of the cells
                 cell.contentEditable = "true"
             }
             row.appendChild(cell)
         }
         tblBody.appendChild(row)
     }
-
     tbl.appendChild(tblBody)
     document.body.appendChild(tbl)
 
+    addSumRowToTable(col)
 }
 
-// createTable([1,2,3, 7, 9], [10,11,12, 10])
+
+function addSumRowToTable(tableCols) {
+    let tbl = document.getElementById("table")
+    // @ts-ignore
+    let row = tbl.insertRow()
+    for (let i = 0; i < tableCols; i++) {
+    
+        let cell = row.insertCell(i)
+    
+        if (i == 0) {
+            let cellText = document.createTextNode("Summe")
+            cell.appendChild(cellText)
+        }
+    }
+
+}
 
 
+
+
+// ToDo: Only allow numbers as input and nothing else

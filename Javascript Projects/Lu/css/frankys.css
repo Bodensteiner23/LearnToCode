@@ -60,10 +60,10 @@ body {
 
 #table tr:first-child td {
     /* Add your styles here */
-    background-color: lightblue;
+    background-color: rgba(210, 241, 255, 0.959);
 }
 
 #table tr:not(:first-child) td:first-child {
     /* Add your styles here */
-    background-color: lightgreen;
+    background-color: rgba(210, 241, 255, 0.959);
 }

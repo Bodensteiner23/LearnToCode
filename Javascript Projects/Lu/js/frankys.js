@@ -2,7 +2,7 @@
 const playerCountButton = document.getElementById("player_count")
 const heading = document.getElementById("player_count_heading")
 const standardRowsForFrankys = 21
-
+let tableCols = 0  
 
 /* ============================= Functions ============================ */
 
@@ -35,7 +35,7 @@ function playerCountButtonClicked() {
         playerNames.push(userPlayerNames)
     }
 
-    let tableCols = playerNames.length
+    tableCols = playerNames.length
 
     createTable(standardRowsForFrankys, tableCols, playerNames)
 }
@@ -91,6 +91,19 @@ function addSumRowToTable(tableCols) {
             let cellText = document.createTextNode("Summe")
             cell.appendChild(cellText)
         }
+    }
+}
+
+
+function calculateSumOfRows() {
+    let tbl = document.getElementById("table")
+
+    const inputCells = document.querySelectorAll("#table td")
+
+    for (let i = 0; i < inputCells.length; i++) {
+        inputCells[i].addEventListener("input", () => {
+            // ToDo: Here the Sum Functin should be placed in
+        })
     }
 
 }

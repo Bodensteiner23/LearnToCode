@@ -98,25 +98,47 @@ function addSumRowToTable(tableCols) {
 
 
 function addEventListenerToTableDataCells() {
-    let tbl = document.getElementById("table")
-
-    const inputCells = document.querySelectorAll("#table td")
+    
+    const inputCells = document.querySelectorAll("td")
     for (let i = 0; i < inputCells.length; i++) {
         inputCells[i].addEventListener("input", v => {
             
-            updateSumRow(tbl)
+            updateSumRow(v)
         })
     }
 }
 
 
-function updateSumRow(tbl) {
+function updateSumRow(v) {
+    let tbl = document.getElementById("table")
+    let totalRows = null
+    let totalCols = null
     
-    // console.log(Number(inputCells[i].textContent))
-    
+
+    if (tbl) {
+        // Get the maximum amount of cells
+        // @ts-ignore
+        totalRows = tbl.rows.length - 2     // Minus first and last row
+        // @ts-ignore
+        totalCols = tbl.rows[0].cells.length - 1    // Minus first col
+
+        for (let i = 1; i < totalCols; i++) {
+            let sum = null
+            for (let j = 1; j < totalRows; j++) {
+                // @ts-ignore
+                sum =+ Number(tbl.rows[j].cells[i].innerHTML)
+                
+                console.log(sum)
+                
+                // ToDo: Weird Output
+            }
+        }
+    }
 
 
 
+    // console.log(v.target.closest("tr").rowIndex)
+    // console.log(v.target.closest("td").cellIndex)
 
 }
 

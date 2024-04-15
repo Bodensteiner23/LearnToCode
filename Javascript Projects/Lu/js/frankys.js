@@ -76,6 +76,8 @@ function createTable(row, col, playerNames) {
     document.body.appendChild(tbl)
 
     addSumRowToTable(col)
+
+    addEventListenerToTableDataCells()
 }
 
 
@@ -95,16 +97,26 @@ function addSumRowToTable(tableCols) {
 }
 
 
-function calculateSumOfRows() {
+function addEventListenerToTableDataCells() {
     let tbl = document.getElementById("table")
 
     const inputCells = document.querySelectorAll("#table td")
-
     for (let i = 0; i < inputCells.length; i++) {
-        inputCells[i].addEventListener("input", () => {
-            // ToDo: Here the Sum Functin should be placed in
+        inputCells[i].addEventListener("input", v => {
+            
+            updateSumRow(tbl)
         })
     }
+}
+
+
+function updateSumRow(tbl) {
+    
+    // console.log(Number(inputCells[i].textContent))
+    
+
+
+
 
 }
 

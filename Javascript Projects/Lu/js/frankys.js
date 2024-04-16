@@ -102,7 +102,7 @@ function addEventListenerToTableDataCells() {
     const inputCells = document.querySelectorAll("td")
     for (let i = 0; i < inputCells.length; i++) {
         inputCells[i].addEventListener("keypress", evt => {
-            if(evt.key >= "0" && evt.key <= "9") {
+            if((evt.key >= "0" && evt.key <= "9") || evt.key === "-") {
                 setTimeout(updateSumRow, 0)
             } else {
                 evt.preventDefault()
@@ -130,17 +130,17 @@ function updateSumRow() {
             let sum = null
             for (let j = 1; j < totalRows; j++) {
                 // @ts-ignore
-                sum += Number(tbl.rows[j].cells[i].innerHTML)
+                let cellValue = tbl.rows[j].cells[i].innerHTML
+                if (cellValue != "-") {
+                    // Don't update cell if -
+                    // @ts-ignore
+                    sum += Number(cellValue)
+                } 
             }
             // @ts-ignore
             tbl.rows[sumRow].cells[i].innerHTML = sum
+
         }
     }
 }
 
-
-
-
-
-
-// ToDo: Only allow numbers as input and nothing else

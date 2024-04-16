@@ -101,8 +101,7 @@ function addEventListenerToTableDataCells() {
     
     const inputCells = document.querySelectorAll("td")
     for (let i = 0; i < inputCells.length; i++) {
-        inputCells[i].addEventListener("input", updateSumRow)
-        
+        inputCells[i].addEventListener("input", evt => isInputNumber(evt))
     }
 }
 
@@ -128,6 +127,23 @@ function updateSumRow() {
             // @ts-ignore
             tbl.rows[sumRow].cells[i].innerHTML = sum
         }
+    }
+}
+
+
+function isInputNumber(evt) {
+    let isNumber = false
+    
+    let charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode == 46 || charCode > 31 && (charCode < 48 || charCode > 57)){
+        evt.preventDefault();
+        isNumber = false
+    } else {
+        isNumber = true
+    }
+
+    if (isNumber) {
+        updateSumRow()
     }
 }
 

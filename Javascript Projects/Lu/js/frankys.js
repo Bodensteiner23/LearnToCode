@@ -101,10 +101,8 @@ function addEventListenerToTableDataCells() {
     
     const inputCells = document.querySelectorAll("td")
     for (let i = 0; i < inputCells.length; i++) {
-        inputCells[i].addEventListener("input", v => {
-            
-            updateSumRow(v)
-        })
+        inputCells[i].addEventListener("input", updateSumRow)
+        
     }
 }
 
@@ -118,21 +116,20 @@ function updateSumRow(v) {
     if (tbl) {
         // Get the maximum amount of cells
         // @ts-ignore
-        totalRows = tbl.rows.length - 2     // Minus first and last row
+        totalRows = tbl.rows.length - 1     // Minus first and last row
         // @ts-ignore
-        totalCols = tbl.rows[0].cells.length - 1    // Minus first col
-
+        totalCols = tbl.rows[0].cells.length    // Minus first col
         for (let i = 1; i < totalCols; i++) {
             let sum = null
             for (let j = 1; j < totalRows; j++) {
                 // @ts-ignore
-                sum =+ Number(tbl.rows[j].cells[i].innerHTML)
+                sum += Number(tbl.rows[j].cells[i].innerHTML)
                 
-                console.log(sum)
-                
-                // ToDo: Weird Output
             }
+
+            // ToDo: Get highest Number of Rows and Cols
         }
+
     }
 
 

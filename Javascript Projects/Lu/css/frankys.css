@@ -1,0 +1,69 @@
+/* Settings for the whole body */
+body {
+    background-color: hsla(0, 2%, 12%, 1); 
+    font-family: 'Arial', sans-serif;
+}
+
+
+/* Settings for the choose_game text */
+#player_count_heading {
+    text-align: center;
+    color: white;
+    margin-top: 11vmin;;
+    font-size: 2em;
+}
+
+
+/* Settings for Player Count Button */
+.buttons {
+    display: grid;
+    place-items: center;
+    margin-top: 2vh;
+}
+
+.buttons button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50vmin;
+    height: 15vmin;
+    margin-top: 5vmin;
+    border-radius: 3vmin;
+    border: none;
+    font-size: 1.5em;
+    font-weight: 550;
+}
+
+#start_game {
+    display: none;
+}
+
+#table {
+
+    width: 100%; /* This will make the table take up the full width of its parent element */
+    
+}
+
+/* Settings for the whole Table */
+#table td{
+    background-color: aliceblue;
+    border: 1px solid black;
+    height: 20px; /* Adjust as needed */
+    min-width: 50px;
+
+    width: 20%; /* This will make each cell take up 20% of the table's width */
+    text-align: center; /* This will center the text horizontally */
+    vertical-align: middle; /* This will center the text vertically */
+    font-weight: bold;
+}
+
+#table tr:first-child td {
+    /* Add your styles here */
+    background-color: rgba(210, 241, 255, 0.959);
+}
+
+#table tr:not(:first-child) td:first-child {
+    /* Add your styles here */
+    background-color: rgba(210, 241, 255, 0.959);
+}

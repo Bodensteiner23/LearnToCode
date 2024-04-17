@@ -78,6 +78,8 @@ function createTable(row, col, playerNames) {
     addSumRowToTable(col)
 
     addEventListenerToTableDataCells()
+    
+    displayEventCardsButton()
 }
 
 
@@ -142,5 +144,15 @@ function updateSumRow() {
 
         }
     }
+}
+
+
+function displayEventCardsButton() {
+    let eventCardButton = document.getElementById("event_cards")
+
+    if (eventCardButton) {
+        eventCardButton.style.display = "block"
+    }
+
 }
 

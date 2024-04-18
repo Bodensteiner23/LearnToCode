@@ -153,14 +153,14 @@ function displayEventCardsButton() {
 
     if (eventCardButton) {
         eventCardButton.style.visibility = "visible"
+        eventCardButton.addEventListener("click", eventCardsButtonClicked)
     }
 }
 
 
 function eventCardsButtonClicked() {
-    
-
-
+    // Open event card subpage
+    location.href = "frantic_event_cards.html"
 
 }
 

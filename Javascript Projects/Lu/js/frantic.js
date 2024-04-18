@@ -1,6 +1,5 @@
 /* ============================= Variables ============================ */
 const playerCountButton = document.getElementById("player_count")
-const heading = document.getElementById("player_count_heading")
 const standardRowsForFrankys = 21
 let tableCols = 0  
 
@@ -8,7 +7,7 @@ let tableCols = 0
 
 
 function initEventListeners() {
-
+    
     if (playerCountButton) {
         playerCountButton.addEventListener("click", playerCountButtonClicked)
     }
@@ -18,6 +17,7 @@ initEventListeners()
 
 
 function playerCountButtonClicked() {
+    const heading = document.getElementById("player_count_heading")
     // Disappear Button and Heading
     if (playerCountButton) {
         playerCountButton.style.display = "none"
@@ -154,6 +154,13 @@ function displayEventCardsButton() {
     if (eventCardButton) {
         eventCardButton.style.visibility = "visible"
     }
+}
+
+
+function eventCardsButtonClicked() {
+    
+
+
 
 }
 

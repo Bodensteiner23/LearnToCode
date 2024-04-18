@@ -36,14 +36,14 @@ function playerCountButtonClicked() {
     }
 
     tableCols = playerNames.length
-
+    
     createTable(standardRowsForFrankys, tableCols, playerNames)
 }
 
-// Test Commit2
+
 function createTable(row, col, playerNames) {
-    const tbl = document.createElement("table")
-    tbl.id = "table"
+
+    const tbl = document.querySelector("#table")
     const tblBody = document.createElement("tbody")
 
     // Creating cells
@@ -55,25 +55,26 @@ function createTable(row, col, playerNames) {
             if (i == 0 && j == 0) {
                 // Create "Runden" cell
                 const cellText = document.createTextNode("Runden")
-                cell.appendChild(cellText)
+                cell.append(cellText)
             } else if (i == 0 && j != 0) {
                 // Create cells with player names in first row
                 const cellText = document.createTextNode(playerNames[j])
-                cell.appendChild(cellText)
+                cell.append(cellText)
             } else if (i != 0 && j == 0) {
                 // Create round counter cells
                 const cellText = document.createTextNode(String(i))
-                cell.appendChild(cellText)
+                cell.append(cellText)
             } else {
                 // Create rest of the cells
                 cell.contentEditable = "true"
             }
-            row.appendChild(cell)
+            row.append(cell)
         }
-        tblBody.appendChild(row)
+        tblBody.append(row)
     }
-    tbl.appendChild(tblBody)
-    document.body.appendChild(tbl)
+    if (tbl) {
+        tbl.append(tblBody)
+    }
 
     addSumRowToTable(col)
 
@@ -151,7 +152,7 @@ function displayEventCardsButton() {
     let eventCardButton = document.getElementById("event_cards")
 
     if (eventCardButton) {
-        eventCardButton.style.display = "block"
+        eventCardButton.style.visibility = "visible"
     }
 
 }

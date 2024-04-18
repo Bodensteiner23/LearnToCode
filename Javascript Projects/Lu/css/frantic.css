@@ -36,7 +36,7 @@ body {
 }
 
 #event_cards {
-    display: none;
+    visibility: hidden;
 }
 
 #table {

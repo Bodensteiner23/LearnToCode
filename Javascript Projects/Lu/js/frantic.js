@@ -40,7 +40,7 @@ function playerCountButtonClicked() {
     createTable(standardRowsForFrankys, tableCols, playerNames)
 }
 
-
+// Test Commit2
 function createTable(row, col, playerNames) {
     const tbl = document.createElement("table")
     tbl.id = "table"
@@ -78,6 +78,8 @@ function createTable(row, col, playerNames) {
     addSumRowToTable(col)
 
     addEventListenerToTableDataCells()
+    
+    displayEventCardsButton()
 }
 
 
@@ -142,5 +144,15 @@ function updateSumRow() {
 
         }
     }
+}
+
+
+function displayEventCardsButton() {
+    let eventCardButton = document.getElementById("event_cards")
+
+    if (eventCardButton) {
+        eventCardButton.style.display = "block"
+    }
+
 }
 

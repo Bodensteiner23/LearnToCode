@@ -1,11 +1,11 @@
 /* ============================= Variables ============================ */
-const frankysButton = document.getElementById("frankys_button")
+const franticButton = document.getElementById("frantic_button")
 
 
 /* ============================= Functions ============================ */
 function initEventListeners() {
-    if (frankysButton) {
-        frankysButton.addEventListener("click", frankysButtonClicked)
+    if (franticButton) {
+        franticButton.addEventListener("click", franticButtonClicked)
     }
 
 }
@@ -13,7 +13,7 @@ function initEventListeners() {
 initEventListeners()
 
 
-function frankysButtonClicked() {
+function franticButtonClicked() {
     // Open Frankys Game Page
-     location.href = "frankys.html"
+     location.href = "frantic.html"
 }

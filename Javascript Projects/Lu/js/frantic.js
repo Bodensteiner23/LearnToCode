@@ -39,7 +39,7 @@ function playerCountButtonClicked() {
 
     createTable(standardRowsForFrankys, tableCols, playerNames)
 }
-// Test Commit
+
 
 function createTable(row, col, playerNames) {
     const tbl = document.createElement("table")

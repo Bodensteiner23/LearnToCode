@@ -6,6 +6,8 @@ function initEventListeners() {
     }
 }
 
+initEventListeners()
+
 function closePage() {
 
     window.history.back()

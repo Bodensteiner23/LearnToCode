@@ -1,7 +1,6 @@
 /* ============================= Variables ============================ */
 const playerCountButton = document.getElementById("player_count")
 
-
 /* ============================= Functions ============================ */
 
 
@@ -17,6 +16,7 @@ initEventListeners()
 
 function playerCountButtonClicked() {
     const heading = document.getElementById("player_count_heading")
+    let tableCols = null
     // Disappear Button and Heading
     if (playerCountButton) {
         playerCountButton.style.display = "none"
@@ -37,7 +37,11 @@ function playerCountButtonClicked() {
     tableCols = playerNames.length
 
     // ToDo: Handover to frantic_table file
-    
+    sessionStorage.setItem("tableCols", JSON.stringify(tableCols))
+    sessionStorage.setItem("playerNames", JSON.stringify(playerNames))
+
+    // Open next page
+    window.location.href = "frantic_table.html"
 }
 
 

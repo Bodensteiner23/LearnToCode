@@ -1,8 +1,21 @@
 /* ============================= Variables ============================ */
 const standardRowsForFrankys = 21
-let tableCols = 0  
-
+let tableCols = null
+let playerNames = null
 /* ============================= Functions ============================ */
+function checkForTableData() {
+    if (localStorage !== null) {
+        let retrievedTableData = sessionStorage.getItem("tableCols")
+        // @ts-ignore
+        tableCols = JSON.parse(retrievedTableData)
+    
+        let retrievedNameData = sessionStorage.getItem("playerNames")
+        // @ts-ignore
+        playerNames = JSON.parse(retrievedNameData)
+    }
+}
+
+checkForTableData()
 
 
 // ToDo: Create Table on load. Check if there is alredy a table in the sessionStorage
@@ -49,7 +62,7 @@ function createTable(row, col, playerNames) {
     addEventListenerToTableDataCells()
     
     // ToDo: Add Event Button in the Div and remove dynamic generation
-    displayEventCardsButton()
+    // displayEventCardsButton()
 }
 
 

@@ -3,7 +3,8 @@
 
 
 
-
+void dht11_setPinInput(void);
+void dht11_initCommunication(void);
 
 
 

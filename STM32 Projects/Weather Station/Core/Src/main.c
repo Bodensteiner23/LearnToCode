@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "dht11.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -60,6 +61,8 @@ void us_delay(uint16_t us) {
 	__HAL_TIM_SET_COUNTER(&htim1, 0);
 	while ((uint16_t)__HAL_TIM_GET_COUNTER(&htim1) < us);
 }
+
+
 /* USER CODE END 0 */
 
 /**
@@ -94,12 +97,16 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim1);
 
+  HAL_Delay(1000);
+  dht11_initCommunication();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
 
 
     /* USER CODE END WHILE */
@@ -217,13 +224,23 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(DHT11_Sensor_GPIO_Port, DHT11_Sensor_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(PWM_Pin_GPIO_Port, PWM_Pin_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : DHT11_Sensor_Pin */
   GPIO_InitStruct.Pin = DHT11_Sensor_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(DHT11_Sensor_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : Test_Input_Pin_Pin */
+  GPIO_InitStruct.Pin = Test_Input_Pin_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(Test_Input_Pin_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PWM_Pin_Pin */
   GPIO_InitStruct.Pin = PWM_Pin_Pin;
@@ -231,10 +248,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(PWM_Pin_GPIO_Port, &GPIO_InitStruct);
-
-  /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */

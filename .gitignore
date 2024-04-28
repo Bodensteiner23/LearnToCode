@@ -4,5 +4,8 @@
 # Ignore .vscode folder
 .vscode/
 
-#Ignore _pycache_ folder
+# Ignore _pycache_ folder
 __pycache__/
+
+# Ignore STM32 Workspace
+.metadata/

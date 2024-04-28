@@ -101,8 +101,7 @@ int main(void)
   while (1)
   {
 
-	  HAL_GPIO_TogglePin(PWM_Pin_GPIO_Port, PWM_Pin_Pin);
-	  us_delay(10);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -214,10 +213,17 @@ static void MX_GPIO_Init(void)
 /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(PWM_Pin_GPIO_Port, PWM_Pin_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : DHT11_Sensor_Pin */
+  GPIO_InitStruct.Pin = DHT11_Sensor_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(DHT11_Sensor_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PWM_Pin_Pin */
   GPIO_InitStruct.Pin = PWM_Pin_Pin;
@@ -225,6 +231,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(PWM_Pin_GPIO_Port, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */

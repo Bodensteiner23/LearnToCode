@@ -18,5 +18,4 @@ void dht11_initCommunication(void) {
 	us_delay(30);
 
 	dht11_setPinInput();
-
 }

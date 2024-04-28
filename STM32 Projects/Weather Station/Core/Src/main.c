@@ -18,7 +18,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "dht11.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -97,7 +96,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim1);
 
-  HAL_Delay(1000);
+  HAL_Delay(2000);
   dht11_initCommunication();
 
   /* USER CODE END 2 */
@@ -106,8 +105,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
-
 
     /* USER CODE END WHILE */
 
@@ -224,7 +221,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(DHT11_Sensor_GPIO_Port, DHT11_Sensor_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(DHT11_Sensor_GPIO_Port, DHT11_Sensor_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(PWM_Pin_GPIO_Port, PWM_Pin_Pin, GPIO_PIN_RESET);

@@ -112,6 +112,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  // ToDo: Find out how to send negative Values via UART.
 	  HAL_UART_Transmit_IT(&huart1, tx_buff, sizeof(tx_buff));
 	  HAL_Delay(200);
 //	  dht11_initCommunication();

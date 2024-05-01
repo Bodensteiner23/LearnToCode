@@ -23,6 +23,7 @@
 /* USER CODE BEGIN Includes */
 #include "dht11.h"
 #include <string.h>
+#include <stdio.h>
 
 /* USER CODE END Includes */
 
@@ -68,7 +69,7 @@ void us_delay(uint16_t us) {
 
 
 
-uint8_t tx_buff[]={0,1,2,3,4,5,6,7,8,9};
+
 
 /* USER CODE END 0 */
 
@@ -104,16 +105,20 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim1);
-
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
+   while (1)
+   {
+	   char buffer[50];
+	   snprintf(buffer, sizeof(buffer), "[%lu] The half of %d is %d\r\n", HAL_GetTick(), -1, 60/2);
+	   HAL_UART_Transmit_IT(&huart1, (uint8_t*)buffer, strlen(buffer));
+ 	   HAL_Delay(200);
+
+
 	  // ToDo: Find out how to send negative Values via UART.
-	  HAL_UART_Transmit_IT(&huart1, tx_buff, sizeof(tx_buff));
+//	  HAL_UART_Transmit_IT(&huart1, tx_buff, sizeof(tx_buff));
 	  HAL_Delay(200);
 //	  dht11_initCommunication();
 //	  HAL_Delay(1000);

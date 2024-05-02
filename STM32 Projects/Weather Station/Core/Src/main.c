@@ -68,7 +68,15 @@ void us_delay(uint16_t us) {
 }
 
 
+void debug_uart_data(char* debug_text, int16_t debug_variable) {
+	char buffer[50];
+	snprintf(buffer, sizeof(buffer), debug_text, debug_variable);
+	HAL_UART_Transmit_IT(&huart1, (uint8_t*) buffer, strlen(buffer));
+}
 
+//	   char buffer[50];
+//	   snprintf(buffer, sizeof(buffer), "[%lu] Counter: %d \n\r", HAL_GetTick(), counter);
+//	   HAL_UART_Transmit_IT(&huart1, (uint8_t*) buffer, strlen(buffer));
 
 
 /* USER CODE END 0 */
@@ -109,16 +117,14 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
+  uint8_t counter = 0;
    while (1)
    {
-	   char buffer[50];
-	   snprintf(buffer, sizeof(buffer), "[%lu] The half of %d is %d\r\n", HAL_GetTick(), -1, 60/2);
-	   HAL_UART_Transmit_IT(&huart1, (uint8_t*)buffer, strlen(buffer));
- 	   HAL_Delay(200);
+	   counter++;
 
+	   debug_uart_data("Counter: %d", counter);
 
-	  // ToDo: Find out how to send negative Values via UART.
-//	  HAL_UART_Transmit_IT(&huart1, tx_buff, sizeof(tx_buff));
 	  HAL_Delay(200);
 //	  dht11_initCommunication();
 //	  HAL_Delay(1000);

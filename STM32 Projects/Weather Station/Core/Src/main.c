@@ -62,21 +62,15 @@ static void MX_USART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void us_delay(uint16_t us) {
-	__HAL_TIM_SET_COUNTER(&htim1, 0);
-	while ((uint16_t)__HAL_TIM_GET_COUNTER(&htim1) < us);
-}
+//void us_delay(uint16_t us) {
+//	__HAL_TIM_SET_COUNTER(&htim1, 0);
+//	while ((uint16_t)__HAL_TIM_GET_COUNTER(&htim1) < us);
+//}
 
-
-void debug_uart_data(char* debug_text, int16_t debug_variable) {
-	char buffer[50];
-	snprintf(buffer, sizeof(buffer), debug_text, debug_variable);
+void debug_uart_data(char* buffer, size_t buffer_size, char* debug_text, int16_t debug_variable) {
+	snprintf(buffer, buffer_size, debug_text, (int) debug_variable);
 	HAL_UART_Transmit_IT(&huart1, (uint8_t*) buffer, strlen(buffer));
 }
-
-//	   char buffer[50];
-//	   snprintf(buffer, sizeof(buffer), "[%lu] Counter: %d \n\r", HAL_GetTick(), counter);
-//	   HAL_UART_Transmit_IT(&huart1, (uint8_t*) buffer, strlen(buffer));
 
 
 /* USER CODE END 0 */
@@ -117,13 +111,13 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
   uint8_t counter = 0;
    while (1)
    {
-	   counter++;
 
-	   debug_uart_data("Counter: %d", counter);
+	  char buffer[100];
+	   debug_uart_data(buffer,100,  "Counter: %d \n\r", counter);
+	   counter++;
 
 	  HAL_Delay(200);
 //	  dht11_initCommunication();

@@ -20,7 +20,6 @@
  * 		- Declare a buffer with the char size you need. 100 should be enough.
  * 		After that you can receive Data with an Logic Analyzer or with e.g Putty.
  *****/
-
 #include "uart.h"
 #include <stddef.h>
 #include <stdint.h>

@@ -63,15 +63,7 @@ static void MX_USART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-//void us_delay(uint16_t us) {
-//	__HAL_TIM_SET_COUNTER(&htim1, 0);
-//	while ((uint16_t)__HAL_TIM_GET_COUNTER(&htim1) < us);
-//}
 
-//void debug_uart_data(char* buffer, size_t buffer_size, char* debug_text, int16_t debug_variable) {
-//	snprintf(buffer, buffer_size, debug_text, (int) debug_variable);
-//	HAL_UART_Transmit_IT(&huart1, (uint8_t*) buffer, strlen(buffer));
-//}
 
 
 /* USER CODE END 0 */
@@ -107,22 +99,22 @@ int main(void)
   MX_TIM1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start(&htim1);
+  initModules();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint8_t counter = 0;
+//  uint8_t counter = 0;
    while (1)
    {
 	   // ToDo: Test if Debug Data is still working.
-	  char buffer[100];
-	   uart_sendUartDebugData(buffer, 100, "counter: %d \n\r", counter);
-	   counter++;
+//	  char buffer[100];
+//	   uart_sendUartDebugData(buffer, 100, "counter: %d \n\r", counter);
+//	   counter++;
 
-	  HAL_Delay(200);
-//	  dht11_initCommunication();
-//	  HAL_Delay(1000);
+//	  HAL_Delay(200);
+	  dht11_initCommunication();
+	  HAL_Delay(1000);
 
 
 
@@ -307,6 +299,8 @@ static void MX_GPIO_Init(void)
 void initModules(void) {
 	// ToDo: Check include Paths
 	uart_initUart(huart1);
+
+	HAL_TIM_Base_Start(&htim1);
 	timer_initTimer(&htim1);
 
 

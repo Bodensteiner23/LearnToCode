@@ -1,4 +1,5 @@
 #include "dht11.h"
+#include "timer.h"
 #include "main.h"
 
 
@@ -28,9 +29,9 @@ void dht11_initCommunication(void) {
 	HAL_GPIO_WritePin(DHT11_Sensor_GPIO_Port, DHT11_Sensor_Pin, SET);
 
 	HAL_GPIO_WritePin(DHT11_Sensor_GPIO_Port, DHT11_Sensor_Pin, RESET);
-	us_delay(18000);
+	timer_usDelay(18000);
 	HAL_GPIO_WritePin(DHT11_Sensor_GPIO_Port, DHT11_Sensor_Pin, SET);
-	us_delay(30);
+	timer_usDelay(30);
 
 	dht11_setPinInput();
 }

@@ -22,6 +22,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "dht11.h"
+#include "uart.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -67,10 +68,10 @@ static void MX_USART1_UART_Init(void);
 //	while ((uint16_t)__HAL_TIM_GET_COUNTER(&htim1) < us);
 //}
 
-void debug_uart_data(char* buffer, size_t buffer_size, char* debug_text, int16_t debug_variable) {
-	snprintf(buffer, buffer_size, debug_text, (int) debug_variable);
-	HAL_UART_Transmit_IT(&huart1, (uint8_t*) buffer, strlen(buffer));
-}
+//void debug_uart_data(char* buffer, size_t buffer_size, char* debug_text, int16_t debug_variable) {
+//	snprintf(buffer, buffer_size, debug_text, (int) debug_variable);
+//	HAL_UART_Transmit_IT(&huart1, (uint8_t*) buffer, strlen(buffer));
+//}
 
 
 /* USER CODE END 0 */
@@ -114,9 +115,9 @@ int main(void)
   uint8_t counter = 0;
    while (1)
    {
-
+	   // ToDo: Test if Debug Data is still working.
 	  char buffer[100];
-	   debug_uart_data(buffer,100,  "Counter: %d \n\r", counter);
+	   uart_sendUartDebugData(buffer, 100, "counter: %d \n\r", counter);
 	   counter++;
 
 	  HAL_Delay(200);
@@ -300,6 +301,15 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
+}
+
+
+void initModules(void) {
+	// ToDo: Check include Paths
+	uart_initUart(huart1);
+	timer_initTimer(&htim1);
+
+
 }
 
 /* USER CODE BEGIN 4 */

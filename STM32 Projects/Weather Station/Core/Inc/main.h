@@ -46,15 +46,13 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-void us_delay(uint16_t us);
-//void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart);
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+void initModules(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

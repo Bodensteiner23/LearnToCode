@@ -11,7 +11,7 @@ void timer_initTimer(TIM_HandleTypeDef *_htim) {
 }
 
 
-void timer_usDelay(uint16_t us) {
+void timer_usDelay(uint16_t _us) {
 	__HAL_TIM_SET_COUNTER(hhtim1, 0);
-	while ((uint16_t)__HAL_TIM_GET_COUNTER(hhtim1) < us);
+	while ((uint16_t)__HAL_TIM_GET_COUNTER(hhtim1) < _us);
 }

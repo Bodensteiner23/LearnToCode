@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-void timer_usDelay(uint16_t us);
+void timer_usDelay(uint16_t _us);
 
 
-#endif /* INC_DHT11_H_ */
+#endif /* INC_TIMER_H_ */

@@ -23,6 +23,7 @@
 /* USER CODE BEGIN Includes */
 #include "dht11.h"
 #include "uart.h"
+#include "gpio.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -297,6 +298,14 @@ static void MX_GPIO_Init(void)
 
 
 void initModules(void) {
+
+	gpio_t hw_init_pins = {
+		.dht11_port = DHT11_Sensor_GPIO_Port,
+		.dht11_pin = DHT11_Sensor_Pin
+	};
+
+	gpio_initPins(&hw_init_pins);
+
 	// ToDo: Check include Paths
 	uart_initUart(huart1);
 

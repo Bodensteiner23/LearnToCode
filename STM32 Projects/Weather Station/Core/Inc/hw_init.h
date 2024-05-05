@@ -1,9 +1,9 @@
-/*
- * hw_init.h
+/*****
+ *	modul: hw_init.h
  *
- *  Created on: May 5, 2024
- *      Author: boden
- */
+ *	created on: 05.05.2024
+ *	author: Matthias Bodensteiner
+ *****/
 
 #ifndef INC_HW_INIT_H_
 #define INC_HW_INIT_H_

@@ -25,8 +25,6 @@
 #include "uart.h"
 #include "gpio.h"
 #include "hw_init.h"
-#include <string.h>
-#include <stdio.h>
 
 /* USER CODE END Includes */
 

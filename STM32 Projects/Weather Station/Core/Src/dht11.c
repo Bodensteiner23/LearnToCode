@@ -1,5 +1,11 @@
 #include "dht11.h"
 #include "timer.h"
+/*****
+ *	modul: dht11.c
+ *
+ *	created on: 29.04.2024
+ *	author: Matthias Bodensteiner
+ *****/
 #include "gpio.h"
 #include "hw_init.h"
 #include "main.h"

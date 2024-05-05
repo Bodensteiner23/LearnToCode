@@ -1,3 +1,9 @@
+/*****
+ *	modul: timer.c
+ *
+ *	created on: 01.05.2024
+ *	author: Matthias Bodensteiner
+ *****/
 #include "timer.h"
 #include <stdint.h>
 #include <stm32f4xx_hal.h>

@@ -21,6 +21,11 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "dht11.h"
+#include "uart.h"
+#include "gpio.h"
+#include "timer.h"
+#include "hw_init.h"
 
 /* USER CODE END Includes */
 
@@ -42,6 +47,8 @@
 /* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htim1;
 
+UART_HandleTypeDef huart1;
+
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -50,16 +57,18 @@ TIM_HandleTypeDef htim1;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM1_Init(void);
+static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void us_delay(uint16_t us) {
-	__HAL_TIM_SET_COUNTER(&htim1, 0);
-	while ((uint16_t)__HAL_TIM_GET_COUNTER(&htim1) < us);
-}
+gpio_t hw_init = {
+	.dht11_port = DHT11_Sensor_GPIO_Port,
+	.dht11_pin = DHT11_Sensor_Pin
+};
+
 /* USER CODE END 0 */
 
 /**
@@ -91,16 +100,22 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_TIM1_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start(&htim1);
+
+  initModules();
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-	  // Pushed new branch
+   while (1)
+   {
+
+	  dht11_readoutSensor();
+	  HAL_Delay(2000);
+
+
 
     /* USER CODE END WHILE */
 
@@ -202,6 +217,39 @@ static void MX_TIM1_Init(void)
 }
 
 /**
+  * @brief USART1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART1_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART1_Init 0 */
+
+  /* USER CODE END USART1_Init 0 */
+
+  /* USER CODE BEGIN USART1_Init 1 */
+
+  /* USER CODE END USART1_Init 1 */
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 115200;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART1_Init 2 */
+
+  /* USER CODE END USART1_Init 2 */
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -217,13 +265,23 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(DHT11_Sensor_GPIO_Port, DHT11_Sensor_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(PWM_Pin_GPIO_Port, PWM_Pin_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : DHT11_Sensor_Pin */
   GPIO_InitStruct.Pin = DHT11_Sensor_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(DHT11_Sensor_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : Test_Input_Pin_Pin */
+  GPIO_InitStruct.Pin = Test_Input_Pin_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(Test_Input_Pin_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PWM_Pin_Pin */
   GPIO_InitStruct.Pin = PWM_Pin_Pin;
@@ -232,16 +290,24 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(PWM_Pin_GPIO_Port, &GPIO_InitStruct);
 
-  /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
 
+void initModules(void) {
+	// Handover HW Pins
+	hw_init_pins(&hw_init);
+
+	//Start timer and handover timer
+	HAL_TIM_Base_Start(&htim1);
+	timer_initTimer(&htim1);
+
+	// Handover uart
+	uart_initUart(&huart1);
+
+}
 /* USER CODE END 4 */
 
 /**

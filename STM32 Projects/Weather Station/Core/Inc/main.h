@@ -46,20 +46,20 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+void initModules(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
 #define DHT11_Sensor_Pin GPIO_PIN_0
 #define DHT11_Sensor_GPIO_Port GPIOC
-#define DHT11_Sensor_EXTI_IRQn EXTI0_IRQn
+#define Test_Input_Pin_Pin GPIO_PIN_1
+#define Test_Input_Pin_GPIO_Port GPIOC
 #define PWM_Pin_Pin GPIO_PIN_8
 #define PWM_Pin_GPIO_Port GPIOA
 

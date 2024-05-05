@@ -7,6 +7,7 @@
 #include "timer.h"
 #include <stdint.h>
 #include <stm32f4xx_hal.h>
+#include <stm32f4xx_hal_tim.h>
 
 
 TIM_HandleTypeDef *hhtim1;

@@ -68,9 +68,6 @@ gpio_t hw_init = {
 	.dht11_pin = DHT11_Sensor_Pin
 };
 
-
-
-
 /* USER CODE END 0 */
 
 /**
@@ -104,22 +101,17 @@ int main(void)
   MX_TIM1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  initModules();
 
+  initModules();
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-//  uint8_t counter = 0;
    while (1)
    {
-	   // ToDo: Test if Debug Data is still working.
-//	  char buffer[100];
-//	   uart_sendUartDebugData(buffer, 100, "counter: %d \n\r", counter);
-//	   counter++;
+	   //ToDo: Test if Debug Data is still working
 
-//	  HAL_Delay(200);
 	  dht11_initCommunication();
 	  HAL_Delay(1000);
 
@@ -302,22 +294,13 @@ static void MX_GPIO_Init(void)
 /* USER CODE END MX_GPIO_Init_2 */
 }
 
+/* USER CODE BEGIN 4 */
 
 void initModules(void) {
 
-	hw_init_pins(&hw_init);
-
-	// ToDo: Check include Paths
-	uart_initUart(huart1);
-
-	HAL_TIM_Base_Start(&htim1);
-	timer_initTimer(&htim1);
 
 
 }
-
-/* USER CODE BEGIN 4 */
-
 /* USER CODE END 4 */
 
 /**

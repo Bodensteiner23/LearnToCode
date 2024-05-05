@@ -13,8 +13,8 @@
 #include "uart.h"
 #include "main.h"
 
-uint8_t data_array[40];
-gpio_t *hw_pins;
+static uint8_t data_array[40];
+static gpio_t *hw_pins;
 
 
 // Handover HW struct
@@ -28,6 +28,8 @@ void dht11_readoutSensor(void) {
 
 	if (dht11_checkResponse()) {
 		dht11_readData();
+
+		dht11_sortSensorData();
 	}
 
 
@@ -81,6 +83,7 @@ uint8_t dht11_readBit(void) {
 
 
 void dht11_readData(void) {
+	// Read 40-Bit of data
 	for (uint8_t i = 0; i < 40; i++) {
 		uint8_t data = dht11_readBit();
 		data_array[i] = data;
@@ -89,7 +92,44 @@ void dht11_readData(void) {
 
 
 void dht11_sortSensorData(void) {
+	uint8_t integral_hum_data = 0;
+	uint8_t decimal_hum_data = 0;
+	uint8_t integral_temp_data = 0;
+	uint8_t decimal_temp_data = 0;
+	uint8_t check_sum = 0;
 
+	for (uint8_t i = 0; i < 40; i++) {
+		if (i < 8) {
+			integral_hum_data += data_array[i];
+			if (i < 7) {
+				integral_hum_data = integral_hum_data << 1;
+			}
+		}
+		if (8 <= i && i < 16) {
+			decimal_hum_data += data_array[i];
+			if (i < 15) {
+				decimal_hum_data = decimal_hum_data << 1;
+			}
+		}
+		if (16 <= i && i < 24) {
+			integral_temp_data += data_array[i];
+			if (i < 23) {
+				integral_temp_data = integral_temp_data << 1;
+			}
+		}
+		if (24 <= i && i < 32) {
+			decimal_temp_data += data_array[i];
+			if (i < 31) {
+				decimal_temp_data = decimal_temp_data<< 1;
+			}
+		}
+		if (32 <= i && i < 40) {
+			check_sum += data_array[i];
+			if (i < 39) {
+				check_sum = check_sum << 1;
+			}
+		}
+	}
 
 }
 

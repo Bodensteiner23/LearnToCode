@@ -21,4 +21,6 @@ uint8_t dht11_readBit(void);
 
 void dht11_readData(void);
 
+void dht11_sortSensorData(void);
+
 #endif /* INC_DHT11_H_ */

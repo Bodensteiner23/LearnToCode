@@ -37,5 +37,5 @@ void uart_initUart(UART_HandleTypeDef *_huart) {
 void uart_sendUartDebugData(char* _buffer, size_t _buffer_size, char* _debug_text,
 		int16_t _debug_variable) {
 	snprintf(_buffer, _buffer_size, _debug_text, (int) _debug_variable);
-	HAL_UART_Transmit_IT(&hhuart1, (uint8_t*) _buffer, strlen(_buffer));
+	HAL_UART_Transmit(hhuart1, (uint8_t*) _buffer, strlen(_buffer), HAL_MAX_DELAY);
 }

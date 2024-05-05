@@ -114,7 +114,7 @@ int main(void)
 	   //ToDo: Test if Debug Data is still working
 
 	  dht11_initCommunication();
-	  HAL_Delay(1000);
+	  HAL_Delay(2000);
 
 
 

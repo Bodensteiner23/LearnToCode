@@ -18,6 +18,16 @@ void hw_init_pins(gpio_t *_hw_pins) {
 }
 
 
+void dht11_readoutSensor(void) {
+	dht11_initCommunication();
+
+	if (dht11_checkResponse()) {
+		dht11_readBit();
+	}
+
+
+}
+
 void dht11_initCommunication(void) {
 
 	gpio_setPinOutput(hw_pins->dht11_port, hw_pins->dht11_pin);
@@ -26,7 +36,7 @@ void dht11_initCommunication(void) {
 	HAL_GPIO_WritePin(hw_pins->dht11_port, hw_pins->dht11_pin, RESET);
 	timer_usDelay(18000);
 	HAL_GPIO_WritePin(hw_pins->dht11_port, hw_pins->dht11_pin, SET);
-	timer_usDelay(50);
+	timer_usDelay(30);
 
 	// Now sensor is pulling line LOW
 	gpio_setPinInput(hw_pins->dht11_port, hw_pins->dht11_pin);
@@ -34,9 +44,13 @@ void dht11_initCommunication(void) {
 
 
 bool dht11_checkResponse(void) {
-	// Wait for Pin to go HIGH
-	while (!(HAL_GPIO_ReadPin(hw_pins->dht11_port, hw_pins->dht11_pin))) {
+	timer_usDelay(30);
+	// Check if Pin is LOW
+	if (!(HAL_GPIO_ReadPin(hw_pins->dht11_port, hw_pins->dht11_pin))) {
+		timer_usDelay(70);
+		// Check if Pin is HIGH
 		if (HAL_GPIO_ReadPin(hw_pins->dht11_port, hw_pins->dht11_pin)) {
+			// Sensor response successful
 			return true;
 		}
 	}
@@ -45,7 +59,10 @@ bool dht11_checkResponse(void) {
 
 
 void dht11_readBit(void) {
-	// Wait for Pin to go HIGH
+	// Wait until Pin is LOW
+	while (HAL_GPIO_ReadPin(hw_pins->dht11_port, hw_pins->dht11_pin));
+
+	// Pin is LOW
 
 
 }

@@ -12,7 +12,7 @@
 #include <stddef.h>
 #include <stm32f4xx_hal.h>
 
-void uart_initUart(UART_HandleTypeDef _huart);
+void uart_initUart(UART_HandleTypeDef *_huart);
 
 void debug_uart_data(char* buffer, size_t buffer_size, char* debug_text,
 		int16_t debug_variable);

@@ -28,9 +28,9 @@
 #include <stdio.h>
 #include <string.h>
 
-UART_HandleTypeDef hhuart1;
+UART_HandleTypeDef *hhuart1;
 
-void uart_initUart(UART_HandleTypeDef _huart) {
+void uart_initUart(UART_HandleTypeDef *_huart) {
 	hhuart1 = _huart;
 }
 

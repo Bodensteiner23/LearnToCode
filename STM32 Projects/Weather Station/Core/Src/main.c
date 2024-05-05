@@ -24,6 +24,7 @@
 #include "dht11.h"
 #include "uart.h"
 #include "gpio.h"
+#include "timer.h"
 #include "hw_init.h"
 
 /* USER CODE END Includes */
@@ -297,8 +298,16 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 
 void initModules(void) {
+	// Handover HW Pins
+	hw_init_pins(&hw_init);
 
+	//Start timer and handover timer
+	HAL_TIM_Base_Start(&htim1);
+	timer_initTimer(&htim1);
 
+	// Handover uart
+	// ToDo: Check if Pointer is needed
+	uart_initUart(&huart1);
 
 }
 /* USER CODE END 4 */

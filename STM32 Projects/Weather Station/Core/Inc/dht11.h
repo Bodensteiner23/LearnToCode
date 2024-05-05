@@ -19,5 +19,6 @@ bool dht11_checkResponse(void);
 
 uint8_t dht11_readBit(void);
 
+void dht11_readData(void);
 
 #endif /* INC_DHT11_H_ */

@@ -10,8 +10,12 @@
 #include "hw_init.h"
 #include <stdbool.h>
 
+#include "uart.h"
+#include "main.h"
+
 uint8_t data_array[40];
 gpio_t *hw_pins;
+
 
 // Handover HW struct
 void hw_init_pins(gpio_t *_hw_pins) {
@@ -23,7 +27,7 @@ void dht11_readoutSensor(void) {
 	dht11_initCommunication();
 
 	if (dht11_checkResponse()) {
-		dht11_readBit();
+		dht11_readData();
 	}
 
 
@@ -75,6 +79,19 @@ uint8_t dht11_readBit(void) {
 	}
 }
 
+
+void dht11_readData(void) {
+	for (uint8_t i = 0; i < 40; i++) {
+		uint8_t data = dht11_readBit();
+		data_array[i] = data;
+	}
+}
+
+
+void dht11_sortSensorData(void) {
+
+
+}
 
 
 

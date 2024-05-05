@@ -111,9 +111,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
    while (1)
    {
-	   //ToDo: Test if Debug Data is still working
 
-	  dht11_initCommunication();
+	  dht11_readoutSensor();
 	  HAL_Delay(2000);
 
 
@@ -306,7 +305,6 @@ void initModules(void) {
 	timer_initTimer(&htim1);
 
 	// Handover uart
-	// ToDo: Check if Pointer is needed
 	uart_initUart(&huart1);
 
 }

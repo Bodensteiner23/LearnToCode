@@ -1,32 +1,21 @@
 #include "dht11.h"
 #include "timer.h"
+#include "gpio.h"
+#include "hw_init.h"
 #include "main.h"
 #include <stdbool.h>
 
+gpio_t *hw_pins;
 
-void dht11_setPinInput(void) {
-	GPIO_InitTypeDef GPIO_InitStruct = {0};
-	GPIO_InitStruct.Pin = DHT11_Sensor_Pin;
-	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-	GPIO_InitStruct.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(DHT11_Sensor_GPIO_Port, &GPIO_InitStruct);
-}
-
-
-void dht11_setPinOutput(void) {
-	GPIO_InitTypeDef GPIO_InitStruct = {0};
-	GPIO_InitStruct.Pin = DHT11_Sensor_Pin;
-	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStruct.Pull = GPIO_NOPULL;
-	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-	HAL_GPIO_Init(DHT11_Sensor_GPIO_Port, &GPIO_InitStruct);
-
+// Handover HW struct
+void hw_init_pins(gpio_t *_hw_pins) {
+	hw_pins = _hw_pins;
 }
 
 
 void dht11_initCommunication(void) {
 
-	dht11_setPinOutput();
+	gpio_setPinOutput(hw_pins->dht11_port, hw_pins->dht11_pin);
 	HAL_GPIO_WritePin(DHT11_Sensor_GPIO_Port, DHT11_Sensor_Pin, SET);
 
 	HAL_GPIO_WritePin(DHT11_Sensor_GPIO_Port, DHT11_Sensor_Pin, RESET);
@@ -34,7 +23,7 @@ void dht11_initCommunication(void) {
 	HAL_GPIO_WritePin(DHT11_Sensor_GPIO_Port, DHT11_Sensor_Pin, SET);
 	timer_usDelay(30);
 
-	dht11_setPinInput();
+	gpio_setPinInput(hw_pins->dht11_port, hw_pins->dht11_pin);
 }
 
 

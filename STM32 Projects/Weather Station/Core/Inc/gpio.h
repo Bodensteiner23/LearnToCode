@@ -3,11 +3,10 @@
 
 #include <stm32f4xx_hal.h>
 
-typedef struct {
-	GPIO_TypeDef *dht11_port;
-	uint16_t dht11_pin;
-} gpio_t;
 
+
+void gpio_setPinInput(GPIO_TypeDef *_port, uint16_t _pin);
+void gpio_setPinOutput(GPIO_TypeDef *_port, uint16_t _pin);
 
 
 #endif /* INC_GPIO_H_ */

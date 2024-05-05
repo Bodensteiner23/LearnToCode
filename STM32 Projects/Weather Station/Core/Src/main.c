@@ -24,6 +24,7 @@
 #include "dht11.h"
 #include "uart.h"
 #include "gpio.h"
+#include "hw_init.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -64,6 +65,11 @@ static void MX_USART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+gpio_t hw_init = {
+	.dht11_port = DHT11_Sensor_GPIO_Port,
+	.dht11_pin = DHT11_Sensor_Pin
+};
+
 
 
 
@@ -101,6 +107,8 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   initModules();
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -299,12 +307,7 @@ static void MX_GPIO_Init(void)
 
 void initModules(void) {
 
-	gpio_t hw_init_pins = {
-		.dht11_port = DHT11_Sensor_GPIO_Port,
-		.dht11_pin = DHT11_Sensor_Pin
-	};
-
-	gpio_initPins(&hw_init_pins);
+	hw_init_pins(&hw_init);
 
 	// ToDo: Check include Paths
 	uart_initUart(huart1);

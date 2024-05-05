@@ -23,4 +23,6 @@ void dht11_readData(void);
 
 void dht11_sortSensorData(void);
 
+bool dht11_proveCheckSum(void);
+
 #endif /* INC_DHT11_H_ */

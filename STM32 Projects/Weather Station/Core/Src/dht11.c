@@ -16,6 +16,12 @@
 static uint8_t data_array[40];
 static gpio_t *hw_pins;
 
+uint8_t integral_hum_data = 0;
+uint8_t decimal_hum_data = 0;
+uint8_t integral_temp_data = 0;
+uint8_t decimal_temp_data = 0;
+uint8_t check_sum = 0;
+
 
 // Handover HW struct
 void hw_init_pins(gpio_t *_hw_pins) {
@@ -30,8 +36,14 @@ void dht11_readoutSensor(void) {
 		dht11_readData();
 
 		dht11_sortSensorData();
-	}
 
+		if (dht11_proveCheckSum()) {
+			// Transmission was successful
+			// Handover data to display
+		} else {
+			// Error Handling
+		}
+	}
 
 }
 
@@ -73,7 +85,7 @@ uint8_t dht11_readBit(void) {
 	while (!(HAL_GPIO_ReadPin(hw_pins->dht11_port, hw_pins->dht11_pin)));
 
 	timer_usDelay(40);
-	// Check if 1 or 0
+	// Check if data is 1 or 0
 	if (HAL_GPIO_ReadPin(hw_pins->dht11_port, hw_pins->dht11_pin)) {
 		return 1;
 	} else {
@@ -92,12 +104,6 @@ void dht11_readData(void) {
 
 
 void dht11_sortSensorData(void) {
-	uint8_t integral_hum_data = 0;
-	uint8_t decimal_hum_data = 0;
-	uint8_t integral_temp_data = 0;
-	uint8_t decimal_temp_data = 0;
-	uint8_t check_sum = 0;
-
 	for (uint8_t i = 0; i < 40; i++) {
 		if (i < 8) {
 			integral_hum_data += data_array[i];
@@ -130,9 +136,20 @@ void dht11_sortSensorData(void) {
 			}
 		}
 	}
-
 }
 
+
+bool dht11_proveCheckSum(void) {
+	uint8_t check_sum_addition = integral_hum_data + decimal_hum_data +
+			integral_temp_data + decimal_temp_data;
+
+	if (check_sum == check_sum_addition) {
+		return true;
+	}
+
+	return false;
+
+}
 
 
 

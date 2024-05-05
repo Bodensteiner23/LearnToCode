@@ -9,7 +9,6 @@
  * 	Configuration in CubeMX:
  * 		1. Go to the USART you want to use and enable it.
  * 		2. Set Baudrate to 115200 (should be standard).
- * 		3. Go to NVIC Settings for the UART and activate Interrupts.
  *
  *	Usage:
  *		- Call uart_initUart Function in main.c and handover UART_HandleTypeDef
@@ -21,6 +20,12 @@
  *
  * 		- Declare a buffer with the char size you need. 100 should be enough.
  * 		After that you can receive Data with an Logic Analyzer or with e.g Putty.
+ *
+ *
+ * 		!!!!! This module is not sending via Interrupt !!!!!
+ * 		If you are sending e.g. an array, your program will be stopped for the
+ * 		time period until the array is fully sent via uart.
+ *
  *****/
 #include "uart.h"
 #include <stddef.h>

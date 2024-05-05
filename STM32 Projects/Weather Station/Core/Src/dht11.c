@@ -10,6 +10,7 @@
 #include "hw_init.h"
 #include <stdbool.h>
 
+uint8_t data_array[40];
 gpio_t *hw_pins;
 
 // Handover HW struct
@@ -58,14 +59,24 @@ bool dht11_checkResponse(void) {
 }
 
 
-void dht11_readBit(void) {
+uint8_t dht11_readBit(void) {
 	// Wait until Pin is LOW
 	while (HAL_GPIO_ReadPin(hw_pins->dht11_port, hw_pins->dht11_pin));
 
-	// Pin is LOW
+	// Wait until Pin is HIGH
+	while (!(HAL_GPIO_ReadPin(hw_pins->dht11_port, hw_pins->dht11_pin)));
 
-
+	timer_usDelay(40);
+	// Check if 1 or 0
+	if (HAL_GPIO_ReadPin(hw_pins->dht11_port, hw_pins->dht11_pin)) {
+		return 1;
+	} else {
+		return 0;
+	}
 }
+
+
+
 
 
 

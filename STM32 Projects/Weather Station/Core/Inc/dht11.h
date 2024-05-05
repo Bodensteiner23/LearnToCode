@@ -9,6 +9,7 @@
 #define INC_DHT11_H_
 
 #include <stdbool.h>
+#include <stdint.h>
 
 void dht11_readoutSensor(void);
 
@@ -16,7 +17,7 @@ void dht11_initCommunication(void);
 
 bool dht11_checkResponse(void);
 
-void dht11_readBit(void);
+uint8_t dht11_readBit(void);
 
 
 #endif /* INC_DHT11_H_ */

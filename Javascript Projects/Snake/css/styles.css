@@ -1,8 +1,13 @@
 body {
     background-color: hsla(0, 2%, 12%, 1); 
+    text-align: center;
 }
 
+#heading_snake {
+    color: white;
+    font-size: 80px;;
+}
 
 #snake_map {
-    background-color: green;
+    background-color: rgb(216, 208, 208);
 }

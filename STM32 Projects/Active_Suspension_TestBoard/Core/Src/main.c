@@ -146,9 +146,12 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	  uart_initUart(&huart3);
 
+	  lis3dh_initSensor();
+
    while (1)
   {
-	   HAL_Delay(500);
+	   lis3dh_readSensorData();
+	   HAL_Delay(3000);
 
     /* USER CODE END WHILE */
 

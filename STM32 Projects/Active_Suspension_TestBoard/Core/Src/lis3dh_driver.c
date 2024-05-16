@@ -30,6 +30,8 @@
 /* Private define ------------------------------------------------------------*/
 extern I2C_HandleTypeDef hi2c1;
 
+
+
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
@@ -45,9 +47,9 @@ extern I2C_HandleTypeDef hi2c1;
 u8_t LIS3DH_ReadReg(u8_t Reg, u8_t* Data) {
   
   //To be completed with either I2c or SPI reading function
-  //i.e. *Data = SPI_Mems_Read_Reg( Reg );  
-	HAL_I2C_Mem_Read(&hi2c1, LIS3DH_MEMS_I2C_ADDRESS, Reg, 1, Data, 1, 100); 
-  return 1;
+  //i.e. *Data = SPI_Mems_Read_Reg( Reg )
+	HAL_I2C_Mem_Read(&hi2c1, LIS3DH_MEMS_I2C_ADDRESS, Reg, 1, Data, 1, 100);
+	return 1;
 }
 
 

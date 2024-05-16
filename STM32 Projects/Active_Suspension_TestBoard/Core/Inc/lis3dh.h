@@ -9,4 +9,7 @@
 #define INC_LIS3DH_H_
 
 
+void lis3dh_initSensor(void);
+void lis3dh_readSensorData(void);
+
 #endif /* INC_LIS3DH_H_ */

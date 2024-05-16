@@ -22,14 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "sysTim_HAL.h"
-#include "adc_HAL_G4-Series.h"
 
-#include "can.h"
-#include "control.h"
-#include "level_2.h"
-#include "level_3.h"
-#include "TMC4671.h"
 #include "stdio.h"
 #include "string.h"
 #include "uart.h"
@@ -152,11 +145,9 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	  uart_initUart(&huart3);
-	  lis3dh_initI2C(&hi2c1);
 
    while (1)
   {
-	   lis3dh_read_data_polling();
 	   HAL_Delay(500);
 
     /* USER CODE END WHILE */
@@ -799,12 +790,10 @@ static void MX_GPIO_Init(void)
 void system_init(void){
 
 	//CAN Initialization
-	can_init(&hfdcan1);
 
 
 
 	//Level3 Init
-	HAL_GPIO_WritePin(TMC_ENABLE_GPIO_Port, TMC_ENABLE_Pin, GPIO_PIN_SET);
 
 
 

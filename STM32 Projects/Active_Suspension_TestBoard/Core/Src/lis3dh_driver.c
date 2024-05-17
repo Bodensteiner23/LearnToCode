@@ -288,6 +288,7 @@ status_t LIS3DH_SetADCAux(State_t state){
 * Output         : Aux Values Registers buffer
 * Return         : Status [MEMS_ERROR, MEMS_SUCCESS]
 *******************************************************************************/
+/*
 status_t LIS3DH_GetAuxRaw(LIS3DH_Aux123Raw_t* buff) {
   u8_t valueL;
   u8_t valueH;
@@ -318,6 +319,7 @@ status_t LIS3DH_GetAuxRaw(LIS3DH_Aux123Raw_t* buff) {
   
   return MEMS_SUCCESS;  
 }
+*/
 
 
 /*******************************************************************************

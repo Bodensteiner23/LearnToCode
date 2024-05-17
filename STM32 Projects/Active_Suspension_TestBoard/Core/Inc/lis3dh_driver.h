@@ -103,9 +103,9 @@ typedef enum {
 } LIS3DH_HPFCutOffFreq_t;
 
 typedef struct {
-  u16_t AUX_1;
-  u16_t AUX_2;
-  u16_t AUX_3;
+  u16_t AUX_X;
+  u16_t AUX_Y;
+  u16_t AUX_Z;
 } LIS3DH_Aux123Raw_t;
 
 typedef enum {

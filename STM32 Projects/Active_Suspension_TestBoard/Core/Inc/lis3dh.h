@@ -12,6 +12,6 @@
 
 void lis3dh_initSensor(void);
 void lis3dh_readSensorData(void);
-void lis3dh_getRawAxxelData(LIS3DH_Aux123Raw_t* buff);
+void lis3dh_getAxxelData(LIS3DH_Aux123Raw_t* buff);
 
 #endif /* INC_LIS3DH_H_ */

@@ -23,7 +23,7 @@ void lis3dh_readSensorData(void) {
 	if (!LIS3DH_GetStatusReg(dataBuffer)) {
 		//wait until data is available
 		return;
-	}
+	}//
 
 	lis3dh_getAxxelData(&aux_data);
 

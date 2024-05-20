@@ -50,6 +50,7 @@ extern "C" {
 /* USER CODE END EM */
 
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+void myprintf(const char *fmt, ...);
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
@@ -71,8 +72,8 @@ void Error_Handler(void);
 #define CPU_GS0_GPIO_Port GPIOA
 #define CPU_GS1_Pin GPIO_PIN_3
 #define CPU_GS1_GPIO_Port GPIOA
-#define SPI1_CS_SD_Pin GPIO_PIN_4
-#define SPI1_CS_SD_GPIO_Port GPIOA
+#define SD_CS_Pin GPIO_PIN_4
+#define SD_CS_GPIO_Port GPIOA
 #define SPI1_SCK_SD_Pin GPIO_PIN_5
 #define SPI1_SCK_SD_GPIO_Port GPIOA
 #define SPI1_MISO_SD_Pin GPIO_PIN_6
@@ -112,6 +113,8 @@ void Error_Handler(void);
 
 #define Spring_Travel 1
 #define CPU_TEMP_BOARD 2
+
+#define SD_SPI_HANDLE hspi1
 
 /****
  *	@brief Calls a function to initialize the system

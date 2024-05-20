@@ -26,6 +26,7 @@
 #include "stdio.h"
 #include "string.h"
 #include "uart.h"
+#include "stdarg.h"
 
 #include "lis3dh.h"
 /* USER CODE END Includes */
@@ -85,7 +86,17 @@ static void MX_USART3_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void myprintf(const char *fmt, ...) {
+  static char buffer[256];
+  va_list args;
+  va_start(args, fmt);
+  vsnprintf(buffer, sizeof(buffer), fmt, args);
+  va_end(args);
 
+  int len = strlen(buffer);
+  HAL_UART_Transmit(&huart3, (uint8_t*)buffer, len, -1);
+
+}
 /* USER CODE END 0 */
 
 /**
@@ -140,6 +151,93 @@ int main(void)
 //  sysTim_addTask(can_sendState, 200);
 
 	  HAL_GPIO_WritePin(CPU_LED_GREEN_GPIO_Port, CPU_LED_GREEN_Pin, SET);
+
+
+	  /*** SD Card Code ***/
+	  myprintf("\r\n~ SD card demo by kiwih ~\r\n\r\n");
+
+	HAL_Delay(1000); //a short delay is important to let the SD card settle
+
+	//some variables for FatFs
+	FATFS FatFs; 	//Fatfs handle
+	FIL fil; 		//File handle
+	FRESULT fres; //Result after operations
+
+	//Open the file system
+	fres = f_mount(&FatFs, "", 1); //1=mount now
+	if (fres != FR_OK) {
+	myprintf("f_mount error (%i)\r\n", fres);
+	while(1);
+	}
+
+	//Let's get some statistics from the SD card
+	DWORD free_clusters, free_sectors, total_sectors;
+
+	FATFS* getFreeFs;
+
+	fres = f_getfree("", &free_clusters, &getFreeFs);
+	if (fres != FR_OK) {
+	myprintf("f_getfree error (%i)\r\n", fres);
+	while(1);
+	}
+
+	//Formula comes from ChaN's documentation
+	total_sectors = (getFreeFs->n_fatent - 2) * getFreeFs->csize;
+	free_sectors = free_clusters * getFreeFs->csize;
+
+	myprintf("SD card stats:\r\n%10lu KiB total drive space.\r\n%10lu KiB available.\r\n", total_sectors / 2, free_sectors / 2);
+
+	fres = f_open(&fil, "test.csv", FA_CREATE_ALWAYS | FA_WRITE);
+	  if (fres != FR_OK) {
+		myprintf("f_open error (%i)\r\n");
+		while(1);
+	  }
+	  myprintf("I was able to open 'test.csv' for reading!\r\n");
+
+	  //Read 30 bytes from "test.csv" on the SD card
+	  BYTE readBuf[30];
+
+	  //We can either use f_read OR f_gets to get data out of files
+	  //f_gets is a wrapper on f_read that does some string formatting for us
+	  TCHAR* rres = f_gets((TCHAR*)readBuf, 30, &fil);
+	  if(rres != 0) {
+		myprintf("Read string from 'test.csv' contents: %s\r\n", readBuf);
+	  } else {
+		myprintf("f_gets error (%i)\r\n", fres);
+	  }
+
+	  //Be a tidy kiwi - don't forget to close your file!
+	  f_close(&fil);
+
+	  //Now let's try and write a file "write.csv"
+	  fres = f_open(&fil, "write.csv", FA_WRITE | FA_OPEN_ALWAYS | FA_CREATE_ALWAYS);
+	  if(fres == FR_OK) {
+		myprintf("I was to open hello test 'write.csv' for writing\r\n");
+	  } else {
+		myprintf("f_open error (%i)\r\n", fres);
+	  }
+
+	  //Copy in a string
+	  strncpy((char*)readBuf, "a new file is made!", 19);
+	  UINT bytesWrote;
+	  fres = f_write(&fil, readBuf, 19, &bytesWrote);
+	  if(fres == FR_OK) {
+		myprintf("Wrote %i bytes to 'write.csv'!\r\n", bytesWrote);
+	  } else {
+		myprintf("f_write error (%i)\r\n");
+	  }
+
+	  //Be a tidy kiwi - don't forget to close your file!
+	  f_close(&fil);
+
+	  //We're done, so de-mount the drive
+	  f_mount(NULL, "", 0);
+
+
+
+	  /*** SD Card Code End ***/
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -147,12 +245,18 @@ int main(void)
 	  uart_initUart(&huart3);
 
 	  HAL_Delay(2000);
-
-	  lis3dh_initSensor();
+//	  char buffer[100];
+//	  uint8_t counter = 0;
+//	  lis3dh_initSensor();
 
    while (1)
   {
-	   lis3dh_readSensorData();
+//	   lis3dh_readSensorData();
+//	   uart_sendUartDebugData(buffer, sizeof(buffer), "Counter: %d \n\r", counter);
+
+//	   counter++;
+
+
 	   HAL_Delay(100);
 
     /* USER CODE END WHILE */
@@ -750,7 +854,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(TMC_ENABLE_GPIO_Port, TMC_ENABLE_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, CPU_GS0_Pin|CPU_GS1_Pin|SPI1_CS_SD_Pin|CPU_R_ARRAY_2_Pin
+  HAL_GPIO_WritePin(GPIOA, CPU_GS0_Pin|CPU_GS1_Pin|SD_CS_Pin|CPU_R_ARRAY_2_Pin
                           |CPU_R_ARRAY_4_Pin|CPU_R_ARRAY_8_Pin|SPI3_CS_TMC_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
@@ -769,9 +873,9 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(TMC_ENABLE_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : CPU_GS0_Pin CPU_GS1_Pin SPI1_CS_SD_Pin CPU_R_ARRAY_2_Pin
+  /*Configure GPIO pins : CPU_GS0_Pin CPU_GS1_Pin SD_CS_Pin CPU_R_ARRAY_2_Pin
                            CPU_R_ARRAY_4_Pin CPU_R_ARRAY_8_Pin SPI3_CS_TMC_Pin */
-  GPIO_InitStruct.Pin = CPU_GS0_Pin|CPU_GS1_Pin|SPI1_CS_SD_Pin|CPU_R_ARRAY_2_Pin
+  GPIO_InitStruct.Pin = CPU_GS0_Pin|CPU_GS1_Pin|SD_CS_Pin|CPU_R_ARRAY_2_Pin
                           |CPU_R_ARRAY_4_Pin|CPU_R_ARRAY_8_Pin|SPI3_CS_TMC_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;

@@ -29,6 +29,8 @@
 #include "stdarg.h"
 
 #include "lis3dh.h"
+
+#include "sd_card.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -159,9 +161,9 @@ int main(void)
 	HAL_Delay(1000); //a short delay is important to let the SD card settle
 
 	//some variables for FatFs
+	FRESULT fres; //Result after operations
 	FATFS FatFs; 	//Fatfs handle
 	FIL fil; 		//File handle
-	FRESULT fres; //Result after operations
 
 	//Open the file system
 	fres = f_mount(&FatFs, "", 1); //1=mount now

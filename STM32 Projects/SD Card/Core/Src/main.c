@@ -132,7 +132,7 @@ int main(void)
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
 
-  HAL_Delay (500);
+  HAL_Delay (1000);
 
   /*** SD Card ***/
   fresult = f_mount(&fs, "/", 1);

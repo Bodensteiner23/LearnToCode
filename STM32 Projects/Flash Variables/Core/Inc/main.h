@@ -36,7 +36,15 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
+//Flash defines
+#ifndef FLASH_PARAMETERS
+#define FLASH_PARAMETERS
 
+#define FLASH_NUMBER_OF_PARAMETERS 0x30
+typedef enum {
+	counter_flash = 0x00
+} flashParam_t;
+#endif // FLASH_PARAMETERS
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -57,9 +65,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define B1_Pin GPIO_PIN_13
-#define B1_GPIO_Port GPIOC
-#define B1_EXTI_IRQn EXTI15_10_IRQn
+#define Button_Pin GPIO_PIN_13
+#define Button_GPIO_Port GPIOC
 #define USART_TX_Pin GPIO_PIN_2
 #define USART_TX_GPIO_Port GPIOA
 #define USART_RX_Pin GPIO_PIN_3

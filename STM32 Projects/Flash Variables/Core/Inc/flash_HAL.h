@@ -52,6 +52,7 @@
 
 #include "main.h"
 #include <stdbool.h>
+#include <stm32f1xx_hal.h>
 
 /* ================================ Function Declarations =================== */
 

@@ -20,13 +20,13 @@
  * 	@brief	Start address of the flash page to use for all parameters
  */
 
-#define FLASH_PAGE 0x08001C00
+#define FLASH_PAGE 0x08000000
 
 /**
  * 	@brief	Start address of the flash section to use for flash parameters.
  * 			Starts at 7kB ( + (16*4)B for bootloader Parameters)
  */
-#define FLASH_ADDRESS 0x08001C00
+#define FLASH_ADDRESS 0x08007C00
 
 #if FLASH_NUMBER_OF_PARAMETERS > 256
 #error "FLASH_NUMBER_OF_PARAMETERS is too high"

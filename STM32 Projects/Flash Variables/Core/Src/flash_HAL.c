@@ -27,7 +27,7 @@
  * 			Starts at 7kB ( + (16*4)B for bootloader Parameters)
  */
 //#define FLASH_ADDRESS 0x08007C00	//Page 31 in STM32F103
-#define FLASH_ADDRESS 0x0801F800
+#define FLASH_ADDRESS 0x0801F8002
 
 #if FLASH_NUMBER_OF_PARAMETERS > 256
 #error "FLASH_NUMBER_OF_PARAMETERS is too high"

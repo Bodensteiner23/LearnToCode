@@ -91,11 +91,11 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-  uint8_t counter = 10;
-  uint8_t counter_before = 0;
+  uint32_t counter = 12;
+//  uint8_t counter_before = 0;
 
-  flash_registerVariable(counter, counter_flash);
-
+  flash_registerVariable(&counter, counter_flash);
+  counter++;
   flash_savetoFlash();
   /* USER CODE END 2 */
 

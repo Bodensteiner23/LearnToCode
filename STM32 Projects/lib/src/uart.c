@@ -15,8 +15,7 @@
  *		of the uart you want to use for debug.
  *		- To send Data via Uart use this sample code:
  *
- *		char buffer[100];
- *		uart_sendUartDebugData(buffer, 100, "Debug Text: %d \n\r, debug_variable);
+ *		uart_sendUartDebugData("Debug Text: %d \n\r, debug_variable);
  *
  * 		- Declare a buffer with the char size you need. 100 should be enough.
  * 		After that you can receive Data with an Logic Analyzer or with e.g Putty.
@@ -39,8 +38,10 @@ void uart_initUart(UART_HandleTypeDef *_huart) {
 	hhuart1 = _huart;
 }
 
-void uart_sendUartDebugData(char* _buffer, size_t _buffer_size, char* _debug_text,
-		int16_t _debug_variable) {
-	snprintf(_buffer, _buffer_size, _debug_text, (int) _debug_variable);
-	HAL_UART_Transmit(hhuart1, (uint8_t*) _buffer, strlen(_buffer), HAL_MAX_DELAY);
+void uart_sendUartDebugData(char* _debug_text, int16_t _debug_variable) {
+	char buffer[1000];
+	size_t buffer_size = 1000;
+
+	snprintf(buffer, buffer_size, _debug_text, (int) _debug_variable);
+	HAL_UART_Transmit(hhuart1, (uint8_t*) buffer, strlen(buffer), HAL_MAX_DELAY);
 }

@@ -14,8 +14,7 @@
 
 void uart_initUart(UART_HandleTypeDef *_huart);
 
-void uart_sendUartDebugData(char* _buffer, size_t _buffer_size, char* _debug_text,
-		int16_t _debug_variable);
+void uart_sendUartDebugData(char* _debug_text, int16_t _debug_variable);
 
 
 

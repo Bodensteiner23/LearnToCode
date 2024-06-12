@@ -26,8 +26,11 @@
 #include "stdio.h"
 #include "string.h"
 #include "uart.h"
+#include "stdarg.h"
 
 #include "lis3dh.h"
+#include "ff.h"
+#include "sd_card.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -85,7 +88,35 @@ static void MX_USART3_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void myprintf(const char *fmt, ...) {
+  static char buffer[256];
+  va_list args;
+  va_start(args, fmt);
+  vsnprintf(buffer, sizeof(buffer), fmt, args);
+  va_end(args);
 
+  int len = strlen(buffer);
+  HAL_UART_Transmit(&huart3, (uint8_t*)buffer, len, -1);
+
+}
+
+FRESULT open_append (
+    FIL* fp,            /* [OUT] File object to create */
+    const char* path   /* [IN]  File name to be opened */
+)
+{
+    FRESULT _fr;
+
+    /* Opens an existing file. If not exist, creates a new file. */
+    _fr = f_open(fp, path, FA_WRITE | FA_OPEN_ALWAYS);
+    if (_fr == FR_OK) {
+        /* Seek to end of the file to append data */
+        _fr = f_lseek(fp, f_size(fp));
+        if (_fr != FR_OK)
+            f_close(fp);
+    }
+    return _fr;
+}
 /* USER CODE END 0 */
 
 /**
@@ -140,6 +171,67 @@ int main(void)
 //  sysTim_addTask(can_sendState, 200);
 
 	  HAL_GPIO_WritePin(CPU_LED_GREEN_GPIO_Port, CPU_LED_GREEN_Pin, SET);
+
+
+	  /*** SD Card Code ***/
+	  HAL_Delay(1000);
+
+	  FRESULT fres; //Result after operations
+	FATFS fs; 	//Fatfs handle
+	FIL fil; 		//File handle
+
+	BYTE buffer[4096];
+
+
+	fres = f_mount(&fs, "", 1);
+
+	//Let's get some statistics from the SD card
+	DWORD free_clusters, free_sectors, total_sectors;
+	FATFS* getFreeFs;
+
+	 //Print File Storage
+	fres = f_getfree("", &free_clusters, &getFreeFs);
+	if (fres != FR_OK) {
+		sd_card_ErrorHandler();
+	}
+	/* Get total sectors and free sectors */
+	total_sectors = (getFreeFs->n_fatent - 2) * getFreeFs->csize;
+	free_sectors = free_clusters * getFreeFs->csize;
+
+	/* Print the free space (assuming 512 bytes/sector) */
+	myprintf("%10lu KiB total drive space.\n%10lu KiB available.\n", total_sectors / 2, free_sectors / 2);
+
+	fres = f_lseek(&fil, 0);
+
+	fres = open_append(&fil, "logfile.sdlogs");
+	 if (fres != FR_OK) {
+		sd_card_ErrorHandler();
+	 }
+
+	 buffer[0] = 20;
+	 buffer[1] = 25;
+	 buffer[2] = 30;
+
+	 UINT bytesRead, bytesWrote;
+
+	 fres = f_write(&fil, &buffer, sizeof buffer, &bytesWrote);
+
+	 fres = f_lseek(&fil, 0);
+
+	 fres = f_read(&fil, &buffer, sizeof buffer, &bytesRead);
+
+//	 myprintf(buffer);x
+	 for (UINT i = 0; i < bytesRead; i++) {
+	     myprintf("buffer[%u] = %x\n", i, buffer[i]);
+	 }
+
+	 f_close(&fil);
+
+
+
+	  /*** SD Card Code End ***/
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -147,12 +239,19 @@ int main(void)
 	  uart_initUart(&huart3);
 
 	  HAL_Delay(2000);
+//	  char buffer[100];
+//	  uint8_t counter = 0;
+//	  lis3dh_initSensor();
 
-	  lis3dh_initSensor();
-
+//	  initFileSystem();
    while (1)
   {
-	   lis3dh_readSensorData();
+//	   lis3dh_readSensorData();
+//	   uart_sendUartDebugData(buffer, sizeof(buffer), "Counter: %d \n\r", counter);
+
+//	   counter++;
+
+
 	   HAL_Delay(100);
 
     /* USER CODE END WHILE */
@@ -750,7 +849,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(TMC_ENABLE_GPIO_Port, TMC_ENABLE_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, CPU_GS0_Pin|CPU_GS1_Pin|SPI1_CS_SD_Pin|CPU_R_ARRAY_2_Pin
+  HAL_GPIO_WritePin(GPIOA, CPU_GS0_Pin|CPU_GS1_Pin|SD_CS_Pin|CPU_R_ARRAY_2_Pin
                           |CPU_R_ARRAY_4_Pin|CPU_R_ARRAY_8_Pin|SPI3_CS_TMC_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
@@ -769,9 +868,9 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(TMC_ENABLE_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : CPU_GS0_Pin CPU_GS1_Pin SPI1_CS_SD_Pin CPU_R_ARRAY_2_Pin
+  /*Configure GPIO pins : CPU_GS0_Pin CPU_GS1_Pin SD_CS_Pin CPU_R_ARRAY_2_Pin
                            CPU_R_ARRAY_4_Pin CPU_R_ARRAY_8_Pin SPI3_CS_TMC_Pin */
-  GPIO_InitStruct.Pin = CPU_GS0_Pin|CPU_GS1_Pin|SPI1_CS_SD_Pin|CPU_R_ARRAY_2_Pin
+  GPIO_InitStruct.Pin = CPU_GS0_Pin|CPU_GS1_Pin|SD_CS_Pin|CPU_R_ARRAY_2_Pin
                           |CPU_R_ARRAY_4_Pin|CPU_R_ARRAY_8_Pin|SPI3_CS_TMC_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;

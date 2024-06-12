@@ -25,6 +25,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h> //for va_list var arg functions
+#include "uart.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -46,6 +47,7 @@
 SPI_HandleTypeDef hspi2;
 
 UART_HandleTypeDef huart1;
+UART_HandleTypeDef huart6;
 
 /* USER CODE BEGIN PV */
 
@@ -56,6 +58,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_SPI2_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_USART6_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -97,7 +100,11 @@ int main(void)
   MX_SPI2_Init();
   MX_FATFS_Init();
   MX_USART1_UART_Init();
+  MX_USART6_UART_Init();
   /* USER CODE BEGIN 2 */
+
+
+  uart_initUart(&huart6);
 
   /************************************ SD Card *******************************************/
 
@@ -113,26 +120,43 @@ int main(void)
     //Open the file system
     fres = f_mount(&FatFs, "", 1); //1=mount now
     if (fres != FR_OK) {
-  	myprintf("f_mount error (%i)\r\n", fres);
+    	uart_sendUartDebugData("f_mount error (%i)\r\n", fres);
   	while(1);
     }
 
   //Now let's try and write a file "write.txt"
   fres = f_open(&fil, "logfile.bin", FA_WRITE | FA_CREATE_ALWAYS);
   if(fres == FR_OK) {
-	myprintf("I was able to open 'write.txt' for writing\r\n");
+	uart_sendUartDebugData("I was able to open 'write.txt' for writing\r\n", fres);
   } else {
-	myprintf("f_open error (%i)\r\n", fres);
+	uart_sendUartDebugData("f_mount error (%i)\r\n", fres);
   }
 
-  float data[3] = {222, 2455.3, -3333.22};
+  float data[5120]; //5kB of Data
+
+  for (uint16_t i = 0; i < 5121; i++) {
+	  data[i] = 10;
+  }
+
+  uart_sendUartDebugData("Now data is ready to be send", 0);
+
+  HAL_GPIO_WritePin(Time_Stamp_GPIO_Port, Time_Stamp_Pin, SET);
+//  HAL_Delay(200);
+  HAL_GPIO_WritePin(Time_Stamp_GPIO_Port, Time_Stamp_Pin, RESET);
+
 
   fres = f_write(&fil, data, sizeof(data), &bytesWrote);
   if(fres == FR_OK) {
-	myprintf("Wrote %i bytes to 'write.txt'!\r\n", bytesWrote);
+	  uart_sendUartDebugData("Wrote %i bytes to 'write.txt'!\r\n", bytesWrote);
   } else {
-	myprintf("f_write error (%i)\r\n");
+	  uart_sendUartDebugData("f_write error (%i)\r\n", 0);
   }
+
+
+  HAL_GPIO_WritePin(Time_Stamp_GPIO_Port, Time_Stamp_Pin, SET);
+  HAL_Delay(200);
+  HAL_GPIO_WritePin(Time_Stamp_GPIO_Port, Time_Stamp_Pin, RESET);
+
 
   //Be a tidy kiwi - don't forget to close your file!
   f_close(&fil);
@@ -272,6 +296,39 @@ static void MX_USART1_UART_Init(void)
 }
 
 /**
+  * @brief USART6 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART6_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART6_Init 0 */
+
+  /* USER CODE END USART6_Init 0 */
+
+  /* USER CODE BEGIN USART6_Init 1 */
+
+  /* USER CODE END USART6_Init 1 */
+  huart6.Instance = USART6;
+  huart6.Init.BaudRate = 115200;
+  huart6.Init.WordLength = UART_WORDLENGTH_8B;
+  huart6.Init.StopBits = UART_STOPBITS_1;
+  huart6.Init.Parity = UART_PARITY_NONE;
+  huart6.Init.Mode = UART_MODE_TX_RX;
+  huart6.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart6.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart6) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART6_Init 2 */
+
+  /* USER CODE END USART6_Init 2 */
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -292,7 +349,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, SD_CS_Pin|Time_Stamp_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
@@ -307,12 +364,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : SD_CS_Pin */
-  GPIO_InitStruct.Pin = SD_CS_Pin;
+  /*Configure GPIO pins : SD_CS_Pin Time_Stamp_Pin */
+  GPIO_InitStruct.Pin = SD_CS_Pin|Time_Stamp_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(SD_CS_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
@@ -327,7 +384,7 @@ void myprintf(const char *fmt, ...) {
   va_end(args);
 
   int len = strlen(buffer);
-  HAL_UART_Transmit(&huart1, (uint8_t*)buffer, len, -1);
+  HAL_UART_Transmit(&huart6, (uint8_t*)buffer, len, -1);
 
 }
 /* USER CODE END 4 */

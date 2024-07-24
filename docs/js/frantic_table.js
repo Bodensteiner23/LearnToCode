@@ -1,5 +1,5 @@
 /* ============================= Variables ============================ */
-const standardRowsForFrankys = 21
+const standardRowsForFrankys = 11
 let tableCols = null
 let playerNames = null
 let tableData = []
@@ -34,6 +34,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 });
             }
         }
+    }
+
+    // Add event listener to new_row button
+    let newRowButton = document.getElementById("new_row");
+    if (newRowButton) {
+        newRowButton.addEventListener('click', function() {
+            // Your logic to add a new row
+            addNewRow();
+        });
     }
 });
 
@@ -106,6 +115,27 @@ function createTable(row, col, tableData, playerNames) {
     
     // ToDo: Add Event Button in the Div and remove dynamic generation
     // displayEventCardsButton()
+}
+
+function addNewRow() {
+    let tbl = document.getElementById("table");
+    if (tbl) {
+        let newRow = tbl.insertRow(tbl.rows.length - 1); // Insert before the sum row
+        let nextRoundNumber = tbl.rows.length - 2; // Calculate the next round number
+
+        for (let i = 0; i < tbl.rows[0].cells.length; i++) {
+            let newCell = newRow.insertCell(i);
+            if (i == 0) {
+                // Set the first cell to the next round number
+                newCell.innerHTML = String(nextRoundNumber);
+            } else {
+                newCell.contentEditable = true; // Make the cell editable
+                newCell.addEventListener('input', function() {
+                    updateSumRow();
+                });
+            }
+        }
+    }
 }
 
 

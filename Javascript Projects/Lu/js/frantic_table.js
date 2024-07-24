@@ -22,6 +22,42 @@ function checkForTableData() {
 
 checkForTableData()
 
+document.addEventListener('DOMContentLoaded', (event) => {
+    let tbl = document.getElementById("table");
+
+    if (tbl) {
+        // Add event listeners to each cell
+        for (let i = 1; i < tbl.rows.length - 1; i++) {
+            for (let j = 1; j < tbl.rows[i].cells.length; j++) {
+                tbl.rows[i].cells[j].addEventListener('input', function() {
+                    updateSumRow();
+                });
+            }
+        }
+    }
+});
+
+function updateSumRow() {
+    let tbl = document.getElementById("table");
+
+    if (tbl) {
+        let totalRows = tbl.rows.length - 1;
+        let totalCols = tbl.rows[0].cells.length;
+        let sumRow = tbl.rows.length - 1;
+
+        for (let i = 1; i < totalCols; i++) {
+            let sum = 0;
+            for (let j = 1; j < totalRows; j++) {
+                let cellValue = tbl.rows[j].cells[i].innerHTML;
+                if (cellValue != "-") {
+                    sum += Number(cellValue);
+                }
+            }
+            tbl.rows[sumRow].cells[i].innerHTML = sum;
+        }
+    }
+}
+
 createTable(standardRowsForFrankys, tableCols, tableData, playerNames)
 
 

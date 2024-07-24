@@ -44,6 +44,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
             addNewRow();
         });
     }
+
+    let gameRuleButton = document.getElementById("game_rules");
+    if (gameRuleButton) {
+        gameRuleButton.addEventListener("click", function() {
+            addDataToStorage();
+            window.location.href = "https://www.brettspielversand.de/mediafiles/spieleanleitungen/gamefactory/240-0010_frantic_anleitung.pdf";
+        });
+    }
 });
 
 function updateSumRow() {
@@ -113,8 +121,6 @@ function createTable(row, col, tableData, playerNames) {
 
     addDataToTable()
     
-    // ToDo: Add Event Button in the Div and remove dynamic generation
-    // displayEventCardsButton()
 }
 
 function addNewRow() {
@@ -166,8 +172,6 @@ function addEventListenerToTableDataCells() {
             } else {
                 evt.preventDefault()
             }
-            
-
         })
     }
 }

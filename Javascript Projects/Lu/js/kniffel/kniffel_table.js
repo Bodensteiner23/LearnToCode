@@ -1,14 +1,12 @@
 /* ============================= Variables ============================ */
-const standardRowsForFrankys = 11
+const standardRowsForFrankys = 21
 const col_1_Description = ["1er *", "2er **", "3er ***", "4er ****", "5er *****", "6er ******",
     "Gesamt", "Bonus", "Gesamt oben", "Dreierpasch", "Viererpasch", "Full House", "Little Strada",
     "Big Strada", "Knonffel", "Letzter Ausweg", "Gesamt unten", "Gesamt oben", "Endsumme"]
-
 const col_2_Description = ["nur Einser", "nur Zweier", "nur Dreier", "nur Vierer", "nur Fünfer", "nur Sechser",
     "---->", "plus 35", "---->", "alles zählt", "alles zählt", "25 Punkte", "30 Punkte", "40 Punkte", 
     "50 Punkte", "alles zählt", "---->", "---->", "---->"]
 
-    
 let tableCols = null
 let playerNames = null
 let tableData = []
@@ -28,6 +26,7 @@ function checkForTableData() {
         tableData = JSON.parse(retrievedTableData)
     }
 }
+
 
 checkForTableData()
 
@@ -65,14 +64,14 @@ function updateSumRow() {
             tbl.rows[sumRow].cells[i].innerHTML = sum;
         }
     }
+    createTable(standardRowsForFrankys, tableCols, tableData, playerNames, col_1_Description, col_2_Description)
 }
 
-createTable(standardRowsForFrankys, tableCols, tableData, playerNames)
 
 
 
 
-function createTable(row, col, tableData, playerNames) {
+function createTable(row, col, tableData, playerNames, col_1_Description, col_2_Description) {
 
     const tbl = document.querySelector("#table")
     const tblBody = document.createElement("tbody")
@@ -93,7 +92,11 @@ function createTable(row, col, tableData, playerNames) {
                 cell.append(cellText)
             } else if (i != 0 && j == 0) {
                 // Create round counter cells
-                const cellText = document.createTextNode(String(i))
+                const cellText = document.createTextNode(col_1_Description[i - 1])
+                cell.append(cellText)
+            } else if (i != 0 && j == 1) {
+                // Create round counter cells
+                const cellText = document.createTextNode(col_2_Description[i - 1])
                 cell.append(cellText)
             } else {
                 // Create rest of the cells

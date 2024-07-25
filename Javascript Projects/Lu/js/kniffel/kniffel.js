@@ -41,32 +41,9 @@ function playerCountButtonClicked() {
     sessionStorage.setItem("playerNames", JSON.stringify(playerNames))
 
     // Open next page
-<<<<<<< HEAD
     window.location.href = "kniffel_table.html"
 }
 
 
 
 
-=======
-    window.location.href = "frantic_table.html"
-}
-
-
-function displayEventCardsButton() {
-    let eventCardButton = document.getElementById("event_cards")
-
-    if (eventCardButton) {
-        eventCardButton.style.visibility = "visible"
-        eventCardButton.addEventListener("click", eventCardsButtonClicked)
-    }
-}
-
-
-function eventCardsButtonClicked() {
-    // Open event card subpage
-    location.href = "kniffel_table.html"
-
-}
-
->>>>>>> ef52c7bb298a1faed916918bd8f9e9658e97e063

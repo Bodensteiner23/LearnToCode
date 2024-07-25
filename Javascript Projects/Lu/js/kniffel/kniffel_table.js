@@ -27,7 +27,6 @@ function checkForTableData() {
     }
 }
 
-
 checkForTableData()
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -43,6 +42,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
         }
     }
+
 });
 
 function updateSumRow() {
@@ -64,14 +64,14 @@ function updateSumRow() {
             tbl.rows[sumRow].cells[i].innerHTML = sum;
         }
     }
-    createTable(standardRowsForFrankys, tableCols, tableData, playerNames, col_1_Description, col_2_Description)
 }
 
+createTable(standardRowsForFrankys, tableCols, tableData, playerNames, col_1_Description, col_2_Description)
 
 
 
 
-function createTable(row, col, tableData, playerNames, col_1_Description, col_2_Description) {
+function createTable(row, col, tableData, playerNames, col1Descr, col2Descr) {
 
     const tbl = document.querySelector("#table")
     const tblBody = document.createElement("tbody")
@@ -84,7 +84,7 @@ function createTable(row, col, tableData, playerNames, col_1_Description, col_2_
             const cell = document.createElement("td")
             if (i == 0 && j == 0) {
                 // Create "Runden" cell
-                const cellText = document.createTextNode("Knoffel")
+                const cellText = document.createTextNode("Runde")
                 cell.append(cellText)
             } else if (i == 0 && j != 0) {
                 // Create cells with player names in first row
@@ -92,11 +92,11 @@ function createTable(row, col, tableData, playerNames, col_1_Description, col_2_
                 cell.append(cellText)
             } else if (i != 0 && j == 0) {
                 // Create round counter cells
-                const cellText = document.createTextNode(col_1_Description[i - 1])
+                const cellText = document.createTextNode(col1Descr[i - 1])
                 cell.append(cellText)
             } else if (i != 0 && j == 1) {
                 // Create round counter cells
-                const cellText = document.createTextNode(col_2_Description[i - 1])
+                const cellText = document.createTextNode(col2Descr[i - 1])
                 cell.append(cellText)
             } else {
                 // Create rest of the cells

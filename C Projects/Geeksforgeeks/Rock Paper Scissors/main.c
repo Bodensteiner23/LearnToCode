@@ -38,6 +38,7 @@ void gameLoop(void) {
 
         // Calculate winner
         uint8_t winner = calculateTheWinner(player_turn_int, bot_turn_int);
+        const char* winner_string = 0;
 
         if (winner == 0) {
             printf("Draw. Try again.");
@@ -46,17 +47,27 @@ void gameLoop(void) {
             printf("Player wins!");
             fflush(stdout);
             points_player++;
+            winner_string = "Player";
         } else {
             printf("Bot wins!");
             fflush(stdout);
             points_bot++;
+            winner_string = "Bot";
         } 
 
-        printf("%s vs %s --> %s wins!\n", player_turn_string, bot_turn_string, winner);
-        // fflush(stdout);
+        printf("%s vs %s --> %s wins!\n", player_turn_string, bot_turn_string, winner_string);
+        fflush(stdout);
 
         plotScore(points_player, points_bot);
+
     }
+    if (points_player > points_bot) {
+        printf("Player wins the game!!");
+    } else {
+        printf("Bot wins the game!!");
+    }
+
+
 }
 
 
@@ -127,6 +138,7 @@ void plotScore(uint8_t _points_player, uint8_t _points_bot) {
     "Bot        %d\n"
     "--------------\n", _points_player, _points_bot);
 }
+
 
 int main(void) {
 

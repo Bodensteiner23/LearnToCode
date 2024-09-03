@@ -1,0 +1,13 @@
+##########################################
+Rock Paper Sciccors
+##########################################
+
+Pick your symbol (r,p,s): 
+Computer picked ...
+Paper vs Rock --> Player wins
+--------------
+Score: 
+Player      1 
+Computer    0 
+-------------
+Pick your symbol

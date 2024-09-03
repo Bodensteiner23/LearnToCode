@@ -1,0 +1,57 @@
+'''
+Rock Paper Scissors
+-------------------------------------------------------------
+    - Player can choose if he wants to start a new game after finish.
+    - Player is playing against computer.
+'''
+import random
+
+
+def game_loop():
+    valid_inputs = ["r", "p", "s"]      #Rock, Paper, Scissor
+    game_inputs = ["Rock", "Paper", "Scissors"]
+
+    points_player = 0
+    points_bot = 0
+
+    while (points_player != 3) & (points_bot != 3):
+
+        player_turn = input("Pick your symbol (r,p,s): ")
+        if player_turn not in valid_inputs:
+            print("Your input was not correct. Try again.")
+            continue
+        
+        bot_turn = random.choice(game_inputs)
+        print(f"Bot picked: {bot_turn}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def main():
+    print("##########################################\n"
+        "           Rock Paper Sciccors\n"
+        "##########################################")
+
+    game_loop()
+
+
+
+if __name__ == "__main__":
+    main()

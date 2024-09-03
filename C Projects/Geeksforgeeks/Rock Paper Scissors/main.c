@@ -11,60 +11,71 @@ const char* game_inputs[] = {"Rock", "Paper", "Scissor"};
 
 void gameLoop(void) {
 
+    char play_again = true;
+    
+    while (play_again == true) {
+
     uint8_t points_player = 0;
     uint8_t points_bot = 0;
-
-    while ((points_player != 3) && (points_bot != 3)) {
-
-        char player_input = 0;
-        printf("Pick your symbol (r,p,s): ");
-        fflush(stdout);
-        player_input = getchar();
-        getchar();      // Handle enter key input
-        const char* player_turn_string = convertInput(player_input);
-        uint8_t player_turn_int = convertInputToInt(player_turn_string);
-
-        if (validInput(player_input) != true) {
-            printf("Your input was not correct. Try again.\n");
+    
+        while ((points_player != 3) && (points_bot != 3)) {
+            char player_input = 0;
+            printf("Pick your symbol (r,p,s): ");
             fflush(stdout);
-            continue;
+            player_input = getchar();
+            getchar();      // Handle enter key input
+            const char* player_turn_string = convertInput(player_input);
+            uint8_t player_turn_int = convertInputToInt(player_turn_string);
+
+            if (validInput(player_input) != true) {
+                printf("Your input was not correct. Try again.\n");
+                fflush(stdout);
+                continue;
+            }
+
+            // Get random number of for bot turn
+            const char* bot_turn_string = game_inputs[rand() % 3];
+            uint8_t bot_turn_int = convertInputToInt(bot_turn_string);
+            printf("Bot picked: %s\n", bot_turn_string);
+            fflush(stdout);
+
+            // Calculate winner
+            uint8_t winner = calculateTheWinner(player_turn_int, bot_turn_int);
+            const char* winner_string = 0;
+
+            if (winner == 0) {
+                printf("Draw. Try again.\n");
+                fflush(stdout);
+            } else if (winner == 1) {
+                points_player++;
+                winner_string = "Player";
+            } else {
+                points_bot++;
+                winner_string = "Bot";
+            } 
+
+            if (winner_string != NULL) {
+                printf("%s vs %s --> %s wins!\n", player_turn_string, bot_turn_string, winner_string);
+            }
+            fflush(stdout);
+
+            plotScore(points_player, points_bot);
+
         }
 
-        // Get random number of for bot turn
-        const char* bot_turn_string = game_inputs[rand() % 3];
-        uint8_t bot_turn_int = convertInputToInt(bot_turn_string);
-        printf("Bot picked: %s\n", bot_turn_string);
-        fflush(stdout);
-
-        // Calculate winner
-        uint8_t winner = calculateTheWinner(player_turn_int, bot_turn_int);
-        const char* winner_string = 0;
-
-        if (winner == 0) {
-            printf("Draw. Try again.");
-            fflush(stdout);
-        } else if (winner == 1) {
-            printf("Player wins!");
-            fflush(stdout);
-            points_player++;
-            winner_string = "Player";
+        if (points_player > points_bot) {
+            printf("Player wins the game!!\n\n");
         } else {
-            printf("Bot wins!");
-            fflush(stdout);
-            points_bot++;
-            winner_string = "Bot";
-        } 
+            printf("Bot wins the game!!\n\n");
+        }
+        printf("Do you want to play again? (y/n): ");
+        char play_again_input = getchar();
+        getchar();     
+        printf("\n");
 
-        printf("%s vs %s --> %s wins!\n", player_turn_string, bot_turn_string, winner_string);
-        fflush(stdout);
-
-        plotScore(points_player, points_bot);
-
-    }
-    if (points_player > points_bot) {
-        printf("Player wins the game!!");
-    } else {
-        printf("Bot wins the game!!");
+        if (play_again_input == 'n') {
+            play_again = false;
+        }
     }
 
 

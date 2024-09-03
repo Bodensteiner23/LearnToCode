@@ -41,14 +41,21 @@ void gameLoop(void) {
 
         if (winner == 0) {
             printf("Draw. Try again.");
+            fflush(stdout);
         } else if (winner == 1) {
             printf("Player wins!");
+            fflush(stdout);
+            points_player++;
         } else {
             printf("Bot wins!");
+            fflush(stdout);
+            points_bot++;
         } 
 
-        
         printf("%s vs %s --> %s wins!\n", player_turn_string, bot_turn_string, winner);
+        // fflush(stdout);
+
+        plotScore(points_player, points_bot);
     }
 }
 
@@ -112,11 +119,19 @@ uint8_t calculateTheWinner(uint8_t _player_int, uint8_t _bot_int) {
     
 }
 
-
+void plotScore(uint8_t _points_player, uint8_t _points_bot) {
+    printf(
+    "--------------\n"
+    "Score:\n"
+    "Player     %d\n"
+    "Bot        %d\n"
+    "--------------\n", _points_player, _points_bot);
+}
 
 int main(void) {
 
-    printf("##########################################\n"
+    printf(
+    "##########################################\n"
     "           Rock Paper Sciccors\n"
     "##########################################\n");
     fflush(stdout);

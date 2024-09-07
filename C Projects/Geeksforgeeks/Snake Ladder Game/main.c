@@ -11,43 +11,21 @@ void initBoard(void) {
     }
     
     for (uint8_t i = 100; i > 0; i -= 10){
-        if (row_even) { // Even rows
-            for (uint8_t k = 0; k < 11; k++) {
-                if (k == 10) {
-                    printf("\n");
-                    row_even = false;
-                    continue;
-                }
+        if (row_even) {     // Even rows
+            for (uint8_t k = 0; k < 10; k++) {
                 printf("%3d  ", board[i - k]);
             }
-        } else {    // Odd rows
+                printf("\n");
+                row_even = false;
+        } else {            // Odd rows
             for (int8_t k = 9; k > -1; k--) {
-                if (k == 0) {
-                    printf("%3d  ", board[i]);
-                    printf("\n");
-                    row_even = true;
-                    continue;
-                }
-                if (i == 10) {
-                    printf("%3d  ", board[i - k]);
-                    continue;
-                }
                 printf("%3d  ", board[i - k]);
             }
+                printf("\n");
+                row_even = true;
         }
     }
-
-
 }
-
-
-
-
-
-
-
-
-
 
 
 

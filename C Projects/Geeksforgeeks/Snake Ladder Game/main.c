@@ -1,7 +1,7 @@
 /***
  *  ToDo: 
  *  - Checken ob Position nach Würfeln gleich sind. Wenn ja -> Spieler würfelt erneut bis es unterschiedlich ist.
- *  - 
+ *  - Leitern einfügen. Dies sollte auch in einer Funktion außerhalb der drawBoard passieren.
  *  
  */
 

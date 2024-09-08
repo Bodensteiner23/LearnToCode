@@ -1,7 +1,6 @@
 /***
  *  ToDo: 
- *  - Checken ob Position nach Würfeln gleich sind. Wenn ja -> Spieler wird geschmissen und fängt wieder bei 0 an.
- *  - Leitern einfügen. Dies sollte auch in einer Funktion außerhalb der drawBoard passieren.
+  *  - Checken ob ein Spieler 100 Punkte erreicht hat. Wenn er knapp davor ist, dann kann er nciht beenden.
  *  
  */
 #include <stdio.h>
@@ -11,6 +10,8 @@
 
 #define PLAYER_1    0
 #define PLAYER_2    1
+
+bool game_over = false;
 
 void drawBoard(uint8_t _player_positions[2]) {
     uint8_t board[101];
@@ -65,17 +66,18 @@ uint8_t rollTheDice(uint8_t _player) {
     uint8_t dice_number;
     char msg[100];
 
-    printf("\n\nPlayer %d rolls the dice. Type Enter!", _player + 1);
+    printf("\nPlayer %d rolls the dice. Type Enter!", _player + 1);
     if (fgets(msg, sizeof(msg), stdin)) {
         dice_number = randomNumber();
     }
-
+    printf("\n");
     return dice_number;
 }
 
 
-void updatePlayerPosition(uint8_t _player_positions[2], uint8_t _playersTurn) {
+bool updatePlayerPosition(uint8_t _player_positions[2], uint8_t _playersTurn) {
     uint8_t snakes_and_ladders[101];
+    uint8_t previous_player_position = _player_positions[_playersTurn];
     
     for (uint8_t i = 0; i < 100; i++) {
         snakes_and_ladders[i] = 0;
@@ -87,8 +89,12 @@ void updatePlayerPosition(uint8_t _player_positions[2], uint8_t _playersTurn) {
     snakes_and_ladders[80] = 19;
     
     _player_positions[_playersTurn] = _player_positions[_playersTurn] + rollTheDice(_playersTurn);
-
     _player_positions[_playersTurn] = _player_positions[_playersTurn] + snakes_and_ladders[_player_positions[_playersTurn]];
+    if (_player_positions[_playersTurn] > 100) {
+        _player_positions[_playersTurn] = previous_player_position;
+    } else if (_player_positions[_playersTurn] == 100) {
+        return game_over = true;
+    }
 
     if (_player_positions[PLAYER_1] == _player_positions[PLAYER_2]) {
         if (_playersTurn == PLAYER_1) {
@@ -106,11 +112,25 @@ void updatePlayerPosition(uint8_t _player_positions[2], uint8_t _playersTurn) {
 int main(void) {
     uint8_t player_positions[2] = {0, 0};
 
+    // Game Init
+    printf(
+        "*******************************\n"
+        "       Snake and Ladders       \n"
+        "*******************************\n");
+
     while (1) {
         updatePlayerPosition(player_positions, PLAYER_1);
         drawBoard(player_positions);
+        if (game_over) {
+            printf("Player 1 has won the game!!\n\n");
+            break;
+        }
         updatePlayerPosition(player_positions, PLAYER_2);
         drawBoard(player_positions);
+        if (game_over) {
+            printf("Player 2 has won the game!!\n\n");
+            break;
+        }
 
     }
 

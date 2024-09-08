@@ -1,8 +1,3 @@
-/***
- *  ToDo: 
-  *  - Checken ob ein Spieler 100 Punkte erreicht hat. Wenn er knapp davor ist, dann kann er nciht beenden.
- *  
- */
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -104,9 +99,6 @@ bool updatePlayerPosition(uint8_t _player_positions[2], uint8_t _playersTurn) {
         }
     }
 }
-
-
-
 
 
 int main(void) {

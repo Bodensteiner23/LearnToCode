@@ -13,6 +13,14 @@
 #include <stdio.h>
 #include <unistd.h>
 
+typedef struct {
+    char first_name[50];
+    char last_name[50];
+    char passwort[50];
+} login_data_t;
+
+
+
 void goToXY(uint8_t x, uint8_t y) {
     COORD c;
     c.X = x;
@@ -26,19 +34,64 @@ void clearScreen() {
 }
 
 
-void starting_screen(void) {
-
+int starting_screen(void) {
+    goToXY(2, 0);
+    printf("******************************");
     goToXY(10, 1);
-    printf("Test");
+    printf("Banking System");
+    goToXY(2, 2);
+    printf("******************************");
 
+    goToXY(6, 4);
+    printf("1... Create Account");
+    goToXY(6, 5);
+    printf("2... Login");
 
+    int user_input; 
+    goToXY(1, 7);
+    scanf("%d", &user_input);
 
+    return user_input;
 }
 
 
+uint8_t create_account(void) {
+    login_data_t new_person;
+    char buffer[50];
+
+    clearScreen();
+    goToXY(2, 0);
+    printf("******************************");
+    goToXY(9, 1);
+    printf("Account Creation");
+    goToXY(2, 2);
+    printf("******************************");
+    
+    goToXY(6, 4);
+    printf("First name: ");
+    scanf("%s", buffer);
+    strcpy(new_person.first_name, buffer);
+    
+    goToXY(6, 5);
+    printf("Last name : ");
+    scanf("%s", buffer);
+    strcpy(new_person.last_name, buffer);
+
+    
+
+    return 0;
+
+}
 
 int main(void) {
+    int user_input = 0;
+    // uint8_t operation = 0;
+
     clearScreen();
-    starting_screen();
+    user_input = starting_screen();
+
+    if (user_input == 1) {
+        create_account();
+    }
     return 0;
 }

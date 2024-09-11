@@ -21,8 +21,12 @@ typedef struct {
     char passwort[50];
 } login_data_t;
 
+FILE * pFile;
 
 void getPassword(char *_password);
+void storeData(login_data_t _new_person);
+
+
 
 void goToXY(uint8_t x, uint8_t y) {
     COORD c;
@@ -79,8 +83,12 @@ uint8_t createAccount(void) {
     printf("Last name : ");
     scanf("%s", buffer);
     strcpy(new_person.last_name, buffer);
-
+    goToXY(6, 6);
+    printf("Password  : ");
     getPassword(new_person.passwort);
+
+    storeData(new_person);
+
 
     return 0;
  
@@ -97,8 +105,7 @@ void getPassword(char *_password) {
     // Clear the input buffer
     while ((c = getchar()) != '\n');
     
-    goToXY(6, 6);
-    printf("Password  : ");
+
     
     while (1) {
         c = getch();
@@ -120,19 +127,34 @@ void getPassword(char *_password) {
 
 void storeData(login_data_t _new_person) {
 
-
-
-
-
+    pFile = fopen("Login Data.csv", "a");
+    if (pFile != NULL) {
+        fputs(_new_person.first_name, pFile);
+        fprintf(pFile, ",");
+        fputs(_new_person.last_name, pFile);
+        fprintf(pFile, ",");
+        fputs(_new_person.passwort, pFile);
+        fprintf(pFile, ",\n");
+    }
+    fclose(pFile);
     
 }
 
 
+void initDatabase(void) {
+    pFile = fopen("Login Data.csv", "w");
+    if (pFile != NULL) {
+        fprintf(pFile,
+        "First name, Last name, Password,\n");
+    }
+    fclose(pFile);
+}
+
 int main(void) {
     setbuf(stdout, 0);
+    initDatabase();
 
     int user_input = 0;
-    // uint8_t operation = 0;
 
     clearScreen();
     user_input = startingScreen();

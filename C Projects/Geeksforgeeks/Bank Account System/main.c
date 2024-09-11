@@ -13,6 +13,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <conio.h>
 
 typedef struct {
     char first_name[50];
@@ -21,7 +22,7 @@ typedef struct {
 } login_data_t;
 
 
-char getPassword(char *_password);
+void getPassword(char *_password);
 
 void goToXY(uint8_t x, uint8_t y) {
     COORD c;
@@ -85,8 +86,11 @@ uint8_t createAccount(void) {
  
 }
 
-
-char getPassword(char *_password) {
+/***
+ *  ToDo:
+ *  - Passwort auf Stärke und Gültigkeit prüfen
+ ***/
+void getPassword(char *_password) {
     int c = 0;
     uint8_t i = 0;
 
@@ -96,22 +100,33 @@ char getPassword(char *_password) {
     goToXY(6, 6);
     printf("Password  : ");
     
-    while ((c = getchar()) != '\n' ) {
-        if (c == 10) {          // Enter
+    while (1) {
+        c = getch();
+        if (c == '\r') {          // Enter
             break;
-        } else if (c == 8) {    // Backspace
-            printf("\b\b");
-        } else {
+        } else if (c == '\b') {    // Backspace
+            if (i > 0) {
+                i--;
+            printf("\b \b");
+            }
+        } else if (i < 10) {
             _password[i++] = c;
+            printf("*");
         } 
-
     }
-
-    printf(_password);
-
-    return 0;
-
+    _password[i] = '\0';
 }
+
+
+void storeData(login_data_t _new_person) {
+
+
+
+
+
+    
+}
+
 
 int main(void) {
     setbuf(stdout, 0);

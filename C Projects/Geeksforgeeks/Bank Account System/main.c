@@ -61,7 +61,10 @@ int startingScreen(void) {
     return user_input;
 }
 
-
+/***
+ *  ToDo:
+ *  - Checken ob der Nutzer schon existiert und falls nicht hinzufügen.
+ ***/
 uint8_t createAccount(void) {
     login_data_t new_person;
     char buffer[50];
@@ -105,8 +108,6 @@ void getPassword(char *_password) {
     // Clear the input buffer
     while ((c = getchar()) != '\n');
     
-
-    
     while (1) {
         c = getch();
         if (c == '\r') {          // Enter
@@ -128,6 +129,7 @@ void getPassword(char *_password) {
 void storeData(login_data_t _new_person) {
 
     pFile = fopen("Login Data.csv", "a");
+    
     if (pFile != NULL) {
         fputs(_new_person.first_name, pFile);
         fprintf(pFile, ",");
@@ -137,7 +139,6 @@ void storeData(login_data_t _new_person) {
         fprintf(pFile, ",\n");
     }
     fclose(pFile);
-    
 }
 
 

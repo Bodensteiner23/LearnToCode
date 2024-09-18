@@ -24,6 +24,15 @@ typedef struct {
     char passwort[50];
 } login_data_t;
 
+/* ================================ Enums =================================== */
+enum Checks {
+    NOT_CHECKED,
+    FIRST_NAME_CHECKED,
+    LAST_NAME_CHECKED,
+    PASSWORD_CHECKED,
+    NO_VALID_USER, 
+    VALID_USER
+};
 
 /* ========================= Function Declarations ========================== */
 void getPassword(char *_password);
@@ -116,10 +125,27 @@ uint8_t createAccount(void) {
 
 bool checkValidUser(login_data_t _user_to_check) {
     pFile = fopen("Login Data.csv", "r");  
-    char line[1024];
+    enum Checks Check_User = NOT_CHECKED; 
+    char row[1024];
+    char *tok;
     uint8_t check_valid_user[3];
 
-    while (fgets(line, 1024, pFile) != NULL) {
+    while (fgets(row, sizeof(row), pFile) != NULL) {
+        // printf("Row: %s", row);
+        tok = strtok(row, ",");
+
+        while (tok != NULL) {
+            if (*tok == '\n') {
+                Check_User = NOT_CHECKED;
+            } else if (strncmp(tok, _user_to_check.first_name, 
+                        strlen(_user_to_check.first_name)) != 0) {
+                Check_User = FIRST_NAME_CHECKED;
+            }
+
+
+
+            tok = strtok(NULL, ",");
+        }
 
 
     }
@@ -179,7 +205,7 @@ void initDatabase(void) {
     pFile = fopen("Login Data.csv", "w");
     if (pFile != NULL) {
         fprintf(pFile,
-        "First name, Last name, Password,\n");
+        "Matthias, Last name, Password,\n");
     }
     fclose(pFile);
 }

@@ -21,7 +21,7 @@
 typedef struct {
     char first_name[50];
     char last_name[50];
-    char passwort[50];
+    char password[50];
 } login_data_t;
 
 /* ================================ Enums =================================== */
@@ -31,13 +31,14 @@ enum Checks {
     LAST_NAME_CHECKED,
     PASSWORD_CHECKED,
     NO_VALID_USER, 
-    VALID_USER
+    VALID_USER, 
+    WRONG_LOGIN_DATA
 };
 
 /* ========================= Function Declarations ========================== */
 void getPassword(char *_password);
 void storeData(login_data_t _new_person);
-bool checkValidUser(login_data_t _user_to_check);
+bool checkValidUser(login_data_t _user_to_check, bool _check_password);
 
 
 /* =============================== Variables ================================ */
@@ -107,50 +108,78 @@ uint8_t createAccount(void) {
         scanf("%s", buffer);
         strcpy(new_person.last_name, buffer);
         
-        valid_user = true;
-        // valid_user = checkValidUser(new_person);
+        valid_user = checkValidUser(new_person, false);
+        if (valid_user == false) {
+            printf("User already exists"); 
+            }
         // Clear Screen after that
     }
     // ToDo: Hier muss gecheckt werden ob Nutzer schon existiert
 
     goToXY(6, 6);
     printf("Password  : ");
-    getPassword(new_person.passwort);
+    getPassword(new_person.password);
 
     storeData(new_person);
-    valid_user = checkValidUser(new_person);
+    // valid_user = checkValidUser(new_person, false);
 
     return 0;
 }
 
-bool checkValidUser(login_data_t _user_to_check) {
+bool checkValidUser(login_data_t _user_to_check, bool _check_password) {
     pFile = fopen("Login Data.csv", "r");  
     enum Checks Check_User = NOT_CHECKED; 
     char row[1024];
     char *tok;
-    uint8_t check_valid_user[3];
+    bool finished_iterations = false;
+
 
     while (fgets(row, sizeof(row), pFile) != NULL) {
         // printf("Row: %s", row);
         tok = strtok(row, ",");
 
-        while (tok != NULL) {
-            if (*tok == '\n') {
+        while ((tok != NULL) && (finished_iterations == false)) {
+
+            if (strncmp(tok, _user_to_check.first_name, 
+                    strlen(_user_to_check.first_name)) == 0 ) {
+                tok = strtok(NULL, ",");     
+
+                if (strncmp(tok, _user_to_check.last_name,
+                        strlen(_user_to_check.last_name)) == 0) {
+                
+                    if (_check_password == true) {
+
+                        if (strncmp(tok, _user_to_check.password,
+                                strlen(_user_to_check.password)) == 0) {
+                            Check_User = PASSWORD_CHECKED;
+                            finished_iterations = true;
+                        } else {
+                            Check_User = WRONG_LOGIN_DATA;
+                            finished_iterations = true;
+                        }
+
+                    } else {
+                        Check_User = NO_VALID_USER;
+                        finished_iterations = true;
+                        break;
+                    }
+
+                } else {
+                    Check_User = NOT_CHECKED;
+                    break;
+                }
+
+            } else {
                 Check_User = NOT_CHECKED;
-            } else if (strncmp(tok, _user_to_check.first_name, 
-                        strlen(_user_to_check.first_name)) != 0) {
-                Check_User = FIRST_NAME_CHECKED;
+                break;
             }
-
-
-
-            tok = strtok(NULL, ",");
         }
-
-
     }
     fclose(pFile);
 
+    if ((Check_User == WRONG_LOGIN_DATA) || (Check_User == NO_VALID_USER)) {
+        return false;
+    }
 
     return true;
 }
@@ -194,7 +223,7 @@ void storeData(login_data_t _new_person) {
         fprintf(pFile, ",");
         fputs(_new_person.last_name, pFile);
         fprintf(pFile, ",");
-        fputs(_new_person.passwort, pFile);
+        fputs(_new_person.password, pFile);
         fprintf(pFile, ",\n");
     }
     fclose(pFile);
@@ -205,7 +234,7 @@ void initDatabase(void) {
     pFile = fopen("Login Data.csv", "w");
     if (pFile != NULL) {
         fprintf(pFile,
-        "Matthias, Last name, Password,\n");
+        "First name,Last name,Password,\n");
     }
     fclose(pFile);
 }

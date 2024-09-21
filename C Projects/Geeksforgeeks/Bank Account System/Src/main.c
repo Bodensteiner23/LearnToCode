@@ -141,7 +141,7 @@ uint8_t createAccount(void) {
  * ToDo: Programm crasht wenn First name eingeben wird
  */
 bool checkValidUser(login_data_t _user_to_check, bool _login) {
-    pFile = fopen("Login Data.csv", "r");  
+    pFile = fopen("../Output/Login Data.csv", "r");  
     enum Checks Check_User = NOT_CHECKED; 
     char row[1024];
     char *tok;
@@ -229,7 +229,7 @@ void getPassword(char *_password) {
 
 void storeData(login_data_t _new_person) {
 
-    pFile = fopen("Login Data.csv", "a");
+    pFile = fopen("../Output/Login Data.csv", "a");
     
     if (pFile != NULL) {
         fputs(_new_person.first_name, pFile);
@@ -244,7 +244,7 @@ void storeData(login_data_t _new_person) {
 
 
 void initDatabase(void) {
-    pFile = fopen("Login Data.csv", "w");
+    pFile = fopen("../Output/Login Data.csv", "w");
     if (pFile != NULL) {
         fprintf(pFile,
         "Matthias,Bodensteiner,Password,\n");

@@ -38,7 +38,7 @@ enum Checks {
 /* ========================= Function Declarations ========================== */
 void getPassword(char *_password);
 void storeData(login_data_t _new_person);
-bool checkValidUser(login_data_t _user_to_check, bool _check_password);
+bool checkValidUser(login_data_t _user_to_check, bool _login);
 
 
 /* =============================== Variables ================================ */
@@ -88,16 +88,16 @@ uint8_t createAccount(void) {
     char buffer[50];
     bool valid_user = false;
 
-
-    clearScreen();
-    goToXY(2, 0);
-    printf("******************************");
-    goToXY(9, 1);
-    printf("Account Creation");
-    goToXY(2, 2);
-    printf("******************************");
     
     while (valid_user == false) {
+        clearScreen();
+        goToXY(2, 0);
+        printf("******************************");
+        goToXY(9, 1);
+        printf("Account Creation");
+        goToXY(2, 2);
+        printf("******************************");
+        
         goToXY(6, 4);
         printf("First name: ");
         scanf("%s", buffer);
@@ -110,8 +110,19 @@ uint8_t createAccount(void) {
         
         valid_user = checkValidUser(new_person, false);
         if (valid_user == false) {
-            printf("User already exists"); 
+            char user_input;
+            // clearScreen();
+            printf("User already exists! Try again? (y / n): ");
+            scanf(" %c", &user_input);
+
+            if (user_input == 'y') {
+                clearScreen();
+                continue;
+            } else {
+                printf("Funktion muss her");
             }
+
+        }
         // Clear Screen after that
     }
     // ToDo: Hier muss gecheckt werden ob Nutzer schon existiert
@@ -126,7 +137,10 @@ uint8_t createAccount(void) {
     return 0;
 }
 
-bool checkValidUser(login_data_t _user_to_check, bool _check_password) {
+/***
+ * ToDo: Programm crasht wenn First name eingeben wird
+ */
+bool checkValidUser(login_data_t _user_to_check, bool _login) {
     pFile = fopen("Login Data.csv", "r");  
     enum Checks Check_User = NOT_CHECKED; 
     char row[1024];
@@ -147,10 +161,11 @@ bool checkValidUser(login_data_t _user_to_check, bool _check_password) {
                 if (strncmp(tok, _user_to_check.last_name,
                         strlen(_user_to_check.last_name)) == 0) {
                 
-                    if (_check_password == true) {
+                    if (_login == true) {
 
                         if (strncmp(tok, _user_to_check.password,
                                 strlen(_user_to_check.password)) == 0) {
+                            
                             Check_User = PASSWORD_CHECKED;
                             finished_iterations = true;
                         } else {
@@ -163,12 +178,10 @@ bool checkValidUser(login_data_t _user_to_check, bool _check_password) {
                         finished_iterations = true;
                         break;
                     }
-
                 } else {
                     Check_User = NOT_CHECKED;
                     break;
                 }
-
             } else {
                 Check_User = NOT_CHECKED;
                 break;
@@ -234,7 +247,7 @@ void initDatabase(void) {
     pFile = fopen("Login Data.csv", "w");
     if (pFile != NULL) {
         fprintf(pFile,
-        "First name,Last name,Password,\n");
+        "Matthias,Bodensteiner,Password,\n");
     }
     fclose(pFile);
 }

@@ -44,9 +44,8 @@ bool checkValidUser(login_data_t _user_to_check, bool _login);
 /* =============================== Variables ================================ */
 FILE * pFile;
 
-
-/* ============================== Application =============================== */
-void goToXY(uint8_t x, uint8_t y) {
+/* ================================ Console ================================= */
+void console_goToXY(uint8_t x, uint8_t y) {
     COORD c;
     c.X = x;
     c.Y = y;
@@ -54,26 +53,39 @@ void goToXY(uint8_t x, uint8_t y) {
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), c);
 }
 
-void clearScreen() {
+void console_clearScreen() {
     system("cls");
 }
 
-
-int startingScreen(void) {
-    goToXY(2, 0);
+void console_startingScreen(void) {
+    console_goToXY(2, 0);
     printf("******************************");
-    goToXY(10, 1);
+    console_goToXY(10, 1);
     printf("Banking System");
-    goToXY(2, 2);
+    console_goToXY(2, 2);
     printf("******************************");
 
-    goToXY(6, 4);
+    console_goToXY(6, 4);
     printf("1... Create Account");
-    goToXY(6, 5);
+    console_goToXY(6, 5);
     printf("2... Login");
+}
+
+void console_accountCreation(void) {
+    console_clearScreen();
+    console_goToXY(2, 0);
+    printf("******************************");
+    console_goToXY(9, 1);
+    printf("Account Creation");
+    console_goToXY(2, 2);
+    printf("******************************");
+}
+/* ============================== Application =============================== */
+int startingScreen(void) {
+    console_startingScreen();
 
     int user_input; 
-    goToXY(1, 7);
+    console_goToXY(1, 7);
     scanf("%d", &user_input);
 
     return user_input;
@@ -90,20 +102,14 @@ uint8_t createAccount(void) {
 
     
     while (valid_user == false) {
-        clearScreen();
-        goToXY(2, 0);
-        printf("******************************");
-        goToXY(9, 1);
-        printf("Account Creation");
-        goToXY(2, 2);
-        printf("******************************");
+        console_accountCreation();
         
-        goToXY(6, 4);
+        console_goToXY(6, 4);
         printf("First name: ");
         scanf("%s", buffer);
         strcpy(new_person.first_name, buffer);
         
-        goToXY(6, 5);
+        console_goToXY(6, 5);
         printf("Last name : ");
         scanf("%s", buffer);
         strcpy(new_person.last_name, buffer);
@@ -111,12 +117,12 @@ uint8_t createAccount(void) {
         valid_user = checkValidUser(new_person, false);
         if (valid_user == false) {
             char user_input;
-            // clearScreen();
+            // console_clearScreen();
             printf("User already exists! Try again? (y / n): ");
             scanf(" %c", &user_input);
 
             if (user_input == 'y') {
-                clearScreen();
+                console_clearScreen();
                 continue;
             } else {
                 printf("Funktion muss her");
@@ -127,7 +133,7 @@ uint8_t createAccount(void) {
     }
     // ToDo: Hier muss gecheckt werden ob Nutzer schon existiert
 
-    goToXY(6, 6);
+    console_goToXY(6, 6);
     printf("Password  : ");
     getPassword(new_person.password);
 
@@ -259,7 +265,7 @@ int main(void) {
 
     int user_input = 0;
 
-    clearScreen();
+    console_clearScreen();
     user_input = startingScreen();
 
     if (user_input == 1) {

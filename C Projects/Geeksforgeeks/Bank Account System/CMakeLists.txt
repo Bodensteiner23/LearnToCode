@@ -10,9 +10,4 @@ string(REPLACE "-Werror" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
 # Include directories
 include_directories(${PROJECT_SOURCE_DIR}/Inc)
 
-# Source files
-add_executable(login_system 
-    Src/main.c
-)
-
-add_executable(Bank_Account_System Src/main.c)
+add_executable(Bank_Account_System main.c)

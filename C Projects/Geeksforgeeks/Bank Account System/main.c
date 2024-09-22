@@ -80,8 +80,33 @@ void console_accountCreation(void) {
     console_goToXY(2, 2);
     printf("******************************");
 }
+
+void console_getFirstName(login_data_t *_new_person) {
+    char buffer[50];
+
+    console_goToXY(6, 4);
+    printf("First name: ");
+    scanf("%s", buffer);
+    strcpy(_new_person->first_name, buffer);
+}
+
+void console_getLastName(login_data_t *_new_person) {
+    char buffer[50];
+    
+    console_goToXY(6, 5);
+    printf("Last name : ");
+    scanf("%s", buffer);
+    strcpy(_new_person->last_name, buffer);
+}
+
+void console_getPassword(login_data_t *_new_person) {
+
+    console_goToXY(6, 6);
+    printf("Password  : ");
+    getPassword(_new_person->password);
+}
 /* ============================== Application =============================== */
-int startingScreen(void) {
+int main_startMenu(void) {
     console_startingScreen();
 
     int user_input; 
@@ -97,24 +122,17 @@ int startingScreen(void) {
  ***/
 uint8_t createAccount(void) {
     login_data_t new_person;
-    char buffer[50];
     bool valid_user = false;
 
     
     while (valid_user == false) {
         console_accountCreation();
         
-        console_goToXY(6, 4);
-        printf("First name: ");
-        scanf("%s", buffer);
-        strcpy(new_person.first_name, buffer);
-        
-        console_goToXY(6, 5);
-        printf("Last name : ");
-        scanf("%s", buffer);
-        strcpy(new_person.last_name, buffer);
-        
+        console_getFirstName(&new_person);
+        console_getLastName(&new_person);
+
         valid_user = checkValidUser(new_person, false);
+        
         if (valid_user == false) {
             char user_input;
             // console_clearScreen();
@@ -133,9 +151,7 @@ uint8_t createAccount(void) {
     }
     // ToDo: Hier muss gecheckt werden ob Nutzer schon existiert
 
-    console_goToXY(6, 6);
-    printf("Password  : ");
-    getPassword(new_person.password);
+    console_getPassword(&new_person);
 
     storeData(new_person);
     // valid_user = checkValidUser(new_person, false);
@@ -260,13 +276,13 @@ void initDatabase(void) {
 
 
 int main(void) {
-    setbuf(stdout, 0);      // Clear Buffer for debug reason
+    // setbuf(stdout, 0);      // Clear Buffer for debug reason
     initDatabase();
 
     int user_input = 0;
 
     console_clearScreen();
-    user_input = startingScreen();
+    user_input = main_startMenu();
 
     if (user_input == 1) {
         createAccount();

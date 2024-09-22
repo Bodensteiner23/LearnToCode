@@ -18,6 +18,10 @@
 #include <stdbool.h>
 
 /* ================================ Structs ================================= */
+
+/**
+ * @brief   Struct containing data from user
+ */
 typedef struct {
     char first_name[50];
     char last_name[50];
@@ -25,10 +29,12 @@ typedef struct {
 } login_data_t;
 
 /* ================================ Enums =================================== */
+
+/**
+ * @brief   Enum containing all possible states of user data
+ */
 enum Checks {
     NOT_CHECKED,
-    FIRST_NAME_CHECKED,
-    LAST_NAME_CHECKED,
     PASSWORD_CHECKED,
     NO_VALID_USER, 
     VALID_USER, 
@@ -116,12 +122,13 @@ int main_startMenu(void) {
     return user_input;
 }
 
-/***
- *  ToDo:
- *  - Checken ob der Nutzer schon existiert und falls nicht hinzufügen.
- ***/
-uint8_t createAccount(void) {
-    login_data_t new_person;
+/**
+ * @brief Create a Account object
+ * 
+ * @return uint8_t 
+ */
+uint8_t createAccount(void) {       // ToDo: Braucht man hier noch uint8_t?
+    login_data_t new_person = {0};
     bool valid_user = false;
 
     
@@ -132,10 +139,9 @@ uint8_t createAccount(void) {
         console_getLastName(&new_person);
 
         valid_user = checkValidUser(new_person, false);
-        
+
         if (valid_user == false) {
             char user_input;
-            // console_clearScreen();
             printf("User already exists! Try again? (y / n): ");
             scanf(" %c", &user_input);
 
@@ -143,18 +149,14 @@ uint8_t createAccount(void) {
                 console_clearScreen();
                 continue;
             } else {
-                printf("Funktion muss her");
+                // ToDo: Was passiert wenn nein gedrückt wird.
             }
 
         }
-        // Clear Screen after that
     }
-    // ToDo: Hier muss gecheckt werden ob Nutzer schon existiert
-
     console_getPassword(&new_person);
 
     storeData(new_person);
-    // valid_user = checkValidUser(new_person, false);
 
     return 0;
 }
@@ -163,7 +165,7 @@ uint8_t createAccount(void) {
  * ToDo: Programm crasht wenn First name eingeben wird
  */
 bool checkValidUser(login_data_t _user_to_check, bool _login) {
-    pFile = fopen("../Output/Login Data.csv", "r");  
+    pFile = fopen("Output/Login Data.csv", "r");  
     enum Checks Check_User = NOT_CHECKED; 
     char row[1024];
     char *tok;
@@ -251,7 +253,7 @@ void getPassword(char *_password) {
 
 void storeData(login_data_t _new_person) {
 
-    pFile = fopen("../Output/Login Data.csv", "a");
+    pFile = fopen("Output/Login Data.csv", "a");
     
     if (pFile != NULL) {
         fputs(_new_person.first_name, pFile);
@@ -266,7 +268,7 @@ void storeData(login_data_t _new_person) {
 
 
 void initDatabase(void) {
-    pFile = fopen("../Output/Login Data.csv", "w");
+    pFile = fopen("Output/Login Data.csv", "w");
     if (pFile != NULL) {
         fprintf(pFile,
         "Matthias,Bodensteiner,Password,\n");

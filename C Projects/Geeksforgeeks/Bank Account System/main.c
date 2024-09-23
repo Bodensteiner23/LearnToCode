@@ -5,7 +5,7 @@
  *      -> Der Nutzer schon einen Account hat
  *      -> Passwort stark genug ist. Ist quasi noch ein Passwort Prüfer integriert
  *  - Nutzer soll Geld auf sein Konto einzahlen können, wenn er eingeloggt ist
- *  - Nutzer soll seinen Kontostand prüfen können
+*  - Nutzer soll seinen Kontostand prüfen können
  *  - Nutzer soll Geld an einen anderen Nutzer überweisen können. Hierbei auch prüfen ob die Person existiert und
  *  richtig geschrieben wurde
  ***/
@@ -42,15 +42,34 @@ enum Checks {
 };
 
 /* ========================= Function Declarations ========================== */
-void getPassword(char *_password);
-void storeData(login_data_t _new_person);
-bool checkValidUser(login_data_t _user_to_check, bool _login);
 
+void console_goToXY(uint8_t x, uint8_t y);
+void console_clearScreen(void);
+void console_startingScreen(void);
+void console_accountCreation(void);
+void console_getFirstName(login_data_t *_new_person);
+void console_getLastName(login_data_t *_new_person);
+void console_main_getPassword(login_data_t *_new_person);
+
+void main_getPassword(char *_password);
+void main_storeData(login_data_t _new_person);
+void main_initDatabase(void);
+bool main_checkValidUser(login_data_t _user_to_check, bool _login);
+void main_createAccount(void);
+int main_startMenu(void);
 
 /* =============================== Variables ================================ */
+
 FILE * pFile;
 
 /* ================================ Console ================================= */
+
+/**
+ * @brief   Navigate in console
+ * 
+ * @param x: x - position
+ * @param y: y - position
+ */
 void console_goToXY(uint8_t x, uint8_t y) {
     COORD c;
     c.X = x;
@@ -59,10 +78,16 @@ void console_goToXY(uint8_t x, uint8_t y) {
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), c);
 }
 
-void console_clearScreen() {
+/**
+ * @brief   Clear console screen
+ */
+void console_clearScreen(void) {
     system("cls");
 }
 
+/**
+ * @brief   Plot start menu
+ */
 void console_startingScreen(void) {
     console_goToXY(2, 0);
     printf("******************************");
@@ -77,6 +102,9 @@ void console_startingScreen(void) {
     printf("2... Login");
 }
 
+/**
+ * @brief   Plot account creation menu  
+ */
 void console_accountCreation(void) {
     console_clearScreen();
     console_goToXY(2, 0);
@@ -87,6 +115,11 @@ void console_accountCreation(void) {
     printf("******************************");
 }
 
+/**
+ * @brief   Get first name of console
+ * 
+ * @param _new_person: New person 
+ */
 void console_getFirstName(login_data_t *_new_person) {
     char buffer[50];
 
@@ -96,6 +129,11 @@ void console_getFirstName(login_data_t *_new_person) {
     strcpy(_new_person->first_name, buffer);
 }
 
+/**
+ * @brief   Get last name of console
+ * 
+ * @param _new_person: New person
+ */
 void console_getLastName(login_data_t *_new_person) {
     char buffer[50];
     
@@ -105,13 +143,24 @@ void console_getLastName(login_data_t *_new_person) {
     strcpy(_new_person->last_name, buffer);
 }
 
-void console_getPassword(login_data_t *_new_person) {
+/**
+ * @brief   Get password of console
+ * 
+ * @param _new_person: New peron
+ */
+void console_main_getPassword(login_data_t *_new_person) {
 
     console_goToXY(6, 6);
     printf("Password  : ");
-    getPassword(_new_person->password);
+    main_getPassword(_new_person->password);
 }
 /* ============================== Application =============================== */
+
+/**
+ * @brief   Get User choice in starting menu
+ * 
+ * @return  User choice in start menu 
+ */
 int main_startMenu(void) {
     console_startingScreen();
 
@@ -122,12 +171,11 @@ int main_startMenu(void) {
     return user_input;
 }
 
+
 /**
- * @brief Create a Account object
- * 
- * @return uint8_t 
+ * @brief   Add a new user to the database
  */
-uint8_t createAccount(void) {       // ToDo: Braucht man hier noch uint8_t?
+void main_createAccount(void) {
     login_data_t new_person = {0};
     bool valid_user = false;
 
@@ -138,7 +186,7 @@ uint8_t createAccount(void) {       // ToDo: Braucht man hier noch uint8_t?
         console_getFirstName(&new_person);
         console_getLastName(&new_person);
 
-        valid_user = checkValidUser(new_person, false);
+        valid_user = main_checkValidUser(new_person, false);
 
         if (valid_user == false) {
             char user_input;
@@ -149,31 +197,34 @@ uint8_t createAccount(void) {       // ToDo: Braucht man hier noch uint8_t?
                 console_clearScreen();
                 continue;
             } else {
-                // ToDo: Was passiert wenn nein gedrückt wird.
+                
             }
 
         }
     }
-    console_getPassword(&new_person);
+    console_main_getPassword(&new_person);
 
-    storeData(new_person);
-
-    return 0;
+    main_storeData(new_person);
 }
 
-/***
- * ToDo: Programm crasht wenn First name eingeben wird
+
+/**
+ * @brief   Check if user already exists in database or if login data is valid   
+ * 
+ * @param _user_to_check: User Data
+ * @param _login: true -> Also check password; false -> Only check first/last name
+ * 
+ * @return false -> Wrong login Data / User already exists in database
  */
-bool checkValidUser(login_data_t _user_to_check, bool _login) {
+bool main_checkValidUser(login_data_t _user_to_check, bool _login) {
     pFile = fopen("Output/Login Data.csv", "r");  
     enum Checks Check_User = NOT_CHECKED; 
     char row[1024];
     char *tok;
     bool finished_iterations = false;
 
-
+    // ToDo Program crasht wenn First name eingegeben wird. Vermutlich einfach keine Leerzeichen zulassen
     while (fgets(row, sizeof(row), pFile) != NULL) {
-        // printf("Row: %s", row);
         tok = strtok(row, ",");
 
         while ((tok != NULL) && (finished_iterations == false)) {
@@ -222,12 +273,13 @@ bool checkValidUser(login_data_t _user_to_check, bool _login) {
 }
 
 
-/***
- *  ToDo:
- *  - Passwort auf Stärke und Gültigkeit prüfen
- ***/
-void getPassword(char *_password) {
-    int user_input = 0;
+/**
+ * @brief   Get password and check if it is valid and strong enough // ToDo: Passwort auf Stärke und Gültigkeit prüfen
+ * 
+ * @param _password: Password to check 
+ */
+void main_getPassword(char *_password) {
+    int user_input = 0;     
     uint8_t i = 0;
 
     // Clear the input buffer
@@ -251,7 +303,12 @@ void getPassword(char *_password) {
 }
 
 
-void storeData(login_data_t _new_person) {
+/**
+ * @brief   Store new user in database
+ * 
+ * @param _new_person: Data from new person 
+ */
+void main_storeData(login_data_t _new_person) {
 
     pFile = fopen("Output/Login Data.csv", "a");
     
@@ -267,7 +324,10 @@ void storeData(login_data_t _new_person) {
 }
 
 
-void initDatabase(void) {
+/**
+ * @brief   Init first rows of Database 
+ */
+void main_initDatabase(void) {
     pFile = fopen("Output/Login Data.csv", "w");
     if (pFile != NULL) {
         fprintf(pFile,
@@ -278,8 +338,7 @@ void initDatabase(void) {
 
 
 int main(void) {
-    // setbuf(stdout, 0);      // Clear Buffer for debug reason
-    initDatabase();
+    main_initDatabase();
 
     int user_input = 0;
 
@@ -287,7 +346,7 @@ int main(void) {
     user_input = main_startMenu();
 
     if (user_input == 1) {
-        createAccount();
+        main_createAccount();
     }
     return 0;
 }

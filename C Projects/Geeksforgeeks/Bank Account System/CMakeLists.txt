@@ -10,4 +10,7 @@ string(REPLACE "-Werror" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
 # Include directories
 include_directories(${PROJECT_SOURCE_DIR}/Inc)
 
-add_executable(Bank_Account_System main.c)
+add_executable(Bank_Account_System 
+                main.c
+                # Inc/Console.h     If more Files needs to be included just add them all here
+                )

@@ -20,7 +20,7 @@
 /* ================================ Structs ================================= */
 
 /**
- * @brief   Struct containing data from user
+ * @brief   Struct containing data from processed user
  */
 typedef struct {
     char first_name[50];
@@ -55,7 +55,7 @@ void main_getPassword(char *_password);
 void main_storeData(login_data_t _new_person);
 void main_initDatabase(void);
 bool main_checkValidUser(login_data_t _user_to_check, bool _login);
-void main_createAccount(void);
+bool main_createAccount(void);
 int main_startMenu(void);
 
 /* =============================== Variables ================================ */
@@ -122,7 +122,7 @@ void console_accountCreation(void) {
  */
 void console_getFirstName(login_data_t *_new_person) {
     char buffer[50];
-
+    // ToDo: Nur ein Wort zulassen
     console_goToXY(6, 4);
     printf("First name: ");
     scanf("%s", buffer);
@@ -136,7 +136,7 @@ void console_getFirstName(login_data_t *_new_person) {
  */
 void console_getLastName(login_data_t *_new_person) {
     char buffer[50];
-    
+    // ToDo: Nur ein Wort zulassen
     console_goToXY(6, 5);
     printf("Last name : ");
     scanf("%s", buffer);
@@ -151,7 +151,7 @@ void console_getLastName(login_data_t *_new_person) {
 void console_main_getPassword(login_data_t *_new_person) {
 
     console_goToXY(6, 6);
-    printf("Password  : ");
+    printf("Password  : "); 
     main_getPassword(_new_person->password);
 }
 /* ============================== Application =============================== */
@@ -175,10 +175,9 @@ int main_startMenu(void) {
 /**
  * @brief   Add a new user to the database
  */
-void main_createAccount(void) {
+bool main_createAccount(void) {
     login_data_t new_person = {0};
     bool valid_user = false;
-
     
     while (valid_user == false) {
         console_accountCreation();
@@ -195,16 +194,17 @@ void main_createAccount(void) {
 
             if (user_input == 'y') {
                 console_clearScreen();
-                continue;
-            } else {
-                
+                continue;       // User trys to input new data
+            } else if (user_input == 'n') {
+                return false;   // Back to main menu
             }
-
         }
     }
     console_main_getPassword(&new_person);
 
     main_storeData(new_person);
+
+    return true;
 }
 
 
@@ -231,7 +231,7 @@ bool main_checkValidUser(login_data_t _user_to_check, bool _login) {
 
             if (strncmp(tok, _user_to_check.first_name, 
                     strlen(_user_to_check.first_name)) == 0 ) {
-                tok = strtok(NULL, ",");     
+                tok = strtok(NULL, ","); 
 
                 if (strncmp(tok, _user_to_check.last_name,
                         strlen(_user_to_check.last_name)) == 0) {
@@ -274,11 +274,12 @@ bool main_checkValidUser(login_data_t _user_to_check, bool _login) {
 
 
 /**
- * @brief   Get password and check if it is valid and strong enough // ToDo: Passwort auf Stärke und Gültigkeit prüfen
+ * @brief   Get password and check if it is valid and strong enough 
  * 
  * @param _password: Password to check 
  */
 void main_getPassword(char *_password) {
+    // ToDo: Passwort auf Stärke und Gültigkeit prüfen
     int user_input = 0;     
     uint8_t i = 0;
 
@@ -341,12 +342,19 @@ int main(void) {
     main_initDatabase();
 
     int user_input = 0;
+    bool valid_choice = false;
+    
+    while (valid_choice == false) {
+        console_clearScreen();
+        user_input = main_startMenu();
 
-    console_clearScreen();
-    user_input = main_startMenu();
+        if (user_input == 1) {
+            valid_choice = main_createAccount();
+            user_input = 0;
+        } else if (user_input == 2) {
+            // ToDo: Login
+        }
 
-    if (user_input == 1) {
-        main_createAccount();
     }
     return 0;
 }

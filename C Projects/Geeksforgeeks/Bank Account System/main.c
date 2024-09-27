@@ -150,13 +150,22 @@ void console_loginUser(void) {
     printf("******************************");
 }
 
+void console_showBalance(void) {
+    console_clearScreen();
+    console_goToXY(2, 0);
+    printf("******************************");
+    console_goToXY(14, 1);
+    printf("Balance");
+    console_goToXY(2, 2);
+    printf("******************************");
+}
 
 void console_showWorkingUser(login_data_t _working_user) {
 
-if (_working_user.first_name[0] != '\0') {      // User is logged in
-        console_goToXY(36, 1);
-        printf("User: %s %s", _working_user.first_name, _working_user.last_name);
-    }
+    if (_working_user.first_name[0] != 0) {      // User is logged in
+            console_goToXY(36, 1);
+            printf("User: %s %s", _working_user.first_name, _working_user.last_name);
+        }
 
 }
 
@@ -185,7 +194,7 @@ void console_getFirstName(login_data_t *_new_person) {
         } else {
             console_goToXY(18, 4);
             printf("Only Letters allowed. Press any key to try again.");
-            if (getch() == '\r') {
+            if (getch()) {
                 continue;
             }
         }
@@ -216,7 +225,7 @@ void console_getLastName(login_data_t *_new_person) {
         } else {
             console_goToXY(18, 5);
             printf("Only Letters allowed. Press any key to try again.");
-            if (getch() == '\r') {
+            if (getch()) {
                 continue;
             }
         }
@@ -338,10 +347,12 @@ enum Checks main_checkValidUser(login_data_t *_user_to_check, bool _login) {
                             
                     if (_login == true) {
                         tok = strtok(NULL, ","); 
+                        
                         if (strncmp(tok, _user_to_check->password,
                                 strlen(_user_to_check->password)) == 0) {
-                            
                             Check_User = PASSWORD_CHECKED;
+                            tok = strtok(NULL, ",");
+                            _user_to_check->balance = atoi(tok);      // Add balance to working_user
                             finished_iterations = true;
                         } else {
                             Check_User = WRONG_LOGIN_DATA;
@@ -406,7 +417,7 @@ void main_getPassword(char *_password) {
  * @param _new_person: Data from new person 
  */
 void main_storeData(login_data_t _new_person) {
-    _new_person.balance = 1000;
+    _new_person.balance = 100;
 
     pFile = fopen("Output/Login Data.csv", "a");
     
@@ -431,7 +442,7 @@ void main_initDatabase(void) {
     pFile = fopen("Output/Login Data.csv", "w");
     if (pFile != NULL) {
         fprintf(pFile,
-        "Matthias,Bodensteiner,1234,Balance,\n");
+        "asd,asd,asd,Balance,\n");
     }
     fclose(pFile);
 }
@@ -470,6 +481,23 @@ uint8_t main_loginUser(login_data_t *_working_user) {
 }
 
 
+void main_showBalance(login_data_t _working_user) {
+    console_showBalance();
+    console_showWorkingUser(_working_user);
+
+    console_goToXY(6, 6);
+    printf("Balance: %s", _working_user.balance);
+
+    console_goToXY(1, 11);
+    printf("Go back to main menu? Press any key.");
+
+    if (getch()) {
+        // Just wait for Keypress
+    }
+
+}
+
+
 int main(void) {
     main_initDatabase();
 
@@ -495,29 +523,33 @@ int main(void) {
                 if (working_user.first_name[0] == 0) {
                     console_goToXY(1, 13);
                     printf("You need to login first. Type any key to try again: ");
-                    if (getch() == '\r') {
+                    if (getch()) {
                        continue;
                     }
                 }
+                user_input = 0;
                 break;
             case 3:
                 if (working_user.first_name[0] == 0) {
                     console_goToXY(1, 13);
                     printf("You need to login first. Type any key to try again: ");
-                    if (getch() == '\r') {
+                    if (getch()) {
                        continue;
                     }
                 }
-
+                user_input = 0;
                 break;
             case 4:
                 if (working_user.first_name[0] == 0) {
                     console_goToXY(1, 13);
                     printf("You need to login first. Type any key to try again: ");
-                    if (getch() == '\r') {
+                    if (getch()) {
                        continue;
                     }
+                } else {
+                        main_showBalance(working_user);
                 }
+                user_input = 0;
                 break;
             case 5:
                 main_createAccount();

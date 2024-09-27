@@ -142,10 +142,11 @@ void console_loginUser(void) {
  * @param _new_person: New person 
  */
 void console_getFirstName(login_data_t *_new_person) {
-    char buffer[50];
     bool valid = true;
-    // ToDo: Only allow one word
+    // ToDo: Nur ein Wort erlauben
     do {
+        char buffer[50];
+
         console_goToXY(6, 4);
         printf("First name: ");
         for (uint8_t i = 0; i < 50; i++) {
@@ -157,6 +158,12 @@ void console_getFirstName(login_data_t *_new_person) {
 
         if (valid) {
             strcpy(_new_person->first_name, buffer);
+        } else {
+            console_goToXY(18, 4);
+            printf("Only Letters allowed. Press enter to try again.");
+            if (getch() == '\r') {
+                continue;
+            }
         }
     } while (valid != true);
 }
@@ -167,7 +174,7 @@ void console_getFirstName(login_data_t *_new_person) {
  * @param _new_person: New person
  */
 void console_getLastName(login_data_t *_new_person) {  
-    char buffer[50];    // ToDo: Add Print statement for user interface
+    char buffer[50];
     bool valid = true;
     // ToDo: Only allow one word
     do {
@@ -182,6 +189,12 @@ void console_getLastName(login_data_t *_new_person) {
 
         if (valid) {
             strcpy(_new_person->last_name, buffer);
+        } else {
+            console_goToXY(18, 5);
+            printf("Only Letters allowed. Press enter to try again.");
+            if (getch() == '\r') {
+                continue;
+            }
         }
     } while (valid != true);
 }
@@ -438,7 +451,7 @@ int main(void) {
     while (1) {
         console_clearScreen();
         user_input = main_startMenu();
-
+        // ToDo: Plot name of user that is logged in
         if (user_input == 1) {
             main_createAccount();
             user_input = 0;

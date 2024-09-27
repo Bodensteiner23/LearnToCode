@@ -28,6 +28,7 @@ typedef struct {
     char first_name[50];
     char last_name[50];
     char password[50];
+    uint32_t balance;
 } login_data_t;
 
 /* ================================ Enums =================================== */
@@ -405,15 +406,18 @@ void main_getPassword(char *_password) {
  * @param _new_person: Data from new person 
  */
 void main_storeData(login_data_t _new_person) {
+    _new_person.balance = 1000;
 
     pFile = fopen("Output/Login Data.csv", "a");
-
+    
     if (pFile != NULL) {
-        fputs(_new_person.first_name, pFile);
+        fprintf(pFile, "%s", _new_person.first_name);
         fprintf(pFile, ",");
-        fputs(_new_person.last_name, pFile);
+        fprintf(pFile, "%s", _new_person.last_name);
         fprintf(pFile, ",");
-        fputs(_new_person.password, pFile);
+        fprintf(pFile, "%s", _new_person.password);
+        fprintf(pFile, ",");
+        fprintf(pFile, "%d", _new_person.balance);
         fprintf(pFile, ",\n");
     }
     fclose(pFile);
@@ -427,7 +431,7 @@ void main_initDatabase(void) {
     pFile = fopen("Output/Login Data.csv", "w");
     if (pFile != NULL) {
         fprintf(pFile,
-        "Matthias,Bodensteiner,1234,\n");
+        "Matthias,Bodensteiner,1234,Balance,\n");
     }
     fclose(pFile);
 }

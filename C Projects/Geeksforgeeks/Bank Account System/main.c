@@ -18,6 +18,7 @@
 #include <stdbool.h>
 #include <ctype.h>
 
+
 /* ================================ Structs ================================= */
 
 /**
@@ -42,6 +43,10 @@ enum Checks {
     WRONG_LOGIN_DATA
 };
 
+/* =============================== Variables ================================ */
+
+FILE * pFile;
+
 /* ========================= Function Declarations ========================== */
 
 void console_goToXY(uint8_t x, uint8_t y);
@@ -52,17 +57,15 @@ void console_getFirstName(login_data_t *_new_person);
 void console_getLastName(login_data_t *_new_person);
 void console_getPassword(login_data_t *_new_person);
 bool console_isValidName(char buffer[50]);
+void console_loginUser(void);
 
 void main_getPassword(char *_password);
 void main_storeData(login_data_t _new_person);
 void main_initDatabase(void);
-bool main_checkValidUser(login_data_t _user_to_check, bool _login);
+bool main_checkValidUser(login_data_t *_user_to_check, bool _login);
 uint8_t main_createAccount(void);
 int main_startMenu(void);
 
-/* =============================== Variables ================================ */
-
-FILE * pFile;
 
 /* ================================ Console ================================= */
 
@@ -113,6 +116,17 @@ void console_accountCreation(void) {
     printf("******************************");
     console_goToXY(9, 1);
     printf("Account Creation");
+    console_goToXY(2, 2);
+    printf("******************************");
+}
+
+
+void console_loginUser(void) {
+    console_clearScreen();
+    console_goToXY(2, 0);
+    printf("******************************");
+    console_goToXY(14, 1);
+    printf("Login");
     console_goToXY(2, 2);
     printf("******************************");
 }
@@ -226,7 +240,7 @@ uint8_t main_createAccount(void) {
         console_getFirstName(&new_person);
         console_getLastName(&new_person);
 
-        valid_user = main_checkValidUser(new_person, false);
+        valid_user = main_checkValidUser(&new_person, false);
 
         if (valid_user == false) {
             char user_input;
@@ -257,7 +271,7 @@ uint8_t main_createAccount(void) {
  * 
  * @return false -> Wrong login Data / User already exists in database
  */
-bool main_checkValidUser(login_data_t _user_to_check, bool _login) {
+bool main_checkValidUser(login_data_t *_user_to_check, bool _login) {
     pFile = fopen("Output/Login Data.csv", "r");  
     enum Checks Check_User = NOT_CHECKED; 
     char row[1024];
@@ -270,17 +284,17 @@ bool main_checkValidUser(login_data_t _user_to_check, bool _login) {
 
         while ((tok != NULL) && (finished_iterations == false)) {
 
-            if (strncmp(tok, _user_to_check.first_name, 
-                    strlen(_user_to_check.first_name)) == 0 ) {
+            if (strncmp(tok, _user_to_check->first_name, 
+                    strlen(_user_to_check->first_name)) == 0 ) {
                 tok = strtok(NULL, ","); 
 
-                if (strncmp(tok, _user_to_check.last_name,
-                        strlen(_user_to_check.last_name)) == 0) {
+                if (strncmp(tok, _user_to_check->last_name,
+                        strlen(_user_to_check->last_name)) == 0) {
                 
                     if (_login == true) {
 
-                        if (strncmp(tok, _user_to_check.password,
-                                strlen(_user_to_check.password)) == 0) {
+                        if (strncmp(tok, _user_to_check->password,
+                                strlen(_user_to_check->password)) == 0) {
                             
                             Check_User = PASSWORD_CHECKED;
                             finished_iterations = true;
@@ -379,8 +393,25 @@ void main_initDatabase(void) {
 }
 
 
+void main_loginUser(login_data_t *_working_user) {
+
+    login_data_t *working_user = _working_user;
+
+
+    console_loginUser();
+    while (1) {
+
+    }
+
+
+
+}
+
+
 int main(void) {
     main_initDatabase();
+
+    login_data_t working_user = {0};
 
     int user_input = 0;
     
@@ -392,7 +423,8 @@ int main(void) {
             main_createAccount();
             user_input = 0;
         } else if (user_input == 2) {
-            // ToDo: Login
+            // ToDo: Login. Hier working user zuweisen
+            main_loginUser(&working_user);
         }
 
     }

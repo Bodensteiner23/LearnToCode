@@ -59,6 +59,7 @@ void console_getLastName(login_data_t *_new_person);
 void console_getPassword(login_data_t *_new_person);
 bool console_isValidName(char buffer[50]);
 void console_loginUser(void);
+void console_showWorkingUser(login_data_t _working_user);
 
 void main_getPassword(char *_password);
 void main_storeData(login_data_t _new_person);
@@ -107,6 +108,12 @@ void console_startingScreen(void) {
     printf("1... Create Account");
     console_goToXY(6, 5);
     printf("2... Login");
+    console_goToXY(6, 6);
+    printf("3... Transfer");
+    console_goToXY(6, 7);
+    printf("4... Deposit");
+    console_goToXY(6, 8);
+    printf("5... Balance");
 }
 
 /**
@@ -134,6 +141,16 @@ void console_loginUser(void) {
     printf("Login");
     console_goToXY(2, 2);
     printf("******************************");
+}
+
+
+void console_showWorkingUser(login_data_t _working_user) {
+
+if (_working_user.first_name[0] != '\0') {      // User is logged in
+        console_goToXY(36, 1);
+        printf("User: %s %s", _working_user.first_name, _working_user.last_name);
+    }
+
 }
 
 /**
@@ -238,8 +255,8 @@ int main_startMenu(void) {
     console_startingScreen();
 
     int user_input; 
-    console_goToXY(1, 7);
-    scanf("%d", &user_input);
+    console_goToXY(1, 11);
+    scanf("%d", &user_input);   // ToDo: Don't allow strings
 
     return user_input;
 }
@@ -384,7 +401,7 @@ void main_getPassword(char *_password) {
 void main_storeData(login_data_t _new_person) {
 
     pFile = fopen("Output/Login Data.csv", "a");
-    
+
     if (pFile != NULL) {
         fputs(_new_person.first_name, pFile);
         fprintf(pFile, ",");
@@ -422,7 +439,7 @@ uint8_t main_loginUser(login_data_t *_working_user) {
         console_getLastName(_working_user);
         console_getPassword(_working_user);
 
-        user_input = main_checkValidUser(_working_user, true);  // ToDo: Umbauen mit Enums
+        user_input = main_checkValidUser(_working_user, true); 
 
         if (user_input != PASSWORD_CHECKED) {
             char user_input;
@@ -450,14 +467,14 @@ int main(void) {
     
     while (1) {
         console_clearScreen();
+        console_showWorkingUser(working_user);
         user_input = main_startMenu();
-        // ToDo: Plot name of user that is logged in
         if (user_input == 1) {
             main_createAccount();
             user_input = 0;
         } else if (user_input == 2) {
-            // ToDo: Login. Hier working user zuweisen
             main_loginUser(&working_user);
+            user_input = 0;
         }
 
     }

@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <conio.h>
 #include <stdbool.h>
+#include <ctype.h>
 
 /* ================================ Structs ================================= */
 
@@ -49,7 +50,8 @@ void console_startingScreen(void);
 void console_accountCreation(void);
 void console_getFirstName(login_data_t *_new_person);
 void console_getLastName(login_data_t *_new_person);
-void console_main_getPassword(login_data_t *_new_person);
+void console_getPassword(login_data_t *_new_person);
+bool console_isValid(char buffer[50]);
 
 void main_getPassword(char *_password);
 void main_storeData(login_data_t _new_person);
@@ -122,11 +124,22 @@ void console_accountCreation(void) {
  */
 void console_getFirstName(login_data_t *_new_person) {
     char buffer[50];
-    // ToDo: Nur ein Wort zulassen
-    console_goToXY(6, 4);
-    printf("First name: ");
-    scanf("%s", buffer);
-    strcpy(_new_person->first_name, buffer);
+    bool valid = true;
+    // ToDo: Only allow one word
+    do {
+        console_goToXY(6, 4);
+        printf("First name: ");
+        for (uint8_t i = 0; i < 50; i++) {
+            printf(" ");
+        }
+        console_goToXY(18, 4);
+        scanf("%s", buffer);
+        valid = console_isValid(buffer);
+
+        if (valid) {
+            strcpy(_new_person->first_name, buffer);
+        }
+    } while (valid != true);
 }
 
 /**
@@ -136,11 +149,22 @@ void console_getFirstName(login_data_t *_new_person) {
  */
 void console_getLastName(login_data_t *_new_person) {
     char buffer[50];
-    // ToDo: Nur ein Wort zulassen
-    console_goToXY(6, 5);
-    printf("Last name : ");
-    scanf("%s", buffer);
-    strcpy(_new_person->last_name, buffer);
+    bool valid = true;
+    // ToDo: Only allow one word
+    do {
+        console_goToXY(6, 5);
+        printf("Last name : ");
+        for (uint8_t i = 0; i < 50; i++) {
+            printf(" ");
+        }
+        console_goToXY(18, 5);
+        scanf("%s", buffer);
+        valid = console_isValid(buffer);
+
+        if (valid) {
+            strcpy(_new_person->last_name, buffer);
+        }
+    } while (valid != true);
 }
 
 /**
@@ -148,11 +172,22 @@ void console_getLastName(login_data_t *_new_person) {
  * 
  * @param _new_person: New peron
  */
-void console_main_getPassword(login_data_t *_new_person) {
+void console_getPassword(login_data_t *_new_person) {
 
     console_goToXY(6, 6);
     printf("Password  : "); 
     main_getPassword(_new_person->password);
+}
+
+
+bool console_isValid(char buffer[50]) {
+
+    for (uint8_t i = 0; i < strlen(buffer); i++) {
+        if ((isalpha(buffer[i]) == 0)) {
+            return false;
+        } 
+    }
+    return true;
 }
 /* ============================== Application =============================== */
 
@@ -200,7 +235,7 @@ bool main_createAccount(void) {
             }
         }
     }
-    console_main_getPassword(&new_person);
+    console_getPassword(&new_person);
 
     main_storeData(new_person);
 

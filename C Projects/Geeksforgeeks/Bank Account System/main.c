@@ -40,7 +40,8 @@ enum Checks {
     PASSWORD_CHECKED,
     NO_VALID_USER, 
     VALID_USER, 
-    WRONG_LOGIN_DATA
+    WRONG_LOGIN_DATA,
+    USER_NOT_EXISTING
 };
 
 /* =============================== Variables ================================ */
@@ -62,8 +63,9 @@ void console_loginUser(void);
 void main_getPassword(char *_password);
 void main_storeData(login_data_t _new_person);
 void main_initDatabase(void);
-bool main_checkValidUser(login_data_t *_user_to_check, bool _login);
+enum Checks main_checkValidUser(login_data_t *_user_to_check, bool _login);
 uint8_t main_createAccount(void);
+uint8_t main_loginUser(login_data_t *_working_user);
 int main_startMenu(void);
 
 
@@ -120,7 +122,10 @@ void console_accountCreation(void) {
     printf("******************************");
 }
 
-
+/**
+ * @brief   Plot login user menu
+ * 
+ */
 void console_loginUser(void) {
     console_clearScreen();
     console_goToXY(2, 0);
@@ -161,8 +166,8 @@ void console_getFirstName(login_data_t *_new_person) {
  * 
  * @param _new_person: New person
  */
-void console_getLastName(login_data_t *_new_person) {
-    char buffer[50];
+void console_getLastName(login_data_t *_new_person) {  
+    char buffer[50];    // ToDo: Add Print statement for user interface
     bool valid = true;
     // ToDo: Only allow one word
     do {
@@ -232,6 +237,7 @@ int main_startMenu(void) {
  */
 uint8_t main_createAccount(void) {
     login_data_t new_person = {0};
+    enum Checks user_state = NOT_CHECKED;
     bool valid_user = false;
     
     while (valid_user == false) {
@@ -240,9 +246,9 @@ uint8_t main_createAccount(void) {
         console_getFirstName(&new_person);
         console_getLastName(&new_person);
 
-        valid_user = main_checkValidUser(&new_person, false);
+        user_state = main_checkValidUser(&new_person, false);
 
-        if (valid_user == false) {
+        if (user_state == NO_VALID_USER) {
             char user_input;
             printf("User already exists! Try again? (y / n): ");
             scanf(" %c", &user_input);
@@ -253,6 +259,8 @@ uint8_t main_createAccount(void) {
             } else if (user_input == 'n') {
                 return 1;   // Back to main menu
             }
+        } else {
+            valid_user = true;
         }
     }
     console_getPassword(&new_person);
@@ -266,12 +274,12 @@ uint8_t main_createAccount(void) {
 /**
  * @brief   Check if user already exists in database or if login data is valid   
  * 
- * @param _user_to_check: User Data
- * @param _login: true -> Also check password; false -> Only check first/last name
+ * @param   _user_to_check: User Data
+ * @param   _login: true -> Also check password; false -> Only check first/last name
  * 
- * @return false -> Wrong login Data / User already exists in database
+ * @return  State of user
  */
-bool main_checkValidUser(login_data_t *_user_to_check, bool _login) {
+enum Checks main_checkValidUser(login_data_t *_user_to_check, bool _login) {
     pFile = fopen("Output/Login Data.csv", "r");  
     enum Checks Check_User = NOT_CHECKED; 
     char row[1024];
@@ -290,9 +298,9 @@ bool main_checkValidUser(login_data_t *_user_to_check, bool _login) {
 
                 if (strncmp(tok, _user_to_check->last_name,
                         strlen(_user_to_check->last_name)) == 0) {
-                
+                            
                     if (_login == true) {
-
+                        tok = strtok(NULL, ","); 
                         if (strncmp(tok, _user_to_check->password,
                                 strlen(_user_to_check->password)) == 0) {
                             
@@ -320,11 +328,7 @@ bool main_checkValidUser(login_data_t *_user_to_check, bool _login) {
     }
     fclose(pFile);
 
-    if ((Check_User == WRONG_LOGIN_DATA) || (Check_User == NO_VALID_USER)) {
-        return false;
-    }
-
-    return true;
+    return Check_User;
 }
 
 
@@ -387,24 +391,40 @@ void main_initDatabase(void) {
     pFile = fopen("Output/Login Data.csv", "w");
     if (pFile != NULL) {
         fprintf(pFile,
-        "First name,Last name,Password,\n");
+        "Matthias,Bodensteiner,1234,\n");
     }
     fclose(pFile);
 }
 
 
-void main_loginUser(login_data_t *_working_user) {
 
-    login_data_t *working_user = _working_user;
+uint8_t main_loginUser(login_data_t *_working_user) {
+    enum Checks user_input = NOT_CHECKED;
 
+    while (user_input != PASSWORD_CHECKED) {
 
-    console_loginUser();
-    while (1) {
+        console_loginUser();
 
-    }
+        console_getFirstName(_working_user);
+        console_getLastName(_working_user);
+        console_getPassword(_working_user);
 
+        user_input = main_checkValidUser(_working_user, true);  // ToDo: Umbauen mit Enums
 
+        if (user_input != PASSWORD_CHECKED) {
+            char user_input;
+            printf("\nWrong login data or user does not exist! Try again? (y / n): ");
+            scanf(" %c", &user_input);
 
+            if (user_input == 'y') {
+                console_clearScreen();
+                continue;       // User trys to input new data
+            } else if (user_input == 'n') {
+                return 1;   // Back to main menu
+            }
+        }
+    } 
+    return 0;
 }
 
 

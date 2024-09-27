@@ -47,7 +47,6 @@ enum Checks {
 /* =============================== Variables ================================ */
 
 FILE * pFile;
-login_data_t EmptyStruct = {0};
 
 /* ========================= Function Declarations ========================== */
 
@@ -184,7 +183,7 @@ void console_getFirstName(login_data_t *_new_person) {
             strcpy(_new_person->first_name, buffer);
         } else {
             console_goToXY(18, 4);
-            printf("Only Letters allowed. Press enter to try again.");
+            printf("Only Letters allowed. Press any key to try again.");
             if (getch() == '\r') {
                 continue;
             }
@@ -215,7 +214,7 @@ void console_getLastName(login_data_t *_new_person) {
             strcpy(_new_person->last_name, buffer);
         } else {
             console_goToXY(18, 5);
-            printf("Only Letters allowed. Press enter to try again.");
+            printf("Only Letters allowed. Press any key to try again.");
             if (getch() == '\r') {
                 continue;
             }
@@ -457,10 +456,12 @@ uint8_t main_loginUser(login_data_t *_working_user) {
                 console_clearScreen();
                 continue;       // User trys to input new data
             } else if (user_input == 'n') {
+                memset(_working_user, 0, sizeof(login_data_t)); 
                 return 1;       // Back to main menu
             }
         }
     } 
+    
     return 0;
 }
 
@@ -482,24 +483,45 @@ int main(void) {
                 if (working_user.first_name[0] == 0) {
                     main_loginUser(&working_user);
                 } else {
-                    working_user = EmptyStruct;    //Logout user
+                    memset(&working_user, 0, sizeof(login_data_t));    //Logout user
                 }
                 user_input = 0;
                 break;
             case 2:
+                if (working_user.first_name[0] == 0) {
+                    console_goToXY(1, 13);
+                    printf("You need to login first. Type any key to try again: ");
+                    if (getch() == '\r') {
+                       continue;
+                    }
+                }
                 break;
             case 3:
+                if (working_user.first_name[0] == 0) {
+                    console_goToXY(1, 13);
+                    printf("You need to login first. Type any key to try again: ");
+                    if (getch() == '\r') {
+                       continue;
+                    }
+                }
 
                 break;
             case 4:
-
+                if (working_user.first_name[0] == 0) {
+                    console_goToXY(1, 13);
+                    printf("You need to login first. Type any key to try again: ");
+                    if (getch() == '\r') {
+                       continue;
+                    }
+                }
                 break;
             case 5:
                 main_createAccount();
                 user_input = 0;
                 break;    
-        
+            // ToDo: Add case to exit programm        
         }
     }
+
     return 0;
 }

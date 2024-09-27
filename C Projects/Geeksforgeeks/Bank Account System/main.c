@@ -51,13 +51,13 @@ void console_accountCreation(void);
 void console_getFirstName(login_data_t *_new_person);
 void console_getLastName(login_data_t *_new_person);
 void console_getPassword(login_data_t *_new_person);
-bool console_isValid(char buffer[50]);
+bool console_isValidName(char buffer[50]);
 
 void main_getPassword(char *_password);
 void main_storeData(login_data_t _new_person);
 void main_initDatabase(void);
 bool main_checkValidUser(login_data_t _user_to_check, bool _login);
-bool main_createAccount(void);
+uint8_t main_createAccount(void);
 int main_startMenu(void);
 
 /* =============================== Variables ================================ */
@@ -134,7 +134,7 @@ void console_getFirstName(login_data_t *_new_person) {
         }
         console_goToXY(18, 4);
         scanf("%s", buffer);
-        valid = console_isValid(buffer);
+        valid = console_isValidName(buffer);
 
         if (valid) {
             strcpy(_new_person->first_name, buffer);
@@ -159,7 +159,7 @@ void console_getLastName(login_data_t *_new_person) {
         }
         console_goToXY(18, 5);
         scanf("%s", buffer);
-        valid = console_isValid(buffer);
+        valid = console_isValidName(buffer);
 
         if (valid) {
             strcpy(_new_person->last_name, buffer);
@@ -179,8 +179,14 @@ void console_getPassword(login_data_t *_new_person) {
     main_getPassword(_new_person->password);
 }
 
-
-bool console_isValid(char buffer[50]) {
+/**
+ * @brief   Check if first/last name input is valid and contains only letters
+ * 
+ * @param buffer: Buffer with name to check 
+ * 
+ * @return false -> Not valid. Name contains letters
+ */
+bool console_isValidName(char buffer[50]) {
 
     for (uint8_t i = 0; i < strlen(buffer); i++) {
         if ((isalpha(buffer[i]) == 0)) {
@@ -210,7 +216,7 @@ int main_startMenu(void) {
 /**
  * @brief   Add a new user to the database
  */
-bool main_createAccount(void) {
+uint8_t main_createAccount(void) {
     login_data_t new_person = {0};
     bool valid_user = false;
     
@@ -231,7 +237,7 @@ bool main_createAccount(void) {
                 console_clearScreen();
                 continue;       // User trys to input new data
             } else if (user_input == 'n') {
-                return false;   // Back to main menu
+                return 1;   // Back to main menu
             }
         }
     }
@@ -239,7 +245,7 @@ bool main_createAccount(void) {
 
     main_storeData(new_person);
 
-    return true;
+    return 0;
 }
 
 
@@ -367,7 +373,7 @@ void main_initDatabase(void) {
     pFile = fopen("Output/Login Data.csv", "w");
     if (pFile != NULL) {
         fprintf(pFile,
-        "Matthias,Bodensteiner,Password,\n");
+        "First name,Last name,Password,\n");
     }
     fclose(pFile);
 }
@@ -377,14 +383,13 @@ int main(void) {
     main_initDatabase();
 
     int user_input = 0;
-    bool valid_choice = false;
     
-    while (valid_choice == false) {
+    while (1) {
         console_clearScreen();
         user_input = main_startMenu();
 
         if (user_input == 1) {
-            valid_choice = main_createAccount();
+            main_createAccount();
             user_input = 0;
         } else if (user_input == 2) {
             // ToDo: Login

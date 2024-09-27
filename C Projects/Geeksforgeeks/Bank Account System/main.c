@@ -47,12 +47,13 @@ enum Checks {
 /* =============================== Variables ================================ */
 
 FILE * pFile;
+login_data_t EmptyStruct = {0};
 
 /* ========================= Function Declarations ========================== */
 
 void console_goToXY(uint8_t x, uint8_t y);
 void console_clearScreen(void);
-void console_startingScreen(void);
+void console_startingScreen(login_data_t _working_user);
 void console_accountCreation(void);
 void console_getFirstName(login_data_t *_new_person);
 void console_getLastName(login_data_t *_new_person);
@@ -67,7 +68,7 @@ void main_initDatabase(void);
 enum Checks main_checkValidUser(login_data_t *_user_to_check, bool _login);
 uint8_t main_createAccount(void);
 uint8_t main_loginUser(login_data_t *_working_user);
-int main_startMenu(void);
+int main_startMenu(login_data_t _working_user);
 
 
 /* ================================ Console ================================= */
@@ -96,7 +97,7 @@ void console_clearScreen(void) {
 /**
  * @brief   Plot start menu
  */
-void console_startingScreen(void) {
+void console_startingScreen(login_data_t _working_user) {
     console_goToXY(2, 0);
     printf("******************************");
     console_goToXY(10, 1);
@@ -105,15 +106,21 @@ void console_startingScreen(void) {
     printf("******************************");
 
     console_goToXY(6, 4);
-    printf("1... Create Account");
+    if (_working_user.first_name[0] == 0) {
+        printf("1... Login");
+    } else {
+        printf("1... Logout");
+    } 
     console_goToXY(6, 5);
-    printf("2... Login");
+    printf("2... Transfer");
     console_goToXY(6, 6);
-    printf("3... Transfer");
+    printf("3... Deposit");
     console_goToXY(6, 7);
-    printf("4... Deposit");
+    printf("4... Balance");
     console_goToXY(6, 8);
-    printf("5... Balance");
+    if (_working_user.first_name[0] == 0) {
+        printf("5... Create Account");
+    }
 }
 
 /**
@@ -251,8 +258,8 @@ bool console_isValidName(char buffer[50]) {
  * 
  * @return  User choice in start menu 
  */
-int main_startMenu(void) {
-    console_startingScreen();
+int main_startMenu(login_data_t _working_user) {
+    console_startingScreen(_working_user);
 
     int user_input; 
     console_goToXY(1, 11);
@@ -287,7 +294,7 @@ uint8_t main_createAccount(void) {
                 console_clearScreen();
                 continue;       // User trys to input new data
             } else if (user_input == 'n') {
-                return 1;   // Back to main menu
+                return 1;       // Back to main menu
             }
         } else {
             valid_user = true;
@@ -304,8 +311,8 @@ uint8_t main_createAccount(void) {
 /**
  * @brief   Check if user already exists in database or if login data is valid   
  * 
- * @param   _user_to_check: User Data
- * @param   _login: true -> Also check password; false -> Only check first/last name
+ * @param _user_to_check: User Data
+ * @param _login: true -> Also check password; false -> Only check first/last name
  * 
  * @return  State of user
  */
@@ -450,7 +457,7 @@ uint8_t main_loginUser(login_data_t *_working_user) {
                 console_clearScreen();
                 continue;       // User trys to input new data
             } else if (user_input == 'n') {
-                return 1;   // Back to main menu
+                return 1;       // Back to main menu
             }
         }
     } 
@@ -468,15 +475,31 @@ int main(void) {
     while (1) {
         console_clearScreen();
         console_showWorkingUser(working_user);
-        user_input = main_startMenu();
-        if (user_input == 1) {
-            main_createAccount();
-            user_input = 0;
-        } else if (user_input == 2) {
-            main_loginUser(&working_user);
-            user_input = 0;
-        }
+        user_input = main_startMenu(working_user);
 
+        switch(user_input){
+            case 1:
+                if (working_user.first_name[0] == 0) {
+                    main_loginUser(&working_user);
+                } else {
+                    working_user = EmptyStruct;    //Logout user
+                }
+                user_input = 0;
+                break;
+            case 2:
+                break;
+            case 3:
+
+                break;
+            case 4:
+
+                break;
+            case 5:
+                main_createAccount();
+                user_input = 0;
+                break;    
+        
+        }
     }
     return 0;
 }

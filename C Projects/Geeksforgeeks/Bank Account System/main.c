@@ -60,7 +60,8 @@ void console_getLastName(login_data_t *_new_person);
 void console_getPassword(login_data_t *_new_person);
 bool console_isValidName(char buffer[50]);
 void console_loginUser(void);
-void console_showWorkingUser(login_data_t _working_user);
+void console_showWorkingUser(login_data_t  *_working_user);
+void console_showDeposit(void);
 
 void main_getPassword(char *_password);
 void main_storeData(login_data_t _new_person);
@@ -160,13 +161,23 @@ void console_showBalance(void) {
     printf("******************************");
 }
 
-void console_showWorkingUser(login_data_t _working_user) {
+void console_showDeposit(void) {
+    console_clearScreen();
+    console_goToXY(2, 0);
+    printf("******************************");
+    console_goToXY(14, 1);
+    printf("Deposit");
+    console_goToXY(2, 2);
+    printf("******************************");
+}
 
-    if (_working_user.first_name[0] != 0) {      // User is logged in
+
+void console_showWorkingUser(login_data_t  *_working_user) {
+
+    if (_working_user->first_name[0] != 0) {      // User is logged in
             console_goToXY(36, 1);
-            printf("User: %s %s", _working_user.first_name, _working_user.last_name);
+            printf("User: %s %s", _working_user->first_name, _working_user->last_name);
         }
-
 }
 
 /**
@@ -270,7 +281,7 @@ bool console_isValidName(char buffer[50]) {
 int main_startMenu(login_data_t _working_user) {
     console_startingScreen(_working_user);
 
-    int user_input; 
+    int user_input = 0; 
     console_goToXY(1, 11);
     scanf("%d", &user_input);   // ToDo: Don't allow strings
 
@@ -481,12 +492,12 @@ uint8_t main_loginUser(login_data_t *_working_user) {
 }
 
 
-void main_showBalance(login_data_t _working_user) {
+void main_showBalance(login_data_t *_working_user) {
     console_showBalance();
     console_showWorkingUser(_working_user);
 
     console_goToXY(6, 6);
-    printf("Balance: %d Euro", _working_user.balance);
+    printf("Balance: %d Euro", _working_user->balance);
 
     console_goToXY(1, 11);
     printf("Go back to main menu? Press any key.");
@@ -495,6 +506,27 @@ void main_showBalance(login_data_t _working_user) {
         // Just wait for Keypress
     }
 
+}
+
+
+void main_depositMoney(login_data_t *_working_user) {
+    int amount_money = 0;
+
+    console_showDeposit();
+    console_showWorkingUser(_working_user);
+
+    console_goToXY(6, 6);
+    printf("How much money you want to deposit: ");
+    scanf("%d", &amount_money);
+
+    _working_user->balance = _working_user->balance + amount_money;
+
+    console_goToXY(1, 11);
+    printf("Go back to main menu? Press any key.");
+
+    if (getch()) {
+        // Just wait for Keypress
+    }
 }
 
 
@@ -507,7 +539,7 @@ int main(void) {
     
     while (1) {
         console_clearScreen();
-        console_showWorkingUser(working_user);
+        console_showWorkingUser(&working_user);
         user_input = main_startMenu(working_user);
 
         switch(user_input){
@@ -536,6 +568,8 @@ int main(void) {
                     if (getch()) {
                        continue;
                     }
+                } else {
+                    main_depositMoney(&working_user);
                 }
                 user_input = 0;
                 break;
@@ -547,7 +581,7 @@ int main(void) {
                        continue;
                     }
                 } else {
-                        main_showBalance(working_user);
+                    main_showBalance(&working_user);
                 }
                 user_input = 0;
                 break;

@@ -8,6 +8,12 @@
 *  - Nutzer soll seinen Kontostand prüfen können
  *  - Nutzer soll Geld an einen anderen Nutzer überweisen können. Hierbei auch prüfen ob die Person existiert und
  *  richtig geschrieben wurde
+ * 
+ * 
+ *  ToRework:
+ *  Aktuell funktioniert das csv parsen nicht. Wenn man Geld einzahlt, dann wird es nicht in der .csv Datei geupdated.
+ *  Man muss reworken, dass man zum Beispiel aus der csv Datei alle Nutzer ausliest und sich dann mit Name 
+ *  die richtigen zusammen sucht. Wird aber wohl nochmal ein großer Rework von dem ganzem Program.
  ***/
 /* ================================ Includes ================================ */
 #include <stdint.h>
@@ -42,7 +48,8 @@ enum Checks {
     NO_VALID_USER, 
     VALID_USER, 
     WRONG_LOGIN_DATA,
-    USER_NOT_EXISTING
+    USER_NOT_EXISTING, 
+    WORKING_USER
 };
 
 /* =============================== Variables ================================ */
@@ -115,7 +122,7 @@ void console_startingScreen(login_data_t _working_user) {
     console_goToXY(6, 5);
     printf("2... Transfer");
     console_goToXY(6, 6);
-    printf("3... Deposit");
+    printf("3... Deposit/Withdraw");
     console_goToXY(6, 7);
     printf("4... Balance");
     console_goToXY(6, 8);
@@ -171,6 +178,16 @@ void console_showDeposit(void) {
     printf("******************************");
 }
 
+void console_transferMoney(void) {
+    console_clearScreen();
+    console_goToXY(2, 0);
+    printf("******************************");
+    console_goToXY(14, 1);
+    printf("Transfer");
+    console_goToXY(2, 2);
+    printf("******************************");
+}
+
 
 void console_showWorkingUser(login_data_t  *_working_user) {
 
@@ -191,19 +208,19 @@ void console_getFirstName(login_data_t *_new_person) {
     do {
         char buffer[50];
 
-        console_goToXY(6, 4);
+        console_goToXY(6, 6);
         printf("First name: ");
         for (uint8_t i = 0; i < 50; i++) {
             printf(" ");
         }
-        console_goToXY(18, 4);
+        console_goToXY(18, 6);
         scanf("%s", buffer);
         valid = console_isValidName(buffer);
 
         if (valid) {
             strcpy(_new_person->first_name, buffer);
         } else {
-            console_goToXY(18, 4);
+            console_goToXY(18, 6);
             printf("Only Letters allowed. Press any key to try again.");
             if (getch()) {
                 continue;
@@ -222,19 +239,19 @@ void console_getLastName(login_data_t *_new_person) {
     bool valid = true;
     // ToDo: Only allow one word
     do {
-        console_goToXY(6, 5);
+        console_goToXY(6, 7);
         printf("Last name : ");
         for (uint8_t i = 0; i < 50; i++) {
             printf(" ");
         }
-        console_goToXY(18, 5);
+        console_goToXY(18, 7);
         scanf("%s", buffer);
         valid = console_isValidName(buffer);
 
         if (valid) {
             strcpy(_new_person->last_name, buffer);
         } else {
-            console_goToXY(18, 5);
+            console_goToXY(18, 7);
             printf("Only Letters allowed. Press any key to try again.");
             if (getch()) {
                 continue;
@@ -250,7 +267,7 @@ void console_getLastName(login_data_t *_new_person) {
  */
 void console_getPassword(login_data_t *_new_person) {
 
-    console_goToXY(6, 6);
+    console_goToXY(6, 8);
     printf("Password  : "); 
     main_getPassword(_new_person->password);
 }
@@ -516,7 +533,7 @@ void main_depositMoney(login_data_t *_working_user) {
     console_showWorkingUser(_working_user);
 
     console_goToXY(6, 6);
-    printf("How much money you want to deposit: ");
+    printf("How much money you want to deposit or withdraw: ");
     scanf("%d", &amount_money);
 
     _working_user->balance = _working_user->balance + amount_money;
@@ -527,6 +544,50 @@ void main_depositMoney(login_data_t *_working_user) {
     if (getch()) {
         // Just wait for Keypress
     }
+}
+
+
+uint8_t main_transferMoney(login_data_t *_working_user) {
+    login_data_t transfered_user = {0};
+    enum Checks user_state = NOT_CHECKED;
+    bool valid_user = false;
+    int transfer_money = 0;
+
+    while(valid_user == false) {
+        console_transferMoney();
+        console_showWorkingUser(_working_user);
+
+        console_goToXY(6, 4);
+        printf("Enter data of user you want to transfer to");
+
+        console_getFirstName(&transfered_user);
+        console_getLastName(&transfered_user);
+        
+        user_state = main_checkValidUser(&transfered_user, false);
+        
+        if (user_state != NO_VALID_USER) {  // Confusing. User exists..
+            char user_input;
+            printf("User does not exist! Try again? (y / n): ");
+            scanf(" %c", &user_input);
+
+            if (user_input == 'y') {
+                console_clearScreen();
+                continue;       // User trys to input new data
+            } else if (user_input == 'n') {
+                return 1;       // Back to main menu
+            }
+        } else {
+            valid_user = true;
+        }
+    }
+    console_goToXY(6, 9);
+    printf("Money to transfer: ");
+    scanf("%d", &transfer_money);
+
+    _working_user->balance = _working_user->balance - transfer_money;
+    transfered_user.balance = transfered_user.balance + transfer_money;
+    
+    return 1;
 }
 
 
@@ -558,6 +619,8 @@ int main(void) {
                     if (getch()) {
                        continue;
                     }
+                } else {
+                    main_transferMoney(&working_user);
                 }
                 user_input = 0;
                 break;

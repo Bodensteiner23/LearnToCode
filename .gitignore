@@ -9,3 +9,9 @@ __pycache__/
 
 # Ignore STM32 Workspace
 .metadata/
+
+# Ignore build
+build/
+
+# Ignore build-debug
+cmake-build-debug/

@@ -1,0 +1,32 @@
+body {
+    background-color: rgb(162, 150, 199);
+}
+
+#heading-snake {
+    color: white;
+    font-size: 7em;
+    text-align: center;
+    margin-top: 0.1em;
+    text-decoration: underline;
+}
+
+#game-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+#game-board {
+    position: relative; 
+    height: 60vh;
+    width: 60vw;
+    background-color: rgb(109, 105, 122);
+}
+
+#score {
+    margin-right: 1em;
+    color: white;
+    font-size: 2em;
+}

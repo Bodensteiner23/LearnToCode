@@ -1,0 +1,7 @@
+.idea
+.vscode
+cmake-build-debug/
+*.exe
+main.exe
+build
+*.csv

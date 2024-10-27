@@ -10,9 +10,16 @@
 #ifndef SENSOR_H
 #define SENSOR_H
 
+/* Includes ----------------------------------------------------------------- */
+
 #include <stdint.h>
 
+
+/* Functions ---------------------------------------------------------------- */
+
+void sensor_initSensorModule(void);
 int16_t sensor_createTempData(int8_t _min_temp, int8_t _max_temp);
+int16_t sensor_createHumidData(int8_t _max_humid, int8_t _min_humid);
 
 
 #endif // SENSOR_H

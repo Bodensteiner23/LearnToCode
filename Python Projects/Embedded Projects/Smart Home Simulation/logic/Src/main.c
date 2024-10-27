@@ -32,10 +32,10 @@
 
 /* Includes ----------------------------------------------------------------- */
 
+#include "sensor.h"
+#include "app.h"
 #include <stdint.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 
 /* Defines ------------------------------------------------------------------ */
 
@@ -44,28 +44,9 @@
 /* Variables ---------------------------------------------------------------- */
 
 
-/* Function Declarations ---------------------------------------------------- */
+/* Functions ---------------------------------------------------------------- */
 
 
-/* Sensor ------------------------------------------------------------------- */
-
-
-
-
-/* Application -------------------------------------------------------------- */
-
-void app_delay(int _number_of_millisecconds) {
-
-    clock_t start_time = clock();
-
-    while (clock() < start_time + _number_of_millisecconds);
-    // ToDo: Add something with RTOS so not everything is done with just waiting. Or create your own.
-} 
-
-
-void app_smoothSensorData() {
-
-}
 
 
 
@@ -86,7 +67,7 @@ int main(void) {
         printf("Temp Value: %i\n", temp_data);
         printf("Humid Value: %i\n", humid_data);
 
-        app_delay(1000);
+        app_delay(500);
 
 
     }

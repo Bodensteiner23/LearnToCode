@@ -19,16 +19,24 @@
 
 /* Includes ----------------------------------------------------------------- */
 
-#include "sensor.h"
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 /* Defines ------------------------------------------------------------------ */
 
 
 /* Variables ---------------------------------------------------------------- */
 
+int16_t sensor_createTempData(int8_t _min_temp, int8_t _max_temp) {
+     
+    srand(time(NULL));
 
+    int16_t temp_data_value = rand() % _max_temp + _min_temp;   
+
+    return temp_data_value;
+}
 
 
 /* Functions ---------------------------------------------------------------- */
@@ -38,7 +46,7 @@ int main(void) {
     int16_t value = sensor_createTempData(0, 80);
 
     printf("Value: %i", value);
-    printf("Test23");
+    printf("Test11");
     
     return 0;
 }

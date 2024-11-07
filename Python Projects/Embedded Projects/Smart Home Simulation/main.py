@@ -69,22 +69,18 @@ class Ui:
         self.time_data_array = []
 
 
-    def extractData(self):
-        df = pd.read_csv("SensorData.csv")
-        df.sort_values(by=["Temperatur"], inplace=True)
-
-        self.temp_data_array = df["Temperatur"].tolist()
-        self.time_data_array = df["Time"].tolist()
-
-
     def plotData(self):
-        x_points = np.array(self.time_data_array)
-        y_points = np.array(self.temp_data_array)
+        # Load the data
+        df = pd.read_csv("SensorData.csv")
 
-        plt.xlabel("Time in seconds")
-        plt.ylabel("Temp in °C")
-        plt.plot(x_points, y_points)
-        
+        # Apply a moving average on the temperature data
+        df["Smoothed_Temperatur"] = df["Temperatur"].rolling(window=50, min_periods=1).mean()
+
+        # Plot time on the x-axis and the smoothed temperature on the y-axis
+        plt.plot(df["Time"], df["Smoothed_Temperatur"], label="Smoothed Temperature over Time")
+        plt.xlabel("Time")
+        plt.ylabel("Temperature")
+        plt.legend()
         plt.show()
 
 
@@ -101,12 +97,11 @@ if __name__ == "__main__":
         writer.writerow(header)
 
     # Mainloop
-    for i in range(100):
+    for i in range(1000):
         sensor_temperature = sensor.getData()
         # time.sleep(0.2)
         timer = round(timer, 1)
         sensor.storeData(sensor_temperature, timer)
         timer += 0.2
 
-    ui.extractData()
     ui.plotData()

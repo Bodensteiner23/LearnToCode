@@ -7,6 +7,8 @@ SCREEN_Y_SIZE = 700
 # Place snake in the middle
 x_coord_snake = 650
 y_coord_snake = 450
+previous_x_coord_snake =  0
+previous_y_coord_snake =  0
 
 snake_in_border = False
 
@@ -16,10 +18,15 @@ right_rect_border = pygame.Rect(900, 100, 50, 500)
 upper_rect_border = pygame.Rect(150, 100, 750, 50)
 lower_rect_border = pygame.Rect(150, 550, 750, 50)
 
+border_rect_list = [left_rect_border,
+                    right_rect_border,
+                    upper_rect_border,
+                    lower_rect_border]
+
 
 # Functions ---------------------------------------------------------------------- #
-        
-def updatePosition(_x_coord, _y_coord):
+
+def updateCoords(_x_coord, _y_coord):
     keys_pressed = pygame.key.get_pressed()
 
     if keys_pressed[pygame.K_w]:
@@ -35,10 +42,22 @@ def updatePosition(_x_coord, _y_coord):
         print("d")
         _x_coord += 50
 
-    return _x_coord, _y_coord
-    
+    # -- Check for Collision -- #
+    snake_rect = pygame.Rect(_x_coord, _y_coord, 50, 50)
+    collision_with_border = pygame.Rect.collidelist(snake_rect, border_rect_list)
 
-def drawField():
+    if collision_with_border != -1:
+        _x_coord = previous_x_coord_snake
+        _y_coord = previous_y_coord_snake
+        print(f"Border!!")
+
+    snake_rect = pygame.Rect(_x_coord, _y_coord, 50, 50)
+
+    return snake_rect, _x_coord, _y_coord
+
+
+def drawField(snake_rect):
+    # ToDo: Later add a smaller rect in the middle of the rect and only that is being filled everytime
     screen.fill("plum2")
     
     # -- Borders -- #
@@ -59,7 +78,20 @@ def drawField():
     score_number = score_font.render("10", True, "black")
     screen.blit(score_number, (1170, 200))
 
-    snake_rect =  pygame.draw.rect(screen, "seagreen4", (x_coord_snake, y_coord_snake, 50, 50)) 
+    # -- Draw Snake -- #
+    pygame.draw.rect(screen, "seagreen4", snake_rect) 
+
+
+
+def checkCollision(snake_rect, x_coord_snake, y_coord_snake):
+    collision_with_border = pygame.Rect.collidelist(snake_rect, border_rect_list)
+
+    if collision_with_border != -1:
+        x_coord_snake = previous_x_coord_snake
+        y_coord_snake = previous_y_coord_snake
+        print(f"Border!!")
+
+    return x_coord_snake, y_coord_snake
 
 
 
@@ -81,14 +113,21 @@ if __name__ == "__main__":
                 running = False
         
         # RENDER YOUR GAME HERE
-        x_coord_snake, y_coord_snake = updatePosition(x_coord_snake, y_coord_snake)
+        snake_rect, x_coord_snake, y_coord_snake = updateCoords(x_coord_snake, y_coord_snake)
 
-        drawField()
+        previous_x_coord_snake = x_coord_snake
+        previous_y_coord_snake = y_coord_snake
         
+        drawField(snake_rect)
+
+
+        # if collision != -1:
+        #     print("Border")
         # snake_in_border = pygame.Rect.colliderect(border_rect, snake_rect)
         
         # Plot on screen
         pygame.display.flip()
+
 
         clock.tick(5)  # limits FPS to 60
 

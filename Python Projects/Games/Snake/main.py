@@ -1,19 +1,21 @@
 import pygame
+from random import randrange
 
 # Variables ---------------------------------------------------------------------- #
 SCREEN_X_SIZE = 1300
 SCREEN_Y_SIZE = 700
 
-x_coord_snake = 650
-y_coord_snake = 450
+x_coord_snake = randrange(150, 850, 50)
+y_coord_snake = randrange(150, 500, 50)
+
 previous_x_coord_snake =  0
 previous_y_coord_snake =  0
 
-previous_snake_direction = 0
+previous_snake_direction = None
 
 snake_in_border = False
 
-
+key_pressed = None
 
 
 # -- Borders -- #
@@ -35,15 +37,14 @@ screen = pygame.display.set_mode((SCREEN_X_SIZE, SCREEN_Y_SIZE))
 clock = pygame.time.Clock()
 running = True
 
-last_key_pressed = pygame.key.get_pressed()
+
+
 
 # Functions ---------------------------------------------------------------------- #
 
 def updateSnake(_x_coord, _y_coord, _previous_snake_direction):
-    # key_pressed = pygame.key.get_pressed()
 
-    snake_direction = updateDirection(last_key_pressed, _previous_snake_direction)
-    print(f"Snake Direction: {snake_direction}")
+    snake_direction = updateDirection(key_pressed, _previous_snake_direction)
 
     if snake_direction == "w":
         _y_coord -= 50
@@ -54,7 +55,7 @@ def updateSnake(_x_coord, _y_coord, _previous_snake_direction):
     elif snake_direction == "d":
         _x_coord += 50
     
-    # -- Check for Collision -- #
+    # -- Check for Collision with Border -- #
     snake_rect = pygame.Rect(_x_coord, _y_coord, 50, 50)
     collision_with_border = pygame.Rect.collidelist(snake_rect, border_rect_list)
 
@@ -70,6 +71,7 @@ def updateSnake(_x_coord, _y_coord, _previous_snake_direction):
 
 
 def updateDirection(_key_pressed, _previous_snake_direction):
+
     if _key_pressed == pygame.K_w:
         snake_direction = "w"
     elif _key_pressed == pygame.K_a:
@@ -79,7 +81,19 @@ def updateDirection(_key_pressed, _previous_snake_direction):
     elif _key_pressed == pygame.K_d:
         snake_direction = "d"
     else:
+        # -- No button pressed -- #
         snake_direction = _previous_snake_direction
+
+    # -- Check if snake is moving in opposite direction -- #
+    if snake_direction == "w" and _previous_snake_direction == "s":
+        snake_direction = _previous_snake_direction
+    elif snake_direction == "s" and _previous_snake_direction == "w":
+        snake_direction = _previous_snake_direction
+    elif snake_direction == "a" and _previous_snake_direction == "d":
+        snake_direction = _previous_snake_direction
+    elif snake_direction == "d" and _previous_snake_direction == "a":
+        snake_direction = _previous_snake_direction
+
 
     return snake_direction
 
@@ -130,7 +144,7 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN:
-                last_key_pressed = event.key
+                key_pressed = event.key
 
 
         # RENDER YOUR GAME HERE
@@ -160,10 +174,6 @@ if __name__ == "__main__":
 
 """
 ToDo:
-- Schlange in eine Richtung bewegen bis eine neue Rechung eingeschlagen wird
 - Food generieren
-- Schlange am Anfang an random Positon platzieren
 - Schlange updaten wenn sie länger wird
-- Schlange kleiner machen?
-
 """

@@ -4,7 +4,6 @@ import pygame
 SCREEN_X_SIZE = 1300
 SCREEN_Y_SIZE = 700
 
-
 x_coord_snake = 650
 y_coord_snake = 450
 previous_x_coord_snake =  0
@@ -13,6 +12,9 @@ previous_y_coord_snake =  0
 previous_snake_direction = 0
 
 snake_in_border = False
+
+
+
 
 # -- Borders -- #
 # ToDo: Only make one inner rect and check if snake is outside of that
@@ -26,13 +28,21 @@ border_rect_list = [left_rect_border,
                     upper_rect_border,
                     lower_rect_border]
 
+# Init Module -------------------------------------------------------------------- #
+pygame.init()
+pygame.display.set_caption("Snake")
+screen = pygame.display.set_mode((SCREEN_X_SIZE, SCREEN_Y_SIZE))
+clock = pygame.time.Clock()
+running = True
+
+last_key_pressed = pygame.key.get_pressed()
 
 # Functions ---------------------------------------------------------------------- #
 
 def updateSnake(_x_coord, _y_coord, _previous_snake_direction):
-    key_pressed = pygame.key.get_pressed()
+    # key_pressed = pygame.key.get_pressed()
 
-    snake_direction = updateDirection(key_pressed, _previous_snake_direction)
+    snake_direction = updateDirection(last_key_pressed, _previous_snake_direction)
     print(f"Snake Direction: {snake_direction}")
 
     if snake_direction == "w":
@@ -60,13 +70,13 @@ def updateSnake(_x_coord, _y_coord, _previous_snake_direction):
 
 
 def updateDirection(_key_pressed, _previous_snake_direction):
-    if _key_pressed[pygame.K_w]:
+    if _key_pressed == pygame.K_w:
         snake_direction = "w"
-    elif _key_pressed[pygame.K_a]:
+    elif _key_pressed == pygame.K_a:
         snake_direction = "a"
-    elif _key_pressed[pygame.K_s]:
+    elif _key_pressed == pygame.K_s:
         snake_direction = "s"
-    elif _key_pressed[pygame.K_d]:
+    elif _key_pressed == pygame.K_d:
         snake_direction = "d"
     else:
         snake_direction = _previous_snake_direction
@@ -113,22 +123,16 @@ def generateFood(_food_on_screen):
 
 
 if __name__ == "__main__":
-
-    # -- Init Module -- #
-    pygame.init()
-    pygame.display.set_caption("Snake")
-    screen = pygame.display.set_mode((SCREEN_X_SIZE, SCREEN_Y_SIZE))
-    clock = pygame.time.Clock()
-    running = True
-    
-    # -- Main Loop -- #
     while running:
         # poll for events
         # pygame.QUIT event means the user clicked X to close your window
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-        
+            if event.type == pygame.KEYDOWN:
+                last_key_pressed = event.key
+
+
         # RENDER YOUR GAME HERE
         snake_rect, x_coord_snake, y_coord_snake, previous_snake_direction = updateSnake(x_coord_snake, y_coord_snake, previous_snake_direction)
 

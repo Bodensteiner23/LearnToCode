@@ -11,6 +11,9 @@ y_coord_snake = randrange(150, 500, 50)
 previous_x_coord_snake =  0
 previous_y_coord_snake =  0
 
+x_coord_food = randrange(150, 850, 50)
+y_coord_food = randrange(150, 500, 50)
+
 previous_snake_direction = None
 
 snake_in_border = False
@@ -109,24 +112,29 @@ def drawField(_snake_rect):
     pygame.draw.rect(screen, "darkgray", lower_rect_border)
 
     # -- Text -- #
-    score_font = pygame.font.SysFont("Comic Sans MS", 50)
+    # score_font = ARCADE_CLASSIC.render("Comic Sans MS", 50)
+    score_font = pygame.font.Font("./Assets/ARCADECLASSIC.TTF", 60)
     
     snake_heading = score_font.render("Snake ", True, "black")
     screen.blit(snake_heading, (1000, 85))
 
-    score_text = score_font.render("Score: ", True, "black")
+    score_text = score_font.render("Score ", True, "black")
     screen.blit(score_text, (1000, 200))
 
     score_number = score_font.render("10", True, "black")
-    screen.blit(score_number, (1170, 200))
+    screen.blit(score_number, (1190, 200))
 
     # -- Draw Snake -- #
     pygame.draw.rect(screen, "seagreen4", _snake_rect) 
 
 def generateFood(_food_on_screen):
 
-    # ToDo: Food darf nicht auf Schlange generiert werden
-    # Auch checken ob Food schon generiert wurde und noch nicht aufgesammelt wurde
+    # if _food_on_screen == False:
+        
+    # ToDo: 
+    # - Food darf nicht auf Schlange generiert werden
+    # - Checken ob Food schon generiert wurde und noch nicht aufgesammelt wurde
+    
 
 
 

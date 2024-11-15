@@ -73,6 +73,7 @@ def updateSnake(_x_coord, _y_coord, _previous_snake_direction):
         _x_coord = previous_x_coord_snake
         _y_coord = previous_y_coord_snake
         # print(f"Border!!")
+        # Game Over
 
     snake_rect = pygame.Rect(_x_coord, _y_coord, 50, 50)
     _previous_snake_direction = snake_direction
@@ -147,12 +148,13 @@ def drawField(_snake_rect, _food_rect):
 
 # ToDo: 
 # - Food darf nicht auf Schlange generiert werden
-# - Checken ob Food schon generiert wurde und noch nicht aufgesammelt wurde
 def generateFood(_food_on_screen, _x_coord_food, _y_coord_food):
 
     if _food_on_screen == False:
         _x_coord_food = randrange(150, 850, 50)
         _y_coord_food = randrange(150, 500, 50)
+    
+
 
         _food_on_screen = True
 
@@ -191,10 +193,12 @@ if __name__ == "__main__":
         previous_x_coord_snake = x_coord_snake
         previous_y_coord_snake = y_coord_snake
 
+        # -- Delete old position entrys -- #
         snake_position_array.insert(0, [x_coord_snake, y_coord_snake])
+        for i in range(snake_lenght, len(snake_position_array)):
+            snake_position_array.pop(i)
 
         print(snake_position_array)
-        
         drawField(snake_rect, food_rect)
 
 
@@ -216,5 +220,5 @@ if __name__ == "__main__":
 
 """
 ToDo:
-- Schlange updaten wenn sie länger wird
+- 
 """

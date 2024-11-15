@@ -23,6 +23,7 @@ key_pressed = None
 food_on_screen = False
 
 snake_lenght = 1
+snake_position_array = []
 
 score = 0
 
@@ -134,7 +135,12 @@ def drawField(_snake_rect, _food_rect):
     pygame.draw.rect(screen, "red", _food_rect)
 
     # -- Draw Snake -- #
-    pygame.draw.rect(screen, "seagreen4", _snake_rect) 
+    pygame.draw.rect(screen, "green", _snake_rect)
+
+    for i in range(1, snake_lenght):
+        snake_rect = pygame.Rect(snake_position_array[i][0], snake_position_array[i][1], 50, 50)
+        pygame.draw.rect(screen, "seagreen4", snake_rect) 
+        
 
 
 
@@ -184,6 +190,10 @@ if __name__ == "__main__":
 
         previous_x_coord_snake = x_coord_snake
         previous_y_coord_snake = y_coord_snake
+
+        snake_position_array.insert(0, [x_coord_snake, y_coord_snake])
+
+        print(snake_position_array)
         
         drawField(snake_rect, food_rect)
 

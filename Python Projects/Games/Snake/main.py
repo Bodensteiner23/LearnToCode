@@ -20,6 +20,12 @@ snake_in_border = False
 
 key_pressed = None
 
+food_on_screen = False
+
+snake_lenght = 1
+
+score = 0
+
 
 # -- Borders -- #
 # ToDo: Only make one inner rect and check if snake is outside of that
@@ -101,7 +107,7 @@ def updateDirection(_key_pressed, _previous_snake_direction):
     return snake_direction
 
 
-def drawField(_snake_rect):
+def drawField(_snake_rect, _food_rect):
     # ToDo: Later add a smaller rect in the middle of the rect and only that is being filled everytime
     screen.fill("plum2")
     
@@ -121,24 +127,33 @@ def drawField(_snake_rect):
     score_text = score_font.render("Score ", True, "black")
     screen.blit(score_text, (1000, 200))
 
-    score_number = score_font.render("10", True, "black")
+    score_number = score_font.render(f"{score}", True, "black")
     screen.blit(score_number, (1190, 200))
+
+    # -- Draw Food -- #
+    pygame.draw.rect(screen, "red", _food_rect)
 
     # -- Draw Snake -- #
     pygame.draw.rect(screen, "seagreen4", _snake_rect) 
 
-def generateFood(_food_on_screen):
 
-    # if _food_on_screen == False:
+
+
+# ToDo: 
+# - Food darf nicht auf Schlange generiert werden
+# - Checken ob Food schon generiert wurde und noch nicht aufgesammelt wurde
+def generateFood(_food_on_screen, _x_coord_food, _y_coord_food):
+
+    if _food_on_screen == False:
+        _x_coord_food = randrange(150, 850, 50)
+        _y_coord_food = randrange(150, 500, 50)
+
+        _food_on_screen = True
+
         
-    # ToDo: 
-    # - Food darf nicht auf Schlange generiert werden
-    # - Checken ob Food schon generiert wurde und noch nicht aufgesammelt wurde
-    
+    food_rect = pygame.Rect(_x_coord_food, _y_coord_food, 50, 50)
 
-
-
-    pass
+    return _food_on_screen, food_rect, _x_coord_food, _y_coord_food
 
 
 
@@ -158,10 +173,19 @@ if __name__ == "__main__":
         # RENDER YOUR GAME HERE
         snake_rect, x_coord_snake, y_coord_snake, previous_snake_direction = updateSnake(x_coord_snake, y_coord_snake, previous_snake_direction)
 
+        food_on_screen, food_rect, x_coord_food, y_coord_food  = generateFood(food_on_screen, x_coord_food, y_coord_food)
+
+        # -- Check if snake eats food -- #
+        if x_coord_snake == x_coord_food and y_coord_snake == y_coord_food:
+            snake_lenght += 1
+            food_on_screen = False
+            score += 1
+
+
         previous_x_coord_snake = x_coord_snake
         previous_y_coord_snake = y_coord_snake
         
-        drawField(snake_rect)
+        drawField(snake_rect, food_rect)
 
 
         # -- Plot on screen -- #
@@ -182,6 +206,5 @@ if __name__ == "__main__":
 
 """
 ToDo:
-- Food generieren
 - Schlange updaten wenn sie länger wird
 """

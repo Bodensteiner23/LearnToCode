@@ -143,22 +143,27 @@ def drawField(_snake_rect, _food_rect):
         pygame.draw.rect(screen, "seagreen4", snake_rect) 
         
 
-
-
-
-# ToDo: 
-# - Food darf nicht auf Schlange generiert werden
 def generateFood(_food_on_screen, _x_coord_food, _y_coord_food):
+    food_on_snake = False
 
-    if _food_on_screen == False:
+    while _food_on_screen == False:
         _x_coord_food = randrange(150, 850, 50)
         _y_coord_food = randrange(150, 500, 50)
-    
 
+        for i in range (0, len(snake_position_array)):
+            if (_x_coord_food == snake_position_array[i][0] and
+                        _y_coord_food == snake_position_array[i][1]):
 
-        _food_on_screen = True
-
+                food_on_snake = True
+                break
+            else:
+                continue
         
+        if food_on_snake == True:
+            food_on_snake = False
+        else:
+            _food_on_screen = True
+
     food_rect = pygame.Rect(_x_coord_food, _y_coord_food, 50, 50)
 
     return _food_on_screen, food_rect, _x_coord_food, _y_coord_food
@@ -198,7 +203,6 @@ if __name__ == "__main__":
         for i in range(snake_lenght, len(snake_position_array)):
             snake_position_array.pop(i)
 
-        print(snake_position_array)
         drawField(snake_rect, food_rect)
 
 
@@ -206,7 +210,7 @@ if __name__ == "__main__":
         pygame.display.flip()
 
 
-        clock.tick(5)  # limits FPS to 60
+        clock.tick(10)  # limits FPS to 60
 
     pygame.quit()
 

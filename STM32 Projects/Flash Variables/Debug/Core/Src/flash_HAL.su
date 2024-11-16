@@ -1,5 +1,0 @@
-../Core/Src/flash_HAL.c:49:6:flash_init	4	static
-../Core/Src/flash_HAL.c:61:6:flash_registerVariable	24	static
-../Core/Src/flash_HAL.c:76:6:flash_write	16	static
-../Core/Src/flash_HAL.c:84:10:flash_read	16	static
-../Core/Src/flash_HAL.c:92:6:flash_savetoFlash	40	static

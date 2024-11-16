@@ -1,2 +1,0 @@
-../Core/Src/uart.c:37:6:uart_initUart	16	static
-../Core/Src/uart.c:41:6:uart_sendUartDebugData	1032	static

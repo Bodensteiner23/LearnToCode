@@ -1,5 +1,0 @@
-../Core/Src/flash_HAL.c:49:6:flash_init	1
-../Core/Src/flash_HAL.c:61:6:flash_registerVariable	3
-../Core/Src/flash_HAL.c:76:6:flash_write	1
-../Core/Src/flash_HAL.c:84:10:flash_read	1
-../Core/Src/flash_HAL.c:92:6:flash_savetoFlash	5

@@ -28,7 +28,6 @@ snake_in_body = False
 
 score = 0
 
-
 # -- Borders -- #
 # ToDo: Only make one inner rect and check if snake is outside of that
 left_rect_border = pygame.Rect(100, 100, 50, 500)      # Left, Top, Width, Height
@@ -55,8 +54,9 @@ running = True
 
 def updateSnake(_x_coord, _y_coord, _previous_snake_direction, _snake_in_body):
 
-    snake_direction = updateDirection(key_pressed, _previous_snake_direction)
+    snake_direction = updateDirection(_previous_snake_direction)
     
+    game_has_start = True
     
     if snake_direction == "w":
         _y_coord -= 50
@@ -66,29 +66,32 @@ def updateSnake(_x_coord, _y_coord, _previous_snake_direction, _snake_in_body):
         _y_coord += 50
     elif snake_direction == "d":
         _x_coord += 50
-    
-    # -- Check for Collision with Border and Body-- #
-    snake_rect = pygame.Rect(_x_coord, _y_coord, 50, 50)
-    collision_with_border = pygame.Rect.collidelist(snake_rect, border_rect_list)
-    
-    for i in range (0, len(snake_position_array)):
-        if (_x_coord  == snake_position_array[i][0] and
-                    _y_coord == snake_position_array[i][1]):
+    else:
+        game_has_start = False
+        
+    if game_has_start == True:
+        # -- Check for Collision with Border and Body-- #
+        snake_rect = pygame.Rect(_x_coord, _y_coord, 50, 50)
+        collision_with_border = pygame.Rect.collidelist(snake_rect, border_rect_list)
+        
+        for i in range (0, len(snake_position_array)):
+            if (_x_coord  == snake_position_array[i][0] and
+                        _y_coord == snake_position_array[i][1]):
 
-            _snake_in_body = True
-            print(snake_position_array)
-            break
-        else:
-            continue
+                _snake_in_body = True
+                # print(snake_position_array)
+                break
+            else:
+                continue
 
-    if collision_with_border != -1:
-        _x_coord = previous_x_coord_snake
-        _y_coord = previous_y_coord_snake
-        print("Border!!")
-        # Game Over
-    elif _snake_in_body == True:
-        print(_snake_in_body)
-        print("Game Over")
+        if collision_with_border != -1:
+            _x_coord = previous_x_coord_snake
+            _y_coord = previous_y_coord_snake
+            print("Border!!")
+            # Game Over
+        elif _snake_in_body == True:
+            # print(_snake_in_body)
+            print("Game Over")
 
 
     snake_rect = pygame.Rect(_x_coord, _y_coord, 50, 50)
@@ -97,15 +100,15 @@ def updateSnake(_x_coord, _y_coord, _previous_snake_direction, _snake_in_body):
     return snake_rect, _x_coord, _y_coord, _previous_snake_direction, _snake_in_body
 
 
-def updateDirection(_key_pressed, _previous_snake_direction):
+def updateDirection(_previous_snake_direction):
 
-    if _key_pressed == pygame.K_w:
+    if key_pressed == pygame.K_w:
         snake_direction = "w"
-    elif _key_pressed == pygame.K_a:
+    elif key_pressed == pygame.K_a:
         snake_direction = "a"
-    elif _key_pressed == pygame.K_s:
+    elif key_pressed == pygame.K_s:
         snake_direction = "s"
-    elif _key_pressed == pygame.K_d:
+    elif key_pressed == pygame.K_d:
         snake_direction = "d"
     else:
         # -- No button pressed -- #
@@ -227,7 +230,7 @@ if __name__ == "__main__":
         pygame.display.flip()
 
 
-        clock.tick(10)  # limits FPS to 60
+        clock.tick(10)  # Limit FPS
 
     pygame.quit()
 

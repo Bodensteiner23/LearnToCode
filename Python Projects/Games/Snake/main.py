@@ -28,6 +28,8 @@ snake_in_body = False
 
 score = 0
 
+game_over = False
+
 # -- Borders -- #
 # ToDo: Only make one inner rect and check if snake is outside of that
 left_rect_border = pygame.Rect(100, 100, 50, 500)      # Left, Top, Width, Height
@@ -52,7 +54,7 @@ running = True
 
 # Functions ---------------------------------------------------------------------- #
 
-def updateSnake(_x_coord, _y_coord, _previous_snake_direction, _snake_in_body):
+def updateSnake(_x_coord, _y_coord, _previous_snake_direction, _snake_in_body, _game_over):
 
     snake_direction = updateDirection(_previous_snake_direction)
     
@@ -87,17 +89,15 @@ def updateSnake(_x_coord, _y_coord, _previous_snake_direction, _snake_in_body):
         if collision_with_border != -1:
             _x_coord = previous_x_coord_snake
             _y_coord = previous_y_coord_snake
-            print("Border!!")
-            # Game Over
+            _game_over = True
         elif _snake_in_body == True:
-            # print(_snake_in_body)
-            print("Game Over")
-
+            _game_over = True
 
     snake_rect = pygame.Rect(_x_coord, _y_coord, 50, 50)
     _previous_snake_direction = snake_direction
 
-    return snake_rect, _x_coord, _y_coord, _previous_snake_direction, _snake_in_body
+
+    return snake_rect, _x_coord, _y_coord, _previous_snake_direction, _snake_in_body, _game_over
 
 
 def updateDirection(_previous_snake_direction):
@@ -201,10 +201,10 @@ if __name__ == "__main__":
                 running = False
             if event.type == pygame.KEYDOWN:
                 key_pressed = event.key
-
+            
 
         # RENDER YOUR GAME HERE
-        snake_rect, x_coord_snake, y_coord_snake, previous_snake_direction, snake_in_body = updateSnake(x_coord_snake, y_coord_snake, previous_snake_direction, snake_in_body)
+        snake_rect, x_coord_snake, y_coord_snake, previous_snake_direction, snake_in_body, game_over = updateSnake(x_coord_snake, y_coord_snake, previous_snake_direction, snake_in_body, game_over)
 
         food_on_screen, food_rect, x_coord_food, y_coord_food  = generateFood(food_on_screen, x_coord_food, y_coord_food)
 
@@ -230,7 +230,33 @@ if __name__ == "__main__":
         pygame.display.flip()
 
 
-        clock.tick(10)  # Limit FPS
+        clock.tick(5)  # Limit FPS
+
+        while game_over == True:
+
+            game_over_font = pygame.font.Font("./Assets/ARCADECLASSIC.TTF", 120)
+            game_over_screen = game_over_font.render("Game Over", True, "black")
+            screen.blit(game_over_screen, (200, 85))
+            pygame.display.flip()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_r:
+                        # Reset game state and restart the game
+                        game_over = False
+                        # Reset snake position, length, and other game variables here
+                        snake_position_array = [[x_coord_snake, y_coord_snake]]
+                        snake_lenght = 1
+                        # Reset other necessary variables
+                        break
+                    elif event.key == pygame.K_q:
+                        pygame.quit()
+                        exit()
+
+
 
     pygame.quit()
 

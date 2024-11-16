@@ -234,9 +234,13 @@ if __name__ == "__main__":
 
         while game_over == True:
 
-            game_over_font = pygame.font.Font("./Assets/ARCADECLASSIC.TTF", 120)
-            game_over_screen = game_over_font.render("Game Over", True, "black")
-            screen.blit(game_over_screen, (200, 85))
+            game_over_font1 = pygame.font.Font("./Assets/ARCADECLASSIC.TTF", 120)
+            game_over_screen1 = game_over_font1.render("Game Over", True, "black")
+            screen.blit(game_over_screen1, (250, 250))
+
+            game_over_font2 = pygame.font.Font("./Assets/ARCADECLASSIC.TTF", 100)
+            game_over_screen2 = game_over_font2.render("q to quit", True, "black")
+            screen.blit(game_over_screen2, (330, 400))
             pygame.display.flip()
 
             for event in pygame.event.get():
@@ -244,15 +248,7 @@ if __name__ == "__main__":
                     pygame.quit()
                     exit()
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_r:
-                        # Reset game state and restart the game
-                        game_over = False
-                        # Reset snake position, length, and other game variables here
-                        snake_position_array = [[x_coord_snake, y_coord_snake]]
-                        snake_lenght = 1
-                        # Reset other necessary variables
-                        break
-                    elif event.key == pygame.K_q:
+                    if event.key == pygame.K_q:
                         pygame.quit()
                         exit()
 

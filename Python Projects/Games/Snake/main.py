@@ -189,9 +189,6 @@ def generateFood(_food_on_screen, _x_coord_food, _y_coord_food):
     return _food_on_screen, food_rect, _x_coord_food, _y_coord_food
 
 
-
-
-
 if __name__ == "__main__":
     while running:
         # poll for events
@@ -246,25 +243,8 @@ if __name__ == "__main__":
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                    exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
                         pygame.quit()
-                        exit()
-
-
 
     pygame.quit()
-
-
-
-
-
-
-
-
-
-"""
-ToDo:
-- 
-"""

@@ -17,6 +17,8 @@ game_running = False
 
 ARCADE_FONT_PATH = "./Assets/ARCADECLASSIC.TTF"
 
+position_array = []
+
 
 
 def startingScreen():
@@ -32,6 +34,12 @@ def startingScreen():
     screen.blit(startFont2, (220, 320))
 
 
+def createMap():
+
+    for i in range(100, 901, 200):
+        for j in range(10, 51, 20):
+            position_array.append((i, j))
+    
 
 
 
@@ -52,6 +60,7 @@ if __name__ == "__main__":
         startingScreen()
         pygame.display.flip()
 
+    createMap()
 
     while game_running:
         # poll for events
@@ -63,6 +72,9 @@ if __name__ == "__main__":
         # Background
         screen.fill("snow2")
 
+        for i in range(0, len(position_array)):
+            map_rect = pygame.Rect((position_array[i][0], position_array[i][1]), (50, 10))
+            pygame.draw.rect(screen, "red", map_rect)
 
         # flip() the display to put your work on screen
         pygame.display.flip()
@@ -85,6 +97,6 @@ if __name__ == "__main__":
                                 Brick Game
 ###############################################################################
 - Map generieren mit arrays mit [x-pos][y-pos]
-- 
+- Ball ist auf Balken unten und fängt erst an sich zu bewegen, wenn user sich bewegt
                                 
 '''

@@ -36,8 +36,8 @@ def startingScreen():
 
 def createMap():
 
-    for i in range(100, 901, 200):
-        for j in range(10, 51, 20):
+    for i in range(2, 803, 200):
+        for j in range(10, 131, 30):
             position_array.append((i, j))
     
 
@@ -61,6 +61,7 @@ if __name__ == "__main__":
         pygame.display.flip()
 
     createMap()
+    print(position_array)
 
     while game_running:
         # poll for events
@@ -73,8 +74,8 @@ if __name__ == "__main__":
         screen.fill("snow2")
 
         for i in range(0, len(position_array)):
-            map_rect = pygame.Rect((position_array[i][0], position_array[i][1]), (50, 10))
-            pygame.draw.rect(screen, "red", map_rect)
+            map_rect = pygame.Rect((position_array[i][0], position_array[i][1]), (195, 25))
+            pygame.draw.rect(screen, "seagreen", map_rect)
 
         # flip() the display to put your work on screen
         pygame.display.flip()

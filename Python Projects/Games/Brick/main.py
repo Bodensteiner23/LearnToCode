@@ -1,6 +1,7 @@
 import pygame
 
 
+# Variables -------------------------------------------------------------------- #
 WINDOW_X_SIZE = 1000
 WINDOW_Y_SIZE = 500
 
@@ -17,12 +18,9 @@ game_running = False
 
 ARCADE_FONT_PATH = "./Assets/ARCADECLASSIC.TTF"
 
-position_array = []
 
-
-
+# Functions -------------------------------------------------------------------- #
 def startingScreen():
-
     screen.fill("black")
     starting_screen_font1 = pygame.font.Font(ARCADE_FONT_PATH, 200)     # Big Font
     starting_screen_font2 = pygame.font.Font(ARCADE_FONT_PATH, 70)      # Small Font
@@ -35,14 +33,28 @@ def startingScreen():
 
 
 def createMap():
-
+    position_array = []
+    # -- Create Rects to shoot -- #
     for i in range(2, 803, 200):
-        for j in range(10, 131, 30):
+        for j in range(5, 131, 30):
             position_array.append((i, j))
+    # -- Bar Rect -- #
+    position_array.insert(0, (420, 490))
+    
+    return position_array # First pos is bar
     
 
+def updateMap(_position_array):
+    rect_array = []
 
+    rect_array.append(pygame.Rect((_position_array[0][0], _position_array[0][1]), (80, 10)))
+    pygame.draw.rect(screen, "red", rect_array[0])
 
+    for i in range(1, len(_position_array)):
+        rect_array.append(pygame.Rect((_position_array[i][0], _position_array[i][1]), (195, 25)))
+        pygame.draw.rect(screen, "seagreen", rect_array[i])
+
+    
 
 
 if __name__ == "__main__":
@@ -53,6 +65,8 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 starting_screen = False
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    starting_screen = False
                 if event.key == pygame.K_s:
                     game_running = True
                     starting_screen = False
@@ -60,8 +74,7 @@ if __name__ == "__main__":
         startingScreen()
         pygame.display.flip()
 
-    createMap()
-    print(position_array)
+    position_array = createMap()
 
     while game_running:
         # poll for events
@@ -69,13 +82,13 @@ if __name__ == "__main__":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 game_running = False
-
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    game_running = False
         # Background
-        screen.fill("snow2")
+        screen.fill("black")
 
-        for i in range(0, len(position_array)):
-            map_rect = pygame.Rect((position_array[i][0], position_array[i][1]), (195, 25))
-            pygame.draw.rect(screen, "seagreen", map_rect)
+        updateMap(position_array)
 
         # flip() the display to put your work on screen
         pygame.display.flip()

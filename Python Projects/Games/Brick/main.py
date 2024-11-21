@@ -1,5 +1,4 @@
 import pygame
-from random import randrange
 
 
 # Variables -------------------------------------------------------------------- #
@@ -18,8 +17,7 @@ clock = pygame.time.Clock()
 ARCADE_FONT_PATH = "./Assets/ARCADECLASSIC.TTF"
 
 # -- Game specific variables -- #
-previous_x_bar_position = randrange(0, 420, 1)
-
+previous_x_bar_position = 460
 # Functions -------------------------------------------------------------------- #
 
 def startingScreen():
@@ -56,7 +54,10 @@ def updateBarPositions(_bar_direction, _previous_x_bar_position):
         print("left")
 
     bar_x_pos = _previous_x_bar_position + move_bar_dir
-    _previous_x_bar_position = bar_x_pos
+    if bar_x_pos >= 920 or bar_x_pos <= 0:  
+        bar_x_pos = _previous_x_bar_position    # Don't leave window
+    else : 
+        _previous_x_bar_position = bar_x_pos
     
     return bar_x_pos, _previous_x_bar_position
 
@@ -144,7 +145,6 @@ if __name__ == "__main__":
 ###############################################################################
                                 Brick Game
 ###############################################################################
-- Map generieren mit arrays mit [x-pos][y-pos]
 - Ball ist auf Balken unten und fängt erst an sich zu bewegen, wenn user sich bewegt
-                                
+- Boundarys erkennen
 '''

@@ -18,6 +18,8 @@ ARCADE_FONT_PATH = "./Assets/ARCADECLASSIC.TTF"
 
 # -- Game specific variables -- #
 previous_x_bar_position = 460
+
+
 # Functions -------------------------------------------------------------------- #
 
 def startingScreen():
@@ -34,12 +36,14 @@ def startingScreen():
 
 def createMap():
     position_array = []
+    # -- Bar Rect -- #
+    position_array.append((420, 490))
+    # -- Ball -- #
+    position_array.append((500, 480))
     # -- Create Rects to shoot -- #
     for i in range(2, 803, 200):
         for j in range(5, 131, 30):
             position_array.append((i, j))
-    # -- Bar Rect -- #
-    position_array.insert(0, (420, 490))
     
     return position_array # First pos is bar
     
@@ -48,14 +52,12 @@ def updateBarPositions(_bar_direction, _previous_x_bar_position):
     move_bar_dir = 0
     if _bar_direction[0] == "right":
         move_bar_dir += 8
-        print("right")
     elif _bar_direction[1] == "left":
         move_bar_dir -= 8
-        print("left")
 
     bar_x_pos = _previous_x_bar_position + move_bar_dir
     if bar_x_pos >= 920 or bar_x_pos <= 0:  
-        bar_x_pos = _previous_x_bar_position    # Don't leave window
+        bar_x_pos = _previous_x_bar_position    # Don't leave the window
     else : 
         _previous_x_bar_position = bar_x_pos
     
@@ -68,9 +70,11 @@ def updateMap(_position_array, _x_pos):
     rect_array.append(pygame.Rect((_x_pos, _position_array[0][1]), (80, 10)))
     pygame.draw.rect(screen, "red", rect_array[0])
 
-    for i in range(1, len(_position_array)):
+    pygame.draw.circle(screen, "white", (_position_array[1][0], _position_array[1][1]), 10)
+
+    for i in range(2, len(_position_array)):
         rect_array.append(pygame.Rect((_position_array[i][0], _position_array[i][1]), (195, 25)))
-        pygame.draw.rect(screen, "seagreen", rect_array[i])
+        pygame.draw.rect(screen, "seagreen", rect_array[i - 1])
 
 
 
@@ -146,5 +150,9 @@ if __name__ == "__main__":
                                 Brick Game
 ###############################################################################
 - Ball ist auf Balken unten und fängt erst an sich zu bewegen, wenn user sich bewegt
-- Boundarys erkennen
+- Ball springt an Wände und verlässt das Spielfeld nicht
+- Ball prallt von rechtecken ab
+- Rechtecke werden gelöscht
+
+
 '''

@@ -11,7 +11,7 @@ y_max = 10
 x_pos = 1
 y_pos = 1
 
-delta_t = 0.01
+delta_t = 0.1
 
 ball_pos = np.array([x_pos, y_pos])
 
@@ -21,7 +21,7 @@ x_positions = []
 y_positions = []
 
 
-for i in range(0, 3000):
+for i in range(0, 300):
     ball_pos = ball_pos + speed*delta_t
 
     if ball_pos[0] >= x_max:

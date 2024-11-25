@@ -1,11 +1,14 @@
 import pygame
+import numpy as np
 
 
 # Variables -------------------------------------------------------------------- #
 
+# -- Window Size -- #
 WINDOW_X_SIZE = 1000
 WINDOW_Y_SIZE = 500
-
+window_x_min, window_x_max = 0, 1000
+window_y_min, window_y_max = 0, 500
 
 # -- Pygame Setupt -- #
 pygame.init()
@@ -18,6 +21,7 @@ ARCADE_FONT_PATH = "./Assets/ARCADECLASSIC.TTF"
 
 # -- Game specific variables -- #
 previous_x_bar_position = 460
+ball_speed = np.array([8, 8])
 
 
 # Functions -------------------------------------------------------------------- #
@@ -64,6 +68,25 @@ def updateBarPositions(_bar_direction, _previous_x_bar_position):
     return bar_x_pos, _previous_x_bar_position
 
 
+def updateBallPositions(_ball_pos):
+    _ball_pos = _ball_pos + ball_speed
+
+    if _ball_pos[0] >= window_x_max:
+        ball_speed[0] *= -1
+        _ball_pos[0] = window_x_max
+    elif _ball_pos[0] <= window_x_min:
+        ball_speed[0] *= -1
+        _ball_pos[0] = window_x_min
+
+    if _ball_pos[1] >= window_y_max:
+        ball_speed[1] *= -1
+        _ball_pos[1] = window_y_max
+    elif _ball_pos[1] <= window_y_min:
+        ball_speed[1] *= -1
+        _ball_pos[1] = window_y_min
+    
+    return _ball_pos
+
 def updateMap(_position_array, _x_pos):
     rect_array = []
 
@@ -75,6 +98,7 @@ def updateMap(_position_array, _x_pos):
     for i in range(2, len(_position_array)):
         rect_array.append(pygame.Rect((_position_array[i][0], _position_array[i][1]), (195, 25)))
         pygame.draw.rect(screen, "seagreen", rect_array[i - 1])
+
 
 
 
@@ -126,7 +150,10 @@ if __name__ == "__main__":
         elif keys[pygame.K_LEFT]:
             bar_direction[1] = "left"
 
+
         bar_x_pos, previous_x_bar_position = updateBarPositions(bar_direction, previous_x_bar_position)
+        position_array[1] = updateBallPositions(position_array[1])
+
         updateMap(position_array, bar_x_pos)
 
         # flip() the display to put your work on screen

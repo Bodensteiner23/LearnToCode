@@ -1,6 +1,6 @@
 import pygame
 import numpy as np
-
+import random
 
 # Variables -------------------------------------------------------------------- #
 
@@ -21,6 +21,7 @@ ARCADE_FONT_PATH = "./Assets/ARCADECLASSIC.TTF"
 
 # -- Game specific variables -- #
 previous_x_bar_position = 460
+# ToDo: Add random starting direction
 ball_speed = np.array([8, 8])
 
 
@@ -49,7 +50,7 @@ def createMap():
         for j in range(5, 131, 30):
             position_array.append((i, j))
     
-    return position_array # First pos is bar
+    return position_array # First pos is bar, seccond pos is ball
     
 
 def updateBarPositions(_bar_direction, _previous_x_bar_position):
@@ -87,10 +88,10 @@ def updateBallPositions(_ball_pos):
     
     return _ball_pos
 
-def updateMap(_position_array, _x_pos):
+def updateMap(_position_array, _bar_x_pos):
     rect_array = []
 
-    rect_array.append(pygame.Rect((_x_pos, _position_array[0][1]), (80, 10)))
+    rect_array.append(pygame.Rect((_bar_x_pos, _position_array[0][1]), (80, 10)))
     pygame.draw.rect(screen, "red", rect_array[0])
 
     pygame.draw.circle(screen, "white", (_position_array[1][0], _position_array[1][1]), 10)
@@ -100,6 +101,10 @@ def updateMap(_position_array, _x_pos):
         pygame.draw.rect(screen, "seagreen", rect_array[i - 1])
 
 
+def checkCollision(_position_array):
+
+
+    pass
 
 
 if __name__ == "__main__":

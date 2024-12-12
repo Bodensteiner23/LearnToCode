@@ -1,5 +1,4 @@
 import pygame
-import numpy as np
 import random
 
 # Variables -------------------------------------------------------------------- #
@@ -22,7 +21,7 @@ ARCADE_FONT_PATH = "./Assets/ARCADECLASSIC.TTF"
 # -- Game specific variables -- #
 previous_x_bar_position = 460
 # ToDo: Add random starting direction
-ball_speed = np.array([8, 8])
+ball_speed = [8, 8]
 
 
 # Functions -------------------------------------------------------------------- #
@@ -70,23 +69,24 @@ def updateBarPositions(_bar_direction, _previous_x_bar_position):
 
 
 def updateBallPositions(_ball_pos):
-    _ball_pos = _ball_pos + ball_speed
+    new_ball_pos = [_ball_pos[0] + ball_speed[0], _ball_pos[1] + ball_speed[1]]
 
-    if _ball_pos[0] >= window_x_max:
+    if new_ball_pos[0] >= window_x_max:
         ball_speed[0] *= -1
-        _ball_pos[0] = window_x_max
-    elif _ball_pos[0] <= window_x_min:
+        new_ball_pos[0] = window_x_max
+    elif new_ball_pos[0] <= window_x_min:
         ball_speed[0] *= -1
-        _ball_pos[0] = window_x_min
+        new_ball_pos[0] = window_x_min
 
-    if _ball_pos[1] >= window_y_max:
+    if new_ball_pos[1] >= window_y_max:
         ball_speed[1] *= -1
-        _ball_pos[1] = window_y_max
-    elif _ball_pos[1] <= window_y_min:
+        new_ball_pos[1] = window_y_max
+    elif new_ball_pos[1] <= window_y_min:
         ball_speed[1] *= -1
-        _ball_pos[1] = window_y_min
+        new_ball_pos[1] = window_y_min
     
-    return _ball_pos
+    return new_ball_pos
+
 
 def updateMap(_position_array, _bar_x_pos):
     rect_array = []
@@ -102,7 +102,7 @@ def updateMap(_position_array, _bar_x_pos):
 
 
 def checkCollision(_position_array):
-
+    
 
     pass
 

@@ -1,4 +1,4 @@
-import pygame
+import pygame as py
 import random
 
 # Variables -------------------------------------------------------------------- #
@@ -9,12 +9,12 @@ WINDOW_Y_SIZE = 500
 window_x_min, window_x_max = 0, 1000
 window_y_min, window_y_max = 0, 500
 
-# -- Pygame Setupt -- #
-pygame.init()
-screen = pygame.display.set_mode((WINDOW_X_SIZE, WINDOW_Y_SIZE))
-pygame.display.set_caption("Bricks")
+# -- py Setupt -- #
+py.init()
+screen = py.display.set_mode((WINDOW_X_SIZE, WINDOW_Y_SIZE))
+py.display.set_caption("Bricks")
 
-clock = pygame.time.Clock()
+clock = py.time.Clock()
 
 ARCADE_FONT_PATH = "./Assets/ARCADECLASSIC.TTF"
 
@@ -28,8 +28,8 @@ ball_speed = [8, 8]
 
 def startingScreen():
     screen.fill("black")
-    starting_screen_font1 = pygame.font.Font(ARCADE_FONT_PATH, 200)     # Big Font
-    starting_screen_font2 = pygame.font.Font(ARCADE_FONT_PATH, 70)      # Small Font
+    starting_screen_font1 = py.font.Font(ARCADE_FONT_PATH, 200)     # Big Font
+    starting_screen_font2 = py.font.Font(ARCADE_FONT_PATH, 70)      # Small Font
     
     startFont1 = starting_screen_font1.render("BRICKS", True, "white")
     screen.blit(startFont1, (170, 120))
@@ -91,20 +91,27 @@ def updateBallPositions(_ball_pos):
 def updateMap(_position_array, _bar_x_pos):
     rect_array = []
 
-    rect_array.append(pygame.Rect((_bar_x_pos, _position_array[0][1]), (80, 10)))
-    pygame.draw.rect(screen, "red", rect_array[0])
+    rect_array.append(py.Rect((_bar_x_pos, _position_array[0][1]), (80, 10)))
+    py.draw.rect(screen, "red", rect_array[0])
 
-    pygame.draw.circle(screen, "white", (_position_array[1][0], _position_array[1][1]), 10)
+    py.draw.circle(screen, "white", (_position_array[1][0], _position_array[1][1]), 10)
 
     for i in range(2, len(_position_array)):
-        rect_array.append(pygame.Rect((_position_array[i][0], _position_array[i][1]), (195, 25)))
-        pygame.draw.rect(screen, "seagreen", rect_array[i - 1])
+        rect_array.append(py.Rect((_position_array[i][0], _position_array[i][1]), (195, 25)))
+        py.draw.rect(screen, "seagreen", rect_array[i - 1])
+
+    return rect_array
 
 
-def checkCollision(_position_array):
-    
+def checkCollision(_position_array, _rect_array):
+    ball_rect = py.Rect(_position_array[1][0], _position_array[1][1], 5, 5)
 
-    pass
+    for i in range(1, len(_rect_array)):
+        if ball_rect.colliderect(_rect_array[i]):
+            _position_array.pop(i)
+            break
+
+    return _position_array
 
 
 if __name__ == "__main__":
@@ -114,31 +121,31 @@ if __name__ == "__main__":
 
     # -- Starting screen -- #
     while starting_screen:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        for event in py.event.get():
+            if event.type == py.QUIT:
                 starting_screen = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:
+            if event.type == py.KEYDOWN:
+                if event.key == py.K_q:
                     starting_screen = False
-                if event.key == pygame.K_s:
+                if event.key == py.K_s:
                     game_running = True
                     starting_screen = False
         
         startingScreen()
-        pygame.display.flip()
+        py.display.flip()
 
-    
     position_array = createMap()
+    rect_array = []
 
     while game_running:
         bar_direction = [None, None]
         # poll for events
-        # pygame.QUIT event means the user clicked X to close your window
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        # py.QUIT event means the user clicked X to close your window
+        for event in py.event.get():
+            if event.type == py.QUIT:
                 game_running = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:
+            if event.type == py.KEYDOWN:
+                if event.key == py.K_q:
                     game_running = False
 
 
@@ -146,30 +153,32 @@ if __name__ == "__main__":
         # Background
         screen.fill("black")
 
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_RIGHT] and keys[pygame.K_LEFT]:
+        keys = py.key.get_pressed()
+        if keys[py.K_RIGHT] and keys[py.K_LEFT]:
             # -- Stop the bar if both keys are pressed -- #
             pass
-        elif keys[pygame.K_RIGHT]:
+        elif keys[py.K_RIGHT]:
             bar_direction[0] = "right"
-        elif keys[pygame.K_LEFT]:
+        elif keys[py.K_LEFT]:
             bar_direction[1] = "left"
 
+        position_array = checkCollision(position_array ,rect_array)
 
         bar_x_pos, previous_x_bar_position = updateBarPositions(bar_direction, previous_x_bar_position)
         position_array[1] = updateBallPositions(position_array[1])
 
-        updateMap(position_array, bar_x_pos)
+        rect_array = updateMap(position_array, bar_x_pos)
+
 
         # flip() the display to put your work on screen
-        pygame.display.flip()
+        py.display.flip()
 
         # limits FPS to 60
         # dt is delta time in seconds since last frame, used for framerate-
         # independent physics.
         clock.tick(60)
 
-    pygame.quit()
+    py.quit()
 
 
 

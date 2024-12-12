@@ -104,10 +104,12 @@ def updateMap(_position_array, _bar_x_pos):
 
 
 def checkCollision(_position_array, _rect_array):
-    ball_rect = py.Rect(_position_array[1][0], _position_array[1][1], 5, 5)
+    ball_rect = py.Rect(_position_array[1][0], _position_array[1][1], 10, 10)
 
-    for i in range(1, len(_rect_array)):
+    for i in range(2, len(_rect_array)):
         if ball_rect.colliderect(_rect_array[i]):
+            print(f"Länge: {len(_rect_array)}")
+            print(i)
             _position_array.pop(i)
             break
 
@@ -176,7 +178,7 @@ if __name__ == "__main__":
         # limits FPS to 60
         # dt is delta time in seconds since last frame, used for framerate-
         # independent physics.
-        clock.tick(60)
+        clock.tick(10)
 
     py.quit()
 

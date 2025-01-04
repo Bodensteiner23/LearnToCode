@@ -69,7 +69,8 @@ def updateBarPositions(_bar_direction, _previous_x_bar_position):
 
 
 def updateBallPositions(_ball_pos):
-    new_ball_pos = [_ball_pos[0] + ball_speed[0], _ball_pos[1] + ball_speed[1]]
+    # ToDo: Vielleicht in Zukunft Ball Geschwindigkeit schneller machen
+    new_ball_pos = [_ball_pos[1][0] + ball_speed[0], _ball_pos[1][1] + ball_speed[1]]
 
     if new_ball_pos[0] >= window_x_max:
         ball_speed[0] *= -1
@@ -94,24 +95,23 @@ def updateMap(_position_array, _bar_x_pos):
     rect_array.append(py.Rect((_bar_x_pos, _position_array[0][1]), (80, 10)))
     py.draw.rect(screen, "red", rect_array[0])
 
+    rect_array.append(py.Rect(_position_array[1][0], _position_array[1][1], 10, 10 ))
     py.draw.circle(screen, "white", (_position_array[1][0], _position_array[1][1]), 10)
 
     for i in range(2, len(_position_array)):
         rect_array.append(py.Rect((_position_array[i][0], _position_array[i][1]), (195, 25)))
-        py.draw.rect(screen, "seagreen", rect_array[i - 1])
+        py.draw.rect(screen, "seagreen", rect_array[i])
 
     return rect_array
 
 
 def checkCollision(_position_array, _rect_array):
-    ball_rect = py.Rect(_position_array[1][0], _position_array[1][1], 10, 10)
+    # ball_rect = py.Rect(_position_array[1][0], _position_array[1][1], 10, 10)
 
-    for i in range(2, len(_rect_array)):
-        if ball_rect.colliderect(_rect_array[i]):
-            print(f"Länge: {len(_rect_array)}")
-            print(i)
-            _position_array.pop(i)
-            break
+    if py.Rect.colliderect(_rect_array[0], _rect_array[1]):
+        ball_speed[1] *= -1
+    elif py.Rect.collidelist(_rect_array[1], _rect_array):
+        print("test")
 
     return _position_array
 
@@ -138,6 +138,7 @@ if __name__ == "__main__":
 
     position_array = createMap()
     rect_array = []
+    bar_x_pos = 0
 
     while game_running:
         bar_direction = [None, None]
@@ -164,13 +165,14 @@ if __name__ == "__main__":
         elif keys[py.K_LEFT]:
             bar_direction[1] = "left"
 
-        position_array = checkCollision(position_array ,rect_array)
 
         bar_x_pos, previous_x_bar_position = updateBarPositions(bar_direction, previous_x_bar_position)
-        position_array[1] = updateBallPositions(position_array[1])
+
+        position_array[1] = updateBallPositions(position_array)
 
         rect_array = updateMap(position_array, bar_x_pos)
 
+        position_array = checkCollision(position_array ,rect_array)
 
         # flip() the display to put your work on screen
         py.display.flip()
@@ -178,7 +180,7 @@ if __name__ == "__main__":
         # limits FPS to 60
         # dt is delta time in seconds since last frame, used for framerate-
         # independent physics.
-        clock.tick(10)
+        clock.tick(60)
 
     py.quit()
 

@@ -39,17 +39,21 @@ def startingScreen():
 
 
 def createMap():
-    position_array = []
+    positions = {
+        "bar_position": [],
+        "ball_position": [],
+        "rect_position": []
+    }
     # -- Bar Rect -- #
-    position_array.append((420, 490))
+    positions["bar_position"].append((420, 490))
     # -- Ball -- #
-    position_array.append((500, 480))
+    positions["ball_position"].append((500, 480))
     # -- Create Rects to shoot -- #
-    for i in range(2, 803, 200):
-        for j in range(5, 131, 30):
-            position_array.append((i, j))
+    for i in range(0, 801, 200):
+        for j in range(5, 126, 30): # ToDo: Verify what this is doing, before second value was 135
+            positions["rect_position"].append((i, j))
     
-    return position_array # First pos is bar, seccond pos is ball
+    return positions  # First pos is bar, seccond pos is ball
     
 
 def updateBarPositions(_bar_direction, _previous_x_bar_position):
@@ -136,7 +140,7 @@ if __name__ == "__main__":
         startingScreen()
         py.display.flip()
 
-    position_array = createMap()
+    positions = createMap()
     rect_array = []
     bar_x_pos = 0
 
@@ -168,11 +172,11 @@ if __name__ == "__main__":
 
         bar_x_pos, previous_x_bar_position = updateBarPositions(bar_direction, previous_x_bar_position)
 
-        position_array[1] = updateBallPositions(position_array)
+        # position_array[1] = updateBallPositions(position_array)
 
-        rect_array = updateMap(position_array, bar_x_pos)
+        # rect_array = updateMap(position_array, bar_x_pos)
 
-        position_array = checkCollision(position_array ,rect_array)
+        # position_array = checkCollision(position_array ,rect_array)
 
         # flip() the display to put your work on screen
         py.display.flip()

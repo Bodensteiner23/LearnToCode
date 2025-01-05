@@ -50,7 +50,7 @@ def createMap():
     positions["ball_position"].append((500, 480))
     # -- Create Rects to shoot -- #
     for i in range(0, 801, 200):
-        for j in range(5, 126, 30): # ToDo: Verify what this is doing, before second value was 135
+        for j in range(5, 126, 30): # ToDo: Verify what this is doing. Before second value was 135
             positions["rect_position"].append((i, j))
     
     return positions  # First pos is bar, seccond pos is ball
@@ -72,9 +72,12 @@ def updateBarPositions(_bar_direction, _previous_x_bar_position):
     return bar_x_pos, _previous_x_bar_position
 
 
-def updateBallPositions(_ball_pos):
-    # ToDo: Vielleicht in Zukunft Ball Geschwindigkeit schneller machen
-    new_ball_pos = [_ball_pos[1][0] + ball_speed[0], _ball_pos[1][1] + ball_speed[1]]
+def updateBallPositions(_positions):
+    current_ball_pos = _positions["ball_position"][0]
+
+    new_ball_pos = [current_ball_pos[0] + ball_speed[0],
+                    current_ball_pos[1] + ball_speed[1]]
+    
 
     if new_ball_pos[0] >= window_x_max:
         ball_speed[0] *= -1
@@ -172,7 +175,7 @@ if __name__ == "__main__":
 
         bar_x_pos, previous_x_bar_position = updateBarPositions(bar_direction, previous_x_bar_position)
 
-        # position_array[1] = updateBallPositions(position_array)
+        positions["ball_position"][0] = updateBallPositions(positions)
 
         # rect_array = updateMap(position_array, bar_x_pos)
 

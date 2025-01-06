@@ -2,14 +2,21 @@
 
 body {
     background-color: rgb(60, 60, 60);
+    font-family: 'ArcadeClassic', sans-serif;
 }
 
 #bricksHeading {
     display: flex;
     justify-content: center;
-    font-size: 150px;
+    font-size: 20vw;
     color: white;
-    font-family: 'ArcadeClassic', sans-serif;
-    letter-spacing: 10px;    
+    letter-spacing: 1vw;    
     margin: 0;
+}
+
+#playingField {
+    margin: auto;
+    background-color: lightpink;
+    width: 90vw;
+    height: 50vh;
 }

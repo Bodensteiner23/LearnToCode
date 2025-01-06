@@ -42,7 +42,7 @@ def createMap():
     positions = {
         "bar_position": [],
         "ball_position": [],
-        "rect_position": []
+        "shoot_rect_position": []
     }
     # -- Bar Rect -- #
     positions["bar_position"].append((420, 490))
@@ -51,7 +51,7 @@ def createMap():
     # -- Create Rects to shoot -- #
     for i in range(0, 801, 200):
         for j in range(5, 126, 30): # ToDo: Verify what this is doing. Before second value was 135
-            positions["rect_position"].append((i, j))
+            positions["shoot_rect_position"].append((i, j))
     
     return positions  # First pos is bar, seccond pos is ball
     
@@ -97,16 +97,20 @@ def updateBallPositions(_positions):
 
 
 def updateMap(_position_array, _bar_x_pos):
-    rect_array = []
+    rects = {
+        "bar_rect": [],
+        "ball_rect": [],
+        "shoot_rect": []
+    }
 
-    rect_array.append(py.Rect((_bar_x_pos, _position_array[0][1]), (80, 10)))
+    rects["bar_rect"].append(py.Rect((_bar_x_pos, _position_array[0][1]), (80, 10)))
     py.draw.rect(screen, "red", rect_array[0])
 
-    rect_array.append(py.Rect(_position_array[1][0], _position_array[1][1], 10, 10 ))
+    rects["ball_rect"].append(py.Rect(_position_array[1][0], _position_array[1][1], 10, 10 ))
     py.draw.circle(screen, "white", (_position_array[1][0], _position_array[1][1]), 10)
 
     for i in range(2, len(_position_array)):
-        rect_array.append(py.Rect((_position_array[i][0], _position_array[i][1]), (195, 25)))
+        rects["shoot_rect"].append(py.Rect((_position_array[i][0], _position_array[i][1]), (195, 25)))
         py.draw.rect(screen, "seagreen", rect_array[i])
 
     return rect_array

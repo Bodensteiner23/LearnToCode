@@ -20,3 +20,11 @@ body {
     width: 90vw;
     height: 50vh;
 }
+
+#startGameButton {
+    display: block;
+    margin: auto;
+    margin-top: 5vh;
+    font-size: 3vw;
+    border-radius: 1vh;
+}

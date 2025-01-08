@@ -3,15 +3,24 @@ const playingField = document.getElementById("playingField");
 let start_game = false;
 
 window.addEventListener("load", (event) => {
-  testFunction();
+  addCanvas();
+  initGame();
 });
 
-function testFunction() {
-  const playingField = document.getElementById("playingField");
-  const para = document.createElement("h1");
-  para.textContent = "Test";
-  playingField.appendChild(para);
+function addCanvas() {
+  const gameCanvas = document.createElement("canvas");
+  gameCanvas.id = "gameCanvas";
+  gameCanvas.width = 1500;
+  gameCanvas.height = 700;
+
+  const ctx = gameCanvas.getContext("2d");
+  ctx.fillStyle = "blue";
+  ctx.fillRect(100, 100, 500, 100);
+
+  playingField.appendChild(gameCanvas);
 }
+
+function initGame() {}
 
 function startGame() {
   const startButton = document.getElementById("startGameButton");
@@ -22,7 +31,6 @@ function startGame() {
 
 function main() {
   if (start_game) {
-    console.log("Test");
     start_game = false;
   }
 }

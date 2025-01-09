@@ -96,22 +96,25 @@ def updateBallPositions(_positions):
     return new_ball_pos
 
 
-def updateMap(_position_array, _bar_x_pos):
+def updateMap(_positions, _bar_x_pos):
     rects = {
         "bar_rect": [],
         "ball_rect": [],
         "shoot_rect": []
     }
 
-    rects["bar_rect"].append(py.Rect((_bar_x_pos, _position_array[0][1]), (80, 10)))
-    py.draw.rect(screen, "red", rect_array[0])
+    rects["bar_rect"].append(py.Rect((_bar_x_pos, _positions["bar_position"][0][1]), (80, 10)))
+    py.draw.rect(screen, "red", rects["bar_rect"][0])
 
-    rects["ball_rect"].append(py.Rect(_position_array[1][0], _position_array[1][1], 10, 10 ))
-    py.draw.circle(screen, "white", (_position_array[1][0], _position_array[1][1]), 10)
+    rects["ball_rect"].append(py.Rect(_positions["ball_position"][0][0],
+                                        _positions["ball_position"][0][1], 10, 10 ))
+    py.draw.circle(screen, "white", (_positions["ball_position"][0][0], 
+                                        _positions["ball_position"][0][1]), 10)
 
-    for i in range(2, len(_position_array)):
-        rects["shoot_rect"].append(py.Rect((_position_array[i][0], _position_array[i][1]), (195, 25)))
-        py.draw.rect(screen, "seagreen", rect_array[i])
+    for i in range(0, len(_positions["shoot_rect_position"])):
+        rects["shoot_rect"].append(py.Rect((_positions["shoot_rect_position"][i][0], 
+                                            _positions["shoot_rect_position"][i][1]), (195, 25)))
+        py.draw.rect(screen, "seagreen", rects["shoot_rect"][i])
 
     return rect_array
 
@@ -181,7 +184,7 @@ if __name__ == "__main__":
 
         positions["ball_position"][0] = updateBallPositions(positions)
 
-        # rect_array = updateMap(position_array, bar_x_pos)
+        rect_array = updateMap(positions, bar_x_pos)
 
         # position_array = checkCollision(position_array ,rect_array)
 

@@ -50,7 +50,7 @@ def createMap():
     positions["ball_position"].append((500, 480))
     # -- Create Rects to shoot -- #
     for i in range(0, 801, 200):
-        for j in range(5, 126, 30): # ToDo: Verify what this is doing. Before second value was 135
+        for j in range(5, 126, 30):
             positions["shoot_rect_position"].append((i, j))
     
     return positions  # First pos is bar, seccond pos is ball
@@ -116,18 +116,23 @@ def updateMap(_positions, _bar_x_pos):
                                             _positions["shoot_rect_position"][i][1]), (195, 25)))
         py.draw.rect(screen, "seagreen", rects["shoot_rect"][i])
 
-    return rect_array
+    return rects
 
 
-def checkCollision(_position_array, _rect_array):
+def checkCollision(_positions, _rects):
     # ball_rect = py.Rect(_position_array[1][0], _position_array[1][1], 10, 10)
 
-    if py.Rect.colliderect(_rect_array[0], _rect_array[1]):
-        ball_speed[1] *= -1
-    elif py.Rect.collidelist(_rect_array[1], _rect_array):
-        print("test")
+    # if py.Rect.colliderect(_rects[0], _rects[1]):
+    #     ball_speed[1] *= -1
+    # elif py.Rect.collidelist(_rects[1], _rects):
+    #     print("test")
 
-    return _position_array
+    if py.Rect.colliderect(_rects["ball_rect"], _rects["bar_rect"]):
+        ball_speed[1] *= -1
+
+
+
+    return _positions
 
 
 if __name__ == "__main__":
@@ -150,8 +155,8 @@ if __name__ == "__main__":
         startingScreen()
         py.display.flip()
 
-    positions = createMap()
-    rect_array = []
+    main_positions = createMap()
+    main_rects = []
     bar_x_pos = 0
 
     while game_running:
@@ -182,11 +187,11 @@ if __name__ == "__main__":
 
         bar_x_pos, previous_x_bar_position = updateBarPositions(bar_direction, previous_x_bar_position)
 
-        positions["ball_position"][0] = updateBallPositions(positions)
+        main_positions["ball_position"][0] = updateBallPositions(main_positions)
 
-        rect_array = updateMap(positions, bar_x_pos)
+        rects = updateMap(main_positions, bar_x_pos)
 
-        # position_array = checkCollision(position_array ,rect_array)
+        main_positions = checkCollision(main_positions, main_rects)
 
         # flip() the display to put your work on screen
         py.display.flip()

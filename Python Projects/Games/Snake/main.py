@@ -44,6 +44,7 @@ border_rect_list = [left_rect_border,
 
 # Init Module -------------------------------------------------------------------- #
 pygame.init()
+pygame.font.init()
 pygame.display.set_caption("Snake")
 screen = pygame.display.set_mode((SCREEN_X_SIZE, SCREEN_Y_SIZE))
 clock = pygame.time.Clock()

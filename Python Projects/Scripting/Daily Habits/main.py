@@ -5,12 +5,7 @@ def processCurrentHabbits(_data):
     current_habbits = _data["habbits"]
     valid_input = False
     if current_habbits:
-        print("Your current habbits are as follows: ", end="")
-        for i in range(0, len(current_habbits)):
-            if i == (len(current_habbits) - 1):
-                print(current_habbits[i])
-            else:
-                print(current_habbits[i], end=" ,")
+        printCurrentHabbits(current_habbits)
     else:
         while valid_input == False:
             user_input = input("You have no habbits at the moment. Do you want to add them? (y/n): ")
@@ -39,6 +34,9 @@ def addHabbit(_data):
         elif user_input == "y":
             _data["habbits"].append(input("Input habit: "))
             no_more_habbit = False
+    
+    current_habbits = _data["habbits"]
+    printCurrentHabbits(current_habbits)
 
     return _data
 
@@ -49,6 +47,15 @@ def checkValidInput(_user_input):
     return False
 
 
+def printCurrentHabbits(_current_habbits):
+    print("Your current habbits are as follows: ", end="")
+    for i in range(0, len(_current_habbits)):
+        if i == (len(_current_habbits) - 1):
+            print(_current_habbits[i])
+        else:
+            print(_current_habbits[i], end=" ,")
+
+
 def main():
 
     with open('data.json') as f:
@@ -56,11 +63,10 @@ def main():
 
     data = processCurrentHabbits(data)
 
-
-
-
-
     with open("data.json", "w") as f:
         json.dump(data, f, indent=4)
+
+    
+
 
 main()

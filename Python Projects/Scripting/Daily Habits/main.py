@@ -3,23 +3,57 @@ import json
 
 def processCurrentHabbits(_data):
     current_habbits = _data["habbits"]
+    happy_user = False
     valid_input = False
-    if current_habbits:
-        printCurrentHabbits(current_habbits)
-    else:
+    add_or_remove = False
+    while happy_user == False:
+        if current_habbits:
+            printCurrentHabbits(current_habbits)
+        else:
+            _data = checkForAddHabbit(_data)
+        
+        valid_input = False
+        user_input = input("Do you want to add or remove habbits? (y/n): ")
+
         while valid_input == False:
-            user_input = input("You have no habbits at the moment. Do you want to add them? (y/n): ")
-            if not checkValidInput(user_input):
+            if not checkValidInput(user_input, "yn"):
                 continue
-            elif user_input == "n":
-                valid_input = True
-                return _data
             elif user_input == "y":
                 valid_input = True
+                add_or_remove = True
+            elif user_input == "n":
+                valid_input = True
+                add_or_remove = False
+        
+        if add_or_remove == True:
+            user_input = input("Add or remove? (a/r): ")
+            if not checkValidInput(user_input, "ar"):
+                continue
+            elif user_input == "a":
                 _data = addHabbit(_data)
+            elif user_input == "r":
+                _data = removeHabbit(_data)
+
+
 
     return _data
 
+
+def checkForAddHabbit(_data):
+    valid_input = False
+    while valid_input == False:
+        user_input = input("You have no habbits at the moment. Do you want to add them? (y/n): ")
+        if not checkValidInput(user_input, "yn"):
+            continue
+        elif user_input == "n":
+            valid_input = True
+            break
+        elif user_input == "y":
+            valid_input = True
+            _data = addHabbit(_data)
+
+    return _data
+    
 
 def addHabbit(_data):
     _data["habbits"].append(input("Input habit: "))
@@ -27,7 +61,7 @@ def addHabbit(_data):
     no_more_habbit = False
     while no_more_habbit == False:
         user_input = input("Do you want to add another habit? (y/n): ")
-        if not checkValidInput(user_input):
+        if not checkValidInput(user_input, "yn"):
             continue
         if user_input == "n":
             no_more_habbit = True
@@ -40,8 +74,14 @@ def addHabbit(_data):
 
     return _data
 
-def checkValidInput(_user_input):
-    if _user_input == "y" or _user_input == "n":
+def removeHabbit(_data):
+    print("Ich entferne")
+
+
+def checkValidInput(_user_input, _checkString):
+    if (_user_input == "y" or _user_input == "n") and _checkString == "yn":
+        return True
+    elif ((_user_input == "a" or _user_input == "r") and _checkString == "ar"):
         return True
     print("Invalid input. Try again.")
     return False
@@ -56,12 +96,31 @@ def printCurrentHabbits(_current_habbits):
             print(_current_habbits[i], end=" ,")
 
 
-def main():
+def processHabbits(_data):
+    working = True
+    while working == True:
+        print("")
 
+
+
+def main():
+    working = True
     with open('data.json') as f:
         data = json.load(f)
-
-    data = processCurrentHabbits(data)
+    while working == True:
+        # data = processCurrentHabbits(data)
+        print("Main Menu")
+        print("1. Show Habbits")
+        print("2. DailyVlog")
+    	
+        user_input = input("Choose an option: ")
+        
+        if user_input == 1:
+            print("1")
+        elif user_input == 2:
+            print("2")
+        else:
+            print("Invalid Input")
 
     with open("data.json", "w") as f:
         json.dump(data, f, indent=4)

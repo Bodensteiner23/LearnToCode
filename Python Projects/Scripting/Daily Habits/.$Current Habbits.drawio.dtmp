@@ -32,7 +32,7 @@
         <mxCell id="PqvhF3c-NOtuP2TfJ0FH-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="PqvhF3c-NOtuP2TfJ0FH-5" target="PqvhF3c-NOtuP2TfJ0FH-32" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-5" value="Print Habbits" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-5" value="Print Habbits" style="whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
           <mxGeometry x="270" y="460" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="PqvhF3c-NOtuP2TfJ0FH-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="PqvhF3c-NOtuP2TfJ0FH-6" target="PqvhF3c-NOtuP2TfJ0FH-11" edge="1">
@@ -64,16 +64,16 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-11" value="Add habbits?" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-11" value="Add habbits?" style="whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
           <mxGeometry x="750" y="460" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-14" value="Exit program" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-14" value="Exit program" style="whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
           <mxGeometry x="970" y="390" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="PqvhF3c-NOtuP2TfJ0FH-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="PqvhF3c-NOtuP2TfJ0FH-15" target="PqvhF3c-NOtuP2TfJ0FH-22" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-15" value="Add one habbit" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-15" value="Add one habbit" style="whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
           <mxGeometry x="970" y="520" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="PqvhF3c-NOtuP2TfJ0FH-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="PqvhF3c-NOtuP2TfJ0FH-22" target="PqvhF3c-NOtuP2TfJ0FH-15" edge="1">
@@ -104,7 +104,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-22" value="Add more habbits?" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-22" value="Add more habbits?" style="whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
           <mxGeometry x="1181" y="520" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="PqvhF3c-NOtuP2TfJ0FH-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="PqvhF3c-NOtuP2TfJ0FH-32" target="PqvhF3c-NOtuP2TfJ0FH-15" edge="1">
@@ -160,6 +160,9 @@
         </mxCell>
         <mxCell id="PqvhF3c-NOtuP2TfJ0FH-43" value="Start with daily Vlog" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="270" y="860" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mqT_j7z26oHS2k_hGFee-1" value="" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="960" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

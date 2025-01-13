@@ -1,4 +1,5 @@
 import json
+import os
  
 
 def processCurrentHabbits(_data):
@@ -88,42 +89,77 @@ def checkValidInput(_user_input, _checkString):
 
 
 def printCurrentHabbits(_current_habbits):
+    working = True
     print("Your current habbits are as follows: ", end="")
-    for i in range(0, len(_current_habbits)):
-        if i == (len(_current_habbits) - 1):
-            print(_current_habbits[i])
+    while working == True:
+        if _current_habbits:
+            for i in range(0, len(_current_habbits)):
+                if i == (len(_current_habbits) - 1):
+                    print(_current_habbits[i])
+                else:
+                    print(_current_habbits[i], end=" ,")
         else:
-            print(_current_habbits[i], end=" ,")
+            print("\nNo habbits defined!")
+        user_input = input("Go back? (y): ")
+        if user_input == "y":
+            working = False
 
 
 def processHabbits(_data):
     working = True
     while working == True:
         print("")
+# Menus --------------------------------------------------------------------- #
+def openHabbitMenu():
+    with open('data.json') as f:
+        data = json.load(f)
+    while True:
+        os.system("cls")
+        print("Daily Habbit Menu")
+        print("1. Show Habbits")
+        print("2. Add Habbits")
+        print("3. Remove Habbits")
+        print("4. Exit Menu")
+        user_input = input("Choose an option: ")
+        
+        while user_input != "4":
+            os.system("cls")
+            if user_input == "1":
+                printCurrentHabbits(data["habbits"])
+                break
+            elif user_input == "2":
+                pass
+            elif user_input == "3":
+                pass
+            else:
+                print("Invalid Input")
 
 
+def openDailyVlogMenu():
+
+    pass
 
 def main():
     working = True
-    with open('data.json') as f:
-        data = json.load(f)
-    while working == True:
-        # data = processCurrentHabbits(data)
+    # with open('data.json') as f:
+    #     data = json.load(f)
+    while True:
+        os.system("cls")
         print("Main Menu")
-        print("1. Show Habbits")
+        print("1. Habbits")
         print("2. DailyVlog")
     	
         user_input = input("Choose an option: ")
         
-        if user_input == 1:
-            print("1")
-        elif user_input == 2:
-            print("2")
+        if user_input == "1":
+            openHabbitMenu()
+        elif user_input == "2":
+            openDailyVlogMenu()
         else:
             print("Invalid Input")
 
-    with open("data.json", "w") as f:
-        json.dump(data, f, indent=4)
+    # with open("data.json", "w") as f:
+    #     json.dump(data, f, indent=4)
 
     
 

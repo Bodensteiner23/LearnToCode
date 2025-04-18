@@ -92,7 +92,5 @@ int main() {
             std::cout << "Invalid type";
     }
 
-
-
     return 0;
 }

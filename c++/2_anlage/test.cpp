@@ -53,7 +53,6 @@ public:
   }
 };
 
-
 class LevelSensor {
 public:
   Slot<AnalogSignal> connectedSignal;

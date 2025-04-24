@@ -25,8 +25,6 @@ BookData Book::get_book_data() {
     return data;
 }
 
-
-
 namespace Console {
     void show_menue() {
         std::cout << "----------- Library System -----------" << std::endl;
@@ -61,25 +59,36 @@ namespace Console {
     }
 
     void print_book_list(std::vector<Book> booklist) {
+        std::cout << "----------- Book List -----------" << std::endl;
         for (size_t i = 0; i < booklist.size(); i++) {
             std::cout << "# Book " << i + 1 << " ----------------- #" << std::endl;
             print_book_data(booklist[i].get_book_data());
+            std::cout << std::endl;
         }
     }
 
-    char get_input() {
+    void delete_book(std::vector<Book> &booklist, int book_number) {
+        if (book_number < booklist.size()) {
+            booklist.erase(booklist.begin() + book_number - 1);
+        } else {
+            std::cout << "Invalid Book Number" << std::endl;
+        }
+    }
+
+    int get_input() {
         while (true) {
-            char user_input;
+            char char_input;
             std::cout << "Input: ";
-            std::cin >> user_input;
-            // Compare with ASCII Table
-            if (user_input >= 48 && user_input <= 51 ) {
-                return user_input;
+            std::cin >> char_input;
+            std::cout << std::endl;
+            // Convert from ASCII to int
+            int int_input = char_input - '0';
+            if (int_input >= 0 && int_input <= 3 ) {
+                return int_input;
             }
             std::cout << "Invalid Input. Try again!" << std::endl;
         }
     }
-
 }
 
 
@@ -99,6 +108,11 @@ int main() {
     BookList.push_back(book2);
 
     Console::print_book_list(BookList);
+    int input = Console::get_input();
+
+    Console::delete_book(BookList, input);
+    Console::print_book_list(BookList);
+
 
 
 

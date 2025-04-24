@@ -67,7 +67,10 @@ namespace Console {
         }
     }
 
-    void delete_book(std::vector<Book> &booklist, int book_number) {
+    void delete_book(std::vector<Book> &booklist) {
+        int book_number;
+        std::cin >> book_number;
+
         if (book_number < booklist.size()) {
             booklist.erase(booklist.begin() + book_number - 1);
         } else {
@@ -95,22 +98,40 @@ namespace Console {
 int main() {
 
     std::vector<Book> BookList;
-
-    // Console::show_menue();
-    // char type = Console::get_input();
-    // BookData data = Console::add_book_menue();
-    // std::cout << data.autor_name;
-
-
     Book book1 ("Buch", "Autor", 2000, 2025, 8);
     BookList.push_back(book1);
     Book book2 ("Autor", "Buch", 2000, 2025, 8);
     BookList.push_back(book2);
 
+    while (true) {
+        Console::show_menue();
+        int input = Console::get_input();
+        switch (input) {
+            case 1:
+                Console::add_book_menue();
+            break;
+            case 2:
+                Console::print_book_list(BookList);
+            break;
+            case 3:
+                Console::delete_book(BookList);
+            break;
+            default:
+                break;
+        }
+
+
+
+    }
+    // Console::show_menue();
+    // char type = Console::get_input();
+    // BookData data = Console::add_book_menue();
+    // std::cout << data.autor_name;
+
     Console::print_book_list(BookList);
     int input = Console::get_input();
 
-    Console::delete_book(BookList, input);
+    Console::delete_book(BookList);
     Console::print_book_list(BookList);
 
 

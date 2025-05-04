@@ -1,0 +1,76 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/25.0.2 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="25.0.2">
+  <diagram name="Seite-1" id="K_-vL5ACqAmISQKvo2pX">
+    <mxGraphModel dx="1185" dy="775" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="PqvhF3c-NOtuP2TfJ0FH-2" target="PqvhF3c-NOtuP2TfJ0FH-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-2" value="Open file" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="190" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="PqvhF3c-NOtuP2TfJ0FH-3" target="PqvhF3c-NOtuP2TfJ0FH-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-9" value="habbits not empty" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="PqvhF3c-NOtuP2TfJ0FH-7">
+          <mxGeometry x="0.0797" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="PqvhF3c-NOtuP2TfJ0FH-3" target="PqvhF3c-NOtuP2TfJ0FH-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-10" value="empty" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="PqvhF3c-NOtuP2TfJ0FH-8">
+          <mxGeometry x="0.0614" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-3" value="Extract &lt;br&gt;&quot;current habbits&quot;" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="330" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-5" value="Print Habbits" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="460" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="PqvhF3c-NOtuP2TfJ0FH-6" target="PqvhF3c-NOtuP2TfJ0FH-11">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="690" y="490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-13" value="console" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="PqvhF3c-NOtuP2TfJ0FH-12">
+          <mxGeometry x="-0.0835" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-6" value="No Habbits" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="460" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="PqvhF3c-NOtuP2TfJ0FH-11" target="PqvhF3c-NOtuP2TfJ0FH-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-20" value="no" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="PqvhF3c-NOtuP2TfJ0FH-16">
+          <mxGeometry x="0.0108" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="PqvhF3c-NOtuP2TfJ0FH-11" target="PqvhF3c-NOtuP2TfJ0FH-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-21" value="yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="PqvhF3c-NOtuP2TfJ0FH-17">
+          <mxGeometry x="-0.0304" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-11" value="Add habbits?" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="460" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-14" value="Exit program" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="970" y="390" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PqvhF3c-NOtuP2TfJ0FH-15" value="Add one habbit" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="970" y="520" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

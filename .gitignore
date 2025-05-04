@@ -1,17 +1,30 @@
-# Ignore .idea folder
-.idea/
+# Ignore Debug and Release folder. Also Debug-xxx and Release-xxx folders, for projects with defines -> multiple builds
+**/[Dd]ebug/*
+**/[Dd]ebug-[^/]*/*
+**/[Rr]elease/*
+**/[Rr]elease-[^/]*/*
+**/cmake-build-*/*
+**/artifacts/*
 
-# Ignore .vscode folder
-.vscode/
+# Ignore irrelevant CubeIDE / Eclipse settings
+*.launch
+.settings/
+mx.scratch
+.mxproject
+/nodes/**/Makefile
+.metadata
 
-# Ignore _pycache_ folder
-__pycache__/
+# Ignore Jetbrains IDE settings
+.idea
 
-# Ignore STM32 Workspace
-.metadata/
-
-# Ignore build
+# Ignore VS Code IDE settings and STM32Make Plugin things
+.vscode
 build/
+STM32Make.make
+STM32-for-VSCode.config.yaml
+*.cfg
 
-# Ignore build-debug
-cmake-build-debug/
+# Ignore system files
+.DS_Store
+Thumbs.db
+.aider*

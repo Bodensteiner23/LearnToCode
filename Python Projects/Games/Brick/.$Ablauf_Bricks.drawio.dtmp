@@ -1,0 +1,49 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/25.0.2 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="25.0.2">
+  <diagram name="Seite-1" id="VS7XceBwNXt5eusVlFhk">
+    <mxGraphModel dx="988" dy="646" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Desa0O536FmThUssJMrd-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="Desa0O536FmThUssJMrd-1" target="Desa0O536FmThUssJMrd-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Desa0O536FmThUssJMrd-6" value="press s" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Desa0O536FmThUssJMrd-4" vertex="1" connectable="0">
+          <mxGeometry x="0.0624" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Desa0O536FmThUssJMrd-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="Desa0O536FmThUssJMrd-1" target="Desa0O536FmThUssJMrd-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Desa0O536FmThUssJMrd-7" value="press q / x" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Desa0O536FmThUssJMrd-5" vertex="1" connectable="0">
+          <mxGeometry x="-0.0289" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Desa0O536FmThUssJMrd-1" value="Starting Screen" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="354" y="70" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Desa0O536FmThUssJMrd-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="Desa0O536FmThUssJMrd-2" target="Desa0O536FmThUssJMrd-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Desa0O536FmThUssJMrd-13" value="Press left or right arrow" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Desa0O536FmThUssJMrd-12" vertex="1" connectable="0">
+          <mxGeometry x="0.0257" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Desa0O536FmThUssJMrd-2" value="Plot Game Screen" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="240" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Desa0O536FmThUssJMrd-3" value="Quit game" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="474" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Desa0O536FmThUssJMrd-8" value="Start the game" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="240" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="qsePpq-A1tGu7L37kU6--2" value="" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;fontColor=#000000;darkOpacity=0.05;fillColor=#FFF9B2;strokeColor=none;fillStyle=solid;direction=west;gradientDirection=north;gradientColor=#FFF2A1;shadow=1;size=20;pointerEvents=1;" vertex="1" parent="1">
+          <mxGeometry x="840" y="130" width="140" height="160" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

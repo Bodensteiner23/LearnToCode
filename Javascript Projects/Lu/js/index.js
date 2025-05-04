@@ -19,7 +19,7 @@ initEventListeners()
 
 function franticButtonClicked() {
     // Open Frankys Game Page
-    location.href = "html/frantic.html"
+    location.href = "html/frantic/frantic.html"
 }
 
 

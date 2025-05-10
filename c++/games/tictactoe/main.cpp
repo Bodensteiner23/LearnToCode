@@ -3,29 +3,24 @@
 
 class UI {
     sf::RenderWindow& window_ui;
+
+    void draw_rectangle(sf::Vector2f size, sf::Vector2f position , sf::Color color) {
+        sf::RectangleShape rectangle(size);
+        rectangle.setPosition(position);
+        rectangle.setFillColor(color);
+        window_ui.draw(rectangle);
+    }
+
 public:
     UI(sf::RenderWindow& window) : window_ui(window) {}
 
     void draw_playing_field() {
-        sf::RectangleShape line_horiz_1({600, 5});
-        line_horiz_1.setPosition({100, 300});
-        line_horiz_1.setFillColor(sf::Color::Red);
-        window_ui.draw(line_horiz_1);
-        sf::RectangleShape line_horiz_2({600, 5});
-        line_horiz_2.setPosition({100, 500});
-        line_horiz_2.setFillColor(sf::Color::Red);
-        window_ui.draw(line_horiz_2);
+        window_ui.clear(sf::Color(81, 85, 92));
 
-        sf::RectangleShape line_vert_1({600, 5});
-        line_vert_1.setPosition({300, 100});
-        line_vert_1.setFillColor(sf::Color::Red);
-        line_vert_1.rotate(sf::degrees(90));
-        window_ui.draw(line_vert_1);
-        sf::RectangleShape line_vert_2({600, 5});
-        line_vert_2.setPosition({500, 100});
-        line_vert_2.setFillColor(sf::Color::Red);
-        line_vert_2.rotate(sf::degrees(90));
-        window_ui.draw(line_vert_2);
+        draw_rectangle({600, 5}, {100, 300}, sf::Color::White);
+        draw_rectangle({600, 5}, {100, 500}, sf::Color::White);
+        draw_rectangle({5, 600}, {300, 100}, sf::Color::White);
+        draw_rectangle({5, 600}, {500, 100}, sf::Color::White);
     }
 };
 

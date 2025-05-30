@@ -9,9 +9,11 @@
 
 uint8_t current_player_symbol = 1;
 
+
 class UI {
     sf::RenderWindow& window_ui;
     std::array<sf::RectangleShape, 9> squares;
+    sf::Font font;
     int square_array[9] = { 0 };
     const float line_thickness = 5;
 
@@ -51,14 +53,33 @@ class UI {
     }
 
 public:
-    UI(sf::RenderWindow& window) : window_ui(window) {}
+    UI(sf::RenderWindow& window) : window_ui(window) {
+        if (!font.openFromFile("../assets/arial.ttf")) {
+            std::cerr << "Error loading font" << std::endl;
+        }
+    }
+    void draw_player_turn() {
+        sf::Text text(font);
+        text.setFont(font);
+        text.setCharacterSize(50);
+        text.setFillColor(sf::Color::White);
+        if (current_player_symbol == PLAYER_1) {
+            text.setString("Player 1 (X)");
+        } else {
+            text.setString("Player 2 (O)");
+        }
+        text.setPosition({270, 10});
+        window_ui.draw(text);
+    }
 
+    void update_square_color(int index, sf::Color color) {
+        squares[index].setFillColor(color);
+    }
     void draw_playing_field() {
         window_ui.clear(sf::Color(81, 85, 92));
         draw_grid();
         draw_squares();
     }
-
     int get_clicked_square(sf::Vector2i mousePos) {
         for (int i = 0; i < squares.size(); i++) {
             if (squares[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
@@ -86,9 +107,7 @@ public:
         } else {
             current_player_symbol = PLAYER_1;
         }
-
     }
-
 };
 
 
@@ -96,7 +115,6 @@ int main() {
     sf::RenderWindow window(sf::VideoMode({800, 800}), "TicTacToe");
     UI ui(window);
     APP app;
-
 
     while (window.isOpen())
     {
@@ -112,8 +130,9 @@ int main() {
                     int clicked_square = ui.get_clicked_square(mousePos);
                     if (clicked_square != -1) {
                         app.update_square_array(clicked_square);
+                        std::cout << "Clicked square: " << clicked_square << std::endl;
+                        ui.update_square_color(clicked_square, sf::Color::Red);
                     }
-
                 }
             }
         }
@@ -121,8 +140,9 @@ int main() {
         window.clear();
 
         ui.draw_playing_field();
-
+        ui.draw_player_turn();
         window.display();
+
 
         // while (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
         // {

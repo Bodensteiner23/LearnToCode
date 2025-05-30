@@ -24,7 +24,7 @@ class UI {
         window_ui.draw(rectangle);
     }
 
-    void create_squares(uint8_t index, sf::Vector2f size, sf::Vector2f position, sf::Color color) {
+    void create_square(uint8_t index, sf::Vector2f size, sf::Vector2f position, sf::Color color) {
         squares[index] = sf::RectangleShape(size);
         squares[index].setPosition(position);
         squares[index].setFillColor(color);
@@ -39,17 +39,17 @@ class UI {
         draw_rectangle({5, 600}, {500, 100}, color);
     }
 
-    void draw_squares() {
-        sf::Color color = sf::Color(81, 85, 92);
-        create_squares(0, {200, 200}, {100, 100}, color);
-        create_squares(1, {200-line_thickness, 200}, {300+line_thickness, 100}, color);
-        create_squares(2, {200-line_thickness, 200},{500+line_thickness, 100}, color);
-        create_squares(3, {200, 200-line_thickness},{100, 300+line_thickness}, color);
-        create_squares(4, {200-line_thickness, 200-line_thickness},{300+line_thickness, 300+line_thickness}, color);
-        create_squares(5, {200-line_thickness, 200-line_thickness},{500+line_thickness, 300+line_thickness}, color);
-        create_squares(6, {200, 200-line_thickness},{100, 500+line_thickness}, color);
-        create_squares(7, {200-line_thickness, 200-line_thickness},{300+line_thickness, 500+line_thickness}, color);
-        create_squares(8, {200-line_thickness, 200-line_thickness},{500+line_thickness, 500+line_thickness}, color);
+    void create_squares() {
+        sf::Color color = (sf::Color(81, 85, 92));
+        create_square(0, {200, 200}, {100, 100}, color);
+        create_square(1, {200-line_thickness, 200}, {300+line_thickness, 100}, color);
+        create_square(2, {200-line_thickness, 200},{500+line_thickness, 100}, color);
+        create_square(3, {200, 200-line_thickness},{100, 300+line_thickness}, color);
+        create_square(4, {200-line_thickness, 200-line_thickness},{300+line_thickness, 300+line_thickness}, color);
+        create_square(5, {200-line_thickness, 200-line_thickness},{500+line_thickness, 300+line_thickness}, color);
+        create_square(6, {200, 200-line_thickness},{100, 500+line_thickness}, color);
+        create_square(7, {200-line_thickness, 200-line_thickness},{300+line_thickness, 500+line_thickness}, color);
+        create_square(8, {200-line_thickness, 200-line_thickness},{500+line_thickness, 500+line_thickness}, color);
     }
 
 public:
@@ -57,7 +57,10 @@ public:
         if (!font.openFromFile("../assets/arial.ttf")) {
             std::cerr << "Error loading font" << std::endl;
         }
+        create_squares();
+        draw_grid();
     }
+
     void draw_player_turn() {
         sf::Text text(font);
         text.setFont(font);
@@ -72,14 +75,19 @@ public:
         window_ui.draw(text);
     }
 
+    // ToDo: Rewrite function to update the square based on the players symbol
     void update_square_color(int index, sf::Color color) {
         squares[index].setFillColor(color);
     }
+
     void draw_playing_field() {
         window_ui.clear(sf::Color(81, 85, 92));
         draw_grid();
-        draw_squares();
+        for (int i = 0; i < squares.size(); i++) {
+            window_ui.draw(squares[i]);
+        }
     }
+
     int get_clicked_square(sf::Vector2i mousePos) {
         for (int i = 0; i < squares.size(); i++) {
             if (squares[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
@@ -116,6 +124,7 @@ int main() {
     UI ui(window);
     APP app;
 
+
     while (window.isOpen())
     {
         while (const std::optional event = window.pollEvent())
@@ -143,17 +152,6 @@ int main() {
         ui.draw_player_turn();
         window.display();
 
-
-        // while (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-        // {
-        //     // Handle mouse click
-        //     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-        //     ui.get_clicked_square(mousePos);
-        //     //delay
-        //     sf::sleep(sf::milliseconds(200));
-        //
-        //
-        // }
     }
 
 }
